@@ -2,6 +2,7 @@ package com.tuquoque.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,16 +42,11 @@ public class GameScreen extends AbstractScreen {
         player.x=1280/2-32/2;
         player.y=720/2-32/2;
 
-        Texture imgRight = new Texture("Gladiator-Sprite Sheet.png");
-        Texture imgLeft = new Texture("Gladiator-Sprite Sheet-Left.png");
-
-        OrthographicCamera camera = new OrthographicCamera();
-        camera.setToOrtho(false,1280,720);
-
+        Texture imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
+        Texture imgLeft = new Texture("player/Gladiator-Sprite Sheet-Left.png");
 
         TextureRegion[][] tmpFramesRight =TextureRegion.split(imgRight, 32,32);
         TextureRegion[][] tmpFramesLeft =TextureRegion.split(imgLeft, 32,32);
-
 
         TextureRegion[] walkFramesRight = new TextureRegion[8];
         TextureRegion[] walkFramesLeft = new TextureRegion[8];

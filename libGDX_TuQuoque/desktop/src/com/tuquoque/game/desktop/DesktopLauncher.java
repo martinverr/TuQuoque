@@ -15,7 +15,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
 		config.setTitle("Tu Quoque");
-		config.setWindowedMode(1200, 675); //16:9
+		config.setWindowedMode(1280, 720); //16:9
 		//config.setResizable(false);
 		//framerate maggiore a 60 non necessario per box2d
 		config.setForegroundFPS(60);
