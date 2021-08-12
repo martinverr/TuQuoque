@@ -48,7 +48,7 @@ public class GameScreen extends AbstractScreen {
         playerB2D = new Player(world);
 
         //mapRenderer init
-        mapRenderer = new OrthogonalTiledMapRenderer(null, batch);
+        mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
 
         //texture stuff
         Texture imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
@@ -93,19 +93,19 @@ public class GameScreen extends AbstractScreen {
 
     private void handleInputPlayerMov(){
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            playerB2D.setSpeedX(1);
+            playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
             direction=true;
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            playerB2D.setSpeedX(-1);
+            playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
             direction=false;
         } else {
             playerB2D.setSpeedX(0);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            playerB2D.setSpeedY(1);
+            playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            playerB2D.setSpeedY(-1);
+            playerB2D.setSpeedY(-playerB2D.NOMINAL_SPEED);
         } else {
             playerB2D.setSpeedY(0);
         }
@@ -118,7 +118,6 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
 
         //map render
-        viewport.apply(true);
         mapRenderer.setView(camera);
         mapRenderer.render();
 
@@ -140,36 +139,36 @@ public class GameScreen extends AbstractScreen {
                 batch.draw(walkRightAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
                         playerB2D.B2DBody.getPosition().y - 0.5f,
-                        1,1);
+                        1,1.7f);
             else
                 batch.draw(walkLeftAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
                         playerB2D.B2DBody.getPosition().y - 0.5f,
-                        1,1);
+                        1,1.7f);
         }
         else{
             if(direction)
                 batch.draw(idleRightAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
                         playerB2D.B2DBody.getPosition().y - 0.5f,
-                        1,1);
+                        1,1.7f);
             else
                 batch.draw(idleLeftAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
                         playerB2D.B2DBody.getPosition().y - 0.5f,
-                        1,1);
+                        1,1.7f);
         }
-
         batch.end();
-
-        camera.position.set(playerB2D.getX(), playerB2D.getY(), 0);
-        camera.update();
 
         // collision player-screenBorder -> player reposition
         //TODO: box2D collision
 
-        world.step(delta, 6, 2);
+        camera.position.x = playerB2D.B2DBody.getPosition().x;
+        camera.position.y = playerB2D.B2DBody.getPosition().y;
+        camera.update();
 
+        //World of B2D
+        world.step(delta, 6, 2);
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
     }
 

@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.*;
 public class Player extends Sprite {
     private World world;
     public Body B2DBody;
+
+    public final float NOMINAL_SPEED = 1.3f;
     private float speedX;
     private float speedY;
 
