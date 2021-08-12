@@ -3,9 +3,12 @@ package com.tuquoque.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -20,7 +23,7 @@ import java.util.EnumMap;
 public class GameStarter extends Game {
 	//Game vars
 	private EnumMap<ScreenType, Screen> screenAvailable;
-	private Camera camera;
+	private OrthographicCamera camera;
 	private FitViewport viewport;
 	private SpriteBatch batch;
 
@@ -34,7 +37,7 @@ public class GameStarter extends Game {
 	private World world;
 	private Box2DDebugRenderer box2DDebugRenderer;
 
-
+	private AssetManager assetManager;
 
 	@Override
 	public void create () {
@@ -54,7 +57,11 @@ public class GameStarter extends Game {
 
 		//Screens
 		screenAvailable = new EnumMap<ScreenType, Screen>(ScreenType.class);
-		setScreen(ScreenType.LOADING);
+		setScreen(ScreenType.MAINMENU);
+
+		//AssetManager
+		assetManager = new AssetManager();
+		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 	}
 
 	public void setScreen(final ScreenType screenType){
@@ -87,7 +94,7 @@ public class GameStarter extends Game {
 	/*
 	* Getter of camera
 	 */
-	public Camera getCamera() {
+	public OrthographicCamera getCamera() {
 		return camera;
 	}
 
@@ -105,10 +112,19 @@ public class GameStarter extends Game {
 		return batch;
 	}
 
+	/*
+	 * Getter of B2DDebugRenderer
+	 */
 	public Box2DDebugRenderer getBox2DDebugRenderer(){
 		return box2DDebugRenderer;
 	}
 
+	/*
+	 * Getter of assetManager
+	 */
+	public AssetManager getAssetManager() {
+		return assetManager;
+	}
 
 	/*
 	*
@@ -117,6 +133,7 @@ public class GameStarter extends Game {
 	public void render() {
 		super.render();
 
+		//Timestamp fixed for B2D simulation
 		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
 		while(accumulator>=FIXED_TIME_STAMP){
 			world.step(FIXED_TIME_STAMP, 6, 2);

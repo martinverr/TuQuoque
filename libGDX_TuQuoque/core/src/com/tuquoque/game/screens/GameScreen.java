@@ -4,11 +4,12 @@ package com.tuquoque.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.sprites.Player;
@@ -17,9 +18,9 @@ import java.awt.*;
 
 
 /*
- * batch initialized in AbstractScreen.java instead of in GameScreen.java
- * conversion from pixel to world unit
- * TODO: fix speed, Rectangle.x Rectangle.x are integers, and speed*deltatime is rounded to 0 if speed is below 100
+ * TODO: collision
+ *  TODO: map
+ *   TODO: loadingScreen -> MainMenuScreen, add loadingScreen
  * */
 
 public class GameScreen extends AbstractScreen {
@@ -28,32 +29,28 @@ public class GameScreen extends AbstractScreen {
     final private Animation<TextureRegion> idleRightAnimation;
     private final Animation<TextureRegion> idleLeftAnimation;
 
-    private final BodyDef bodyDef;
-    private final FixtureDef fixtureDef;
     private final Player playerB2D;
 
+    private final OrthogonalTiledMapRenderer mapRenderer;
+
+    private OrthographicCamera camera;
+
     float elapsedTime;
-    private final Rectangle player;
 
     // True = right, False = left
     private boolean direction = true;
 
     public GameScreen(final GameStarter context){
         super(context);
-        bodyDef = new BodyDef();
-        fixtureDef = new FixtureDef();
+        this.camera = context.getCamera();
 
         //Create circle player
         playerB2D = new Player(world);
 
-        player=new Rectangle();
+        //mapRenderer init
+        mapRenderer = new OrthogonalTiledMapRenderer(null, batch);
 
-        player.height=1;
-        player.width=1;
-
-        player.x=8;
-        player.y=4;
-
+        //texture stuff
         Texture imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
         Texture imgLeft = new Texture("player/Gladiator-Sprite Sheet-Left.png");
 
@@ -90,6 +87,8 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
+        mapRenderer.setMap(context.getAssetManager().get("map/prova.tmx", TiledMap.class));
+
     }
 
     private void handleInputPlayerMov(){
@@ -117,7 +116,12 @@ public class GameScreen extends AbstractScreen {
         elapsedTime+=Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
-        batch.begin();
+
+        //map render
+        viewport.apply(true);
+        mapRenderer.setView(camera);
+        mapRenderer.render();
+
 
         //handling input for player movement
         handleInputPlayerMov();
@@ -126,6 +130,9 @@ public class GameScreen extends AbstractScreen {
                 playerB2D.getSpeedY()-playerB2D.B2DBody.getLinearVelocity().y,
                 playerB2D.B2DBody.getWorldCenter().x, playerB2D.B2DBody.getWorldCenter().y,
                 true);
+
+
+        batch.begin();
 
         //drawing player
         if(playerB2D.B2DBody.getLinearVelocity().x != 0 || playerB2D.B2DBody.getLinearVelocity().y != 0){
@@ -155,11 +162,15 @@ public class GameScreen extends AbstractScreen {
 
         batch.end();
 
+        camera.position.set(playerB2D.getX(), playerB2D.getY(), 0);
+        camera.update();
+
         // collision player-screenBorder -> player reposition
         //TODO: box2D collision
 
         world.step(delta, 6, 2);
-        //box2DDebugRenderer.render(world, viewport.getCamera().combined);
+
+        box2DDebugRenderer.render(world, viewport.getCamera().combined);
     }
 
     @Override
