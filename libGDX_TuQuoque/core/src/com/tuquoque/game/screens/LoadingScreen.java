@@ -32,9 +32,11 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            context.setScreen(ScreenType.GAME);
-        }
+        /* TODO: press space to GameScreen only if assetManager loaded (decide if do it manually or automatically
+        * if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        *   context.setScreen(ScreenType.GAME);
+        * }
+        */
 
         batch.begin();
         batch.draw(loadingTexture, 0, 0, 16, 9);

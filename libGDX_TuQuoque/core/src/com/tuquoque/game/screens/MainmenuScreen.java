@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
@@ -70,6 +69,7 @@ public class MainmenuScreen extends AbstractScreen {
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
         themeMusic.play();
+        BG.resume();
     }
 
     /*
@@ -100,6 +100,7 @@ public class MainmenuScreen extends AbstractScreen {
                 coordsPointed.y < 1 + PLAY_BUTT_HEIGHT && coordsPointed.y > 1){
             context.getBatch().draw(texture_playbutton_active, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
             if(Gdx.input.justTouched()){
+                BG.stop();
                 context.setScreen(ScreenType.LOADING);
                 themeMusic.pause();
                 clickButtonSound.play();
@@ -122,6 +123,7 @@ public class MainmenuScreen extends AbstractScreen {
 
         //if SPACE pressed, set screen 'LOADING'
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            BG.stop();
             context.setScreen(ScreenType.LOADING);
             themeMusic.pause();
             playButtonSound.play();

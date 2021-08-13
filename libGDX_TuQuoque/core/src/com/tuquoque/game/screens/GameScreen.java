@@ -17,22 +17,16 @@ import com.tuquoque.game.sprites.Border;
 import com.tuquoque.game.sprites.Player;
 
 
-/*
- * TODO: collision
- *  TODO: map
- *   TODO: loadingScreen -> MainMenuScreen, add loadingScreen
- * */
-
 public class GameScreen extends AbstractScreen {
     final private Animation<TextureRegion> walkRightAnimation;
     final private Animation<TextureRegion> walkLeftAnimation;
     final private Animation<TextureRegion> idleRightAnimation;
     private final Animation<TextureRegion> idleLeftAnimation;
-
-    private Texture imgRight;
-    private Texture imgLeft;
+    private final Texture imgRight;
+    private final Texture imgLeft;
 
     private final Player playerB2D;
+    private Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
 
     private final OrthogonalTiledMapRenderer mapRenderer;
 
@@ -66,7 +60,7 @@ public class GameScreen extends AbstractScreen {
         border =new Border(vertices, context.getWorld());
 
         //Create circle player
-        playerB2D = new Player(world);
+        playerB2D = new Player(world, savedPlayerCoords);
 
         //mapRenderer init
         mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
@@ -112,23 +106,30 @@ public class GameScreen extends AbstractScreen {
 
     }
 
-    private void handleInputPlayerMov(){
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+    private void handleInput(){
+        //if WASD or ARROWS -> setSpeed to player
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
             playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
             direction=true;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
             playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
             direction=false;
         } else {
             playerB2D.setSpeedX(0);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
             playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
             playerB2D.setSpeedY(-playerB2D.NOMINAL_SPEED);
         } else {
             playerB2D.setSpeedY(0);
+        }
+
+        //if ESC pressed -> set screen 'MAINMENU'
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
+            context.setScreen(ScreenType.MAINMENU);
         }
     }
 
@@ -143,13 +144,16 @@ public class GameScreen extends AbstractScreen {
         mapRenderer.render();
 
 
-        //handling input for player movement
-        handleInputPlayerMov();
+        //handling input
+        handleInput();
+
+        //update player to new speed after possible moving inputs
         playerB2D.B2DBody.applyLinearImpulse(
                 playerB2D.getSpeedX()-playerB2D.B2DBody.getLinearVelocity().x,
                 playerB2D.getSpeedY()-playerB2D.B2DBody.getLinearVelocity().y,
                 playerB2D.B2DBody.getWorldCenter().x, playerB2D.B2DBody.getWorldCenter().y,
                 true);
+
 
         batch.begin();
 

@@ -1,6 +1,14 @@
 package com.tuquoque.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+
+/*
+* TODO: Preferences(LibGDX)
+*  for audio (enable/disable music, music volume, effects sounds volume)
+*/
 
 public class SettingsScreen extends AbstractScreen {
     public SettingsScreen(GameStarter context) {
@@ -9,12 +17,17 @@ public class SettingsScreen extends AbstractScreen {
 
     @Override
     public void show() {
-
+        ScreenUtils.clear(1, 1, 1, 1);
     }
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(1, 1, 1, 1);
 
+        //if ESC pressed -> set screen 'MAINMENU'
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            context.setScreen(ScreenType.MAINMENU);
+        }
     }
 
     @Override

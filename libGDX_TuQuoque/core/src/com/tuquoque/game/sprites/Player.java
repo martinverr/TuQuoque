@@ -1,6 +1,7 @@
 package com.tuquoque.game.sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends Sprite {
@@ -27,11 +28,11 @@ public class Player extends Sprite {
         return speedY;
     }
 
-    public Player(World world){
+    public Player(World world, Vector2 coords){
         this.world = world;
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(8,4.5f);
+        bodyDef.position.set(coords.x, coords.y);
         bodyDef.gravityScale = 0;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
