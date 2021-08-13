@@ -166,7 +166,10 @@ public class MainmenuScreen extends AbstractScreen {
         themeMusic.dispose();
 
         //Texture
+        BG.dispose();
         texture_playbutton_inactive.dispose();
         texture_playbutton_active.dispose();
+        texture_settingsbutton_active.dispose();
+        texture_settingsbutton_inactive.dispose();
     }
 }

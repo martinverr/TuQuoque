@@ -29,6 +29,9 @@ public class GameScreen extends AbstractScreen {
     final private Animation<TextureRegion> idleRightAnimation;
     private final Animation<TextureRegion> idleLeftAnimation;
 
+    private Texture imgRight;
+    private Texture imgLeft;
+
     private final Player playerB2D;
 
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -69,8 +72,8 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
 
         //texture stuff
-        Texture imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
-        Texture imgLeft = new Texture("player/Gladiator-Sprite Sheet-Left.png");
+        imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
+        imgLeft = new Texture("player/Gladiator-Sprite Sheet-Left.png");
 
         TextureRegion[][] tmpFramesRight =TextureRegion.split(imgRight, 32,32);
         TextureRegion[][] tmpFramesLeft =TextureRegion.split(imgLeft, 32,32);
@@ -148,7 +151,6 @@ public class GameScreen extends AbstractScreen {
                 playerB2D.B2DBody.getWorldCenter().x, playerB2D.B2DBody.getWorldCenter().y,
                 true);
 
-
         batch.begin();
 
         //drawing player
@@ -212,5 +214,8 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
+        imgLeft.dispose();
+        imgRight.dispose();
+        mapRenderer.dispose();
     }
 }
