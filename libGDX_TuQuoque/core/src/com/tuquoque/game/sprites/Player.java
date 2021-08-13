@@ -38,7 +38,7 @@ public class Player extends Sprite {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape playerShape = new PolygonShape();
-        playerShape.setAsBox(0.4f,0.7f);
+        playerShape.setAsBox(0.35f,0.55f);
         fixtureDef.shape = playerShape;
 
         B2DBody = world.createBody(bodyDef);

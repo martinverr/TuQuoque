@@ -156,25 +156,25 @@ public class GameScreen extends AbstractScreen {
             if(direction)
                 batch.draw(walkRightAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.75f,
-                        1,1.7f);
+                        playerB2D.B2DBody.getPosition().y -0.55f,
+                        1,1.3f);
             else
                 batch.draw(walkLeftAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.75f,
-                        1,1.7f);
+                        playerB2D.B2DBody.getPosition().y -0.55f,
+                        1,1.3f);
         }
         else{
             if(direction)
                 batch.draw(idleRightAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.75f,
-                        1,1.7f);
+                        playerB2D.B2DBody.getPosition().y -0.55f,
+                        1,1.3f);
             else
                 batch.draw(idleLeftAnimation.getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.75f,
-                        1,1.7f);
+                        playerB2D.B2DBody.getPosition().y -0.55f,
+                        1,1.3f);
         }
         batch.end();
 
