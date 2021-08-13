@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -14,31 +16,30 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.sprites.Border;
 import com.tuquoque.game.sprites.Player;
-import org.w3c.dom.Text;
 
 
 public class GameScreen extends AbstractScreen {
-    private TextureAtlas idleRight;
-    private TextureAtlas idleLeft;
-    private TextureAtlas walkRight;
-    private TextureAtlas walkLeft;
+    private final TextureAtlas idleRight;
+    private final TextureAtlas idleLeft;
+    private final TextureAtlas walkRight;
+    private final TextureAtlas walkLeft;
 
     final private Animation walkRightAnimation;
     final private Animation walkLeftAnimation;
     final private Animation idleRightAnimation;
-    private final Animation idleLeftAnimation;
+    final private Animation idleLeftAnimation;
 
     private final Player playerB2D;
     private Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
 
     private final OrthogonalTiledMapRenderer mapRenderer;
 
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
-    private Vector2[] vertices;
-    private Border border;
+    private final Vector2[] vertices;
+    private final Border border;
 
-    float elapsedTime;
+    float elapsedTime=0;
 
     // True = right, False = left
     private boolean direction = true;
@@ -69,16 +70,15 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
 
         //texture stuff
-        idleRight =new TextureAtlas("player/idle_right.png");
-        idleLeft=new TextureAtlas("player/idle_left.png");
+        idleRight =new TextureAtlas(Gdx.files.internal("player/idle_right.atlas"));
+        idleLeft=new TextureAtlas(Gdx.files.internal("player/idle_left.atlas"));
+        walkLeft=new TextureAtlas(Gdx.files.internal("player/walk_left.atlas"));
+        walkRight=new TextureAtlas(Gdx.files.internal("player/walk_right.atlas"));
 
-
-        int index=0;
-
-        walkRightAnimation =new Animation<>(1/8f, walkRight.getRegions());
-        walkLeftAnimation=new Animation<>(1/8f, walkLeft.getRegions());
-        idleLeftAnimation=new Animation<>(1/5f, idleLeft.getRegions());
-        idleRightAnimation=new Animation<>(1/5f, idleRight.getRegions());
+        walkRightAnimation=new Animation(1/8f, walkRight.getRegions());
+        walkLeftAnimation=new Animation(1/8f, walkLeft.getRegions());
+        idleLeftAnimation=new Animation(1/5f, idleLeft.getRegions());
+        idleRightAnimation=new Animation(1/5f, idleRight.getRegions());
     }
 
     @Override
@@ -142,27 +142,27 @@ public class GameScreen extends AbstractScreen {
         //drawing player
         if(playerB2D.B2DBody.getLinearVelocity().x != 0 || playerB2D.B2DBody.getLinearVelocity().y != 0){
             if(direction)
-                batch.draw(walkRightAnimation.getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.55f,
-                        1.3f,1.7f);
+                batch.draw((TextureRegion) walkRightAnimation.getKeyFrame(elapsedTime,true),
+                        playerB2D.B2DBody.getPosition().x - 0.65f,
+                        playerB2D.B2DBody.getPosition().y -0.7f,
+                        1.3f,1.6f);
             else
-                batch.draw(walkLeftAnimation.getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.55f,
-                        1.3f,1.7f);
+                batch.draw((TextureRegion) walkLeftAnimation.getKeyFrame(elapsedTime,true),
+                        playerB2D.B2DBody.getPosition().x - 0.65f,
+                        playerB2D.B2DBody.getPosition().y -0.7f,
+                        1.3f,1.6f);
         }
         else{
             if(direction)
-                batch.draw(idleRightAnimation.getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.55f,
-                        1.3f,1.7f);
+                batch.draw((TextureRegion) idleRightAnimation.getKeyFrame(elapsedTime,true),
+                        playerB2D.B2DBody.getPosition().x - 0.65f,
+                        playerB2D.B2DBody.getPosition().y -0.7f,
+                        1.3f,1.6f);
             else
-                batch.draw(idleLeftAnimation.getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.5f,
-                        playerB2D.B2DBody.getPosition().y -0.55f,
-                        1.3f,1.7f);
+                batch.draw((TextureRegion) idleLeftAnimation.getKeyFrame(elapsedTime,true),
+                        playerB2D.B2DBody.getPosition().x - 0.65f,
+                        playerB2D.B2DBody.getPosition().y -0.7f,
+                        1.3f,1.6f);
         }
         batch.end();
 
@@ -200,8 +200,6 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        imgLeft.dispose();
-        imgRight.dispose();
         mapRenderer.dispose();
     }
 }
