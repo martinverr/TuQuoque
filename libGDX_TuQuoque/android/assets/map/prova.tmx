@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="31">
-=======
 <map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="23">
->>>>>>> 74c92c66140785a81324b9798621f26a371ec129
  <tileset firstgid="1" source="tilesets/Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" name="gold" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tilesets/gold.png" trans="ffffff" width="128" height="128"/>
