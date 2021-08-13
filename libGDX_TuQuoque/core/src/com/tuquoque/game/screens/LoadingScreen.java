@@ -26,7 +26,7 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        ScreenUtils.clear(1, 1, 1, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
     }
 
     @Override

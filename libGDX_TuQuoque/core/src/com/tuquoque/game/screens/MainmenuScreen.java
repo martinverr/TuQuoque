@@ -114,6 +114,7 @@ public class MainmenuScreen extends AbstractScreen {
             context.getBatch().draw(texture_settingsbutton_active, 8-SETT_BUTT_WIDTH/2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
             if(Gdx.input.justTouched()){
                 clickButtonSound.play();
+                context.setScreen(ScreenType.SETTINGS);
             }
         }
         context.getBatch().end();
