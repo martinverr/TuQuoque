@@ -5,9 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -15,15 +14,19 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.sprites.Border;
 import com.tuquoque.game.sprites.Player;
+import org.w3c.dom.Text;
 
 
 public class GameScreen extends AbstractScreen {
-    final private Animation<TextureRegion> walkRightAnimation;
-    final private Animation<TextureRegion> walkLeftAnimation;
-    final private Animation<TextureRegion> idleRightAnimation;
-    private final Animation<TextureRegion> idleLeftAnimation;
-    private final Texture imgRight;
-    private final Texture imgLeft;
+    private TextureAtlas idleRight;
+    private TextureAtlas idleLeft;
+    private TextureAtlas walkRight;
+    private TextureAtlas walkLeft;
+
+    final private Animation walkRightAnimation;
+    final private Animation walkLeftAnimation;
+    final private Animation idleRightAnimation;
+    private final Animation idleLeftAnimation;
 
     private final Player playerB2D;
     private Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
@@ -66,37 +69,16 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
 
         //texture stuff
-        imgRight = new Texture("player/Gladiator-Sprite Sheet.png");
-        imgLeft = new Texture("player/Gladiator-Sprite Sheet-Left.png");
+        idleRight =new TextureAtlas("player/idle_right.png");
+        idleLeft=new TextureAtlas("player/idle_left.png");
 
-        TextureRegion[][] tmpFramesRight =TextureRegion.split(imgRight, 32,32);
-        TextureRegion[][] tmpFramesLeft =TextureRegion.split(imgLeft, 32,32);
-
-        TextureRegion[] walkFramesRight = new TextureRegion[8];
-        TextureRegion[] walkFramesLeft = new TextureRegion[8];
-        TextureRegion[] idleFramesRight = new TextureRegion[5];
-        TextureRegion[] idleFramesLeft = new TextureRegion[5];
 
         int index=0;
 
-        for(int i=0;i<8;i++){
-            walkFramesRight[index]= tmpFramesRight[1][i];
-            walkFramesLeft[index]= tmpFramesLeft[1][i];
-            index++;
-        }
-
-        index=0;
-
-        for(int i=0;i<5;i++){
-            idleFramesLeft[index]= tmpFramesLeft[0][i];
-            idleFramesRight[index]= tmpFramesRight[0][i];
-            index++;
-        }
-
-        walkRightAnimation =new Animation<>(1/8f, walkFramesRight);
-        walkLeftAnimation=new Animation<>(1/8f, walkFramesLeft);
-        idleLeftAnimation=new Animation<>(1/5f, idleFramesLeft);
-        idleRightAnimation=new Animation<>(1/5f, idleFramesRight);
+        walkRightAnimation =new Animation<>(1/8f, walkRight.getRegions());
+        walkLeftAnimation=new Animation<>(1/8f, walkLeft.getRegions());
+        idleLeftAnimation=new Animation<>(1/5f, idleLeft.getRegions());
+        idleRightAnimation=new Animation<>(1/5f, idleRight.getRegions());
     }
 
     @Override
