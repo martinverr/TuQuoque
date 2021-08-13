@@ -43,5 +43,6 @@ public class Player extends Sprite {
 
         B2DBody = world.createBody(bodyDef);
         B2DBody.createFixture(fixtureDef);
+
     }
 }

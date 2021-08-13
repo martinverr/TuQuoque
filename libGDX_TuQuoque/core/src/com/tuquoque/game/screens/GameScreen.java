@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.sprites.Player;
@@ -35,6 +37,10 @@ public class GameScreen extends AbstractScreen {
 
     private OrthographicCamera camera;
 
+    private final BodyDef mapBorders;
+    private Vector2[] vertices;
+    private Body borders;
+
     float elapsedTime;
 
     // True = right, False = left
@@ -43,6 +49,32 @@ public class GameScreen extends AbstractScreen {
     public GameScreen(final GameStarter context){
         super(context);
         this.camera = context.getCamera();
+
+        //mapBorders
+        mapBorders=new BodyDef();
+        mapBorders.position.set(8,4.5f);
+        mapBorders.gravityScale=0;
+        mapBorders.type= BodyDef.BodyType.StaticBody;
+
+        vertices=new Vector2[10];
+        vertices[0]=new Vector2(-8,-4.5f);
+        vertices[1]=new Vector2(-8,9.5f);
+        vertices[2]=new Vector2(0.5f,9.5f);
+        vertices[3]=new Vector2(0.5f,13.5f);
+        vertices[4]=new Vector2(16,13.5f);
+        vertices[5]=new Vector2(16, 11.5f);
+        vertices[6]=new Vector2(37,11.5f);
+        vertices[7]=new Vector2(37,2.5f);
+        vertices[8]=new Vector2(35,2.5f);
+        vertices[9]=new Vector2(35,-4.5f);
+
+        FixtureDef fixtureDef=new FixtureDef();
+        ChainShape chainShape=new ChainShape();
+        chainShape.createLoop(vertices);
+        fixtureDef.shape=chainShape;
+
+        borders=world.createBody(mapBorders);
+        borders.createFixture(fixtureDef);
 
         //Create circle player
         playerB2D = new Player(world);

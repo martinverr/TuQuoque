@@ -21,8 +21,10 @@ import com.tuquoque.game.screens.ScreenType;
 import java.util.EnumMap;
 
 public class GameStarter extends Game {
+
+	//Screens
 	//Game vars
-	private EnumMap<ScreenType, Screen> screenAvailable;
+	private EnumMap<ScreenType, Screen> screenAvailable = new EnumMap<ScreenType, Screen>(ScreenType.class);
 	private OrthographicCamera camera;
 	private FitViewport viewport;
 	private SpriteBatch batch;
@@ -31,7 +33,7 @@ public class GameStarter extends Game {
 	//box2D vars and constants
 	private float accumulator;
 	private static final float FIXED_TIME_STAMP = 1/60f;
-	public static final short BIT_CIRCLE = 1 << 0;
+	public static final short BIT_CIRCLE = 1;
 	public static final short BIT_BOX= 1 << 1;
 	public static final short BIT_GROUND = 1 << 2;
 	private World world;
@@ -45,6 +47,9 @@ public class GameStarter extends Game {
 		Box2D.init();
 		world = new World(new Vector2(0,-9.81f), true);
 		box2DDebugRenderer = new Box2DDebugRenderer();
+
+		// Invisible hitboxes
+		box2DDebugRenderer.setDrawBodies(false);
 		accumulator = 0;
 
 		//Camera, viewport, batch
@@ -55,8 +60,6 @@ public class GameStarter extends Game {
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(camera.combined);
 
-		//Screens
-		screenAvailable = new EnumMap<ScreenType, Screen>(ScreenType.class);
 		setScreen(ScreenType.MAINMENU);
 
 		//AssetManager
