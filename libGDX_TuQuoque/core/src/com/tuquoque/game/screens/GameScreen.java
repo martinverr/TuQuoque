@@ -27,17 +27,17 @@ public class GameScreen extends AbstractScreen {
 
     private final OrthographicCamera camera;
 
-    //Borders
+    /*Borders
     private final Vector2[] vertices;
     private final Border border;
-
+    */
     float elapsedTime=0;
 
     public GameScreen(final GameStarter context){
         super(context);
         this.camera = context.getCamera();
 
-        // map Vertices
+        /* map Vertices
         vertices=new Vector2[10];
         vertices[0]=new Vector2(-8,-4.5f);
         vertices[1]=new Vector2(-8,9.5f);
@@ -50,6 +50,7 @@ public class GameScreen extends AbstractScreen {
         vertices[8]=new Vector2(35,2.5f);
         vertices[9]=new Vector2(35,-4.5f);
         border =new Border(vertices, context.getWorld());
+        */
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
@@ -94,6 +95,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
+
         elapsedTime+=Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
