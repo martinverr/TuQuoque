@@ -10,7 +10,7 @@ import com.tuquoque.game.GameStarter;
 public abstract class AbstractScreen implements Screen {
    protected final GameStarter context;
    protected final FitViewport viewport;
-   protected final World world;
+   protected World world;
    protected final Box2DDebugRenderer box2DDebugRenderer;
    protected final SpriteBatch batch;
 
