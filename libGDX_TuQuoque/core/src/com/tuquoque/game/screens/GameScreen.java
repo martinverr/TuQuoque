@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,17 +40,13 @@ public class GameScreen extends AbstractScreen {
         this.camera = context.getCamera();
 
         // map Vertices
-        vertices=new Vector2[10];
+        vertices=new Vector2[6];
         vertices[0]=new Vector2(-8,-4.5f);
-        vertices[1]=new Vector2(-8,9.5f);
-        vertices[2]=new Vector2(0.5f,9.5f);
-        vertices[3]=new Vector2(0.5f,13.5f);
-        vertices[4]=new Vector2(16,13.5f);
-        vertices[5]=new Vector2(16, 11.5f);
-        vertices[6]=new Vector2(37,11.5f);
-        vertices[7]=new Vector2(37,2.5f);
-        vertices[8]=new Vector2(35,2.5f);
-        vertices[9]=new Vector2(35,-4.5f);
+        vertices[1]=new Vector2(-8,13.5f);
+        vertices[2]=new Vector2(16,13.5f);
+        vertices[3]=new Vector2(16, 11.5f);
+        vertices[4]=new Vector2(37,11.5f);
+        vertices[5]=new Vector2(37,-4.5f);
 
         border =new Border(vertices, context.getWorld());
 
