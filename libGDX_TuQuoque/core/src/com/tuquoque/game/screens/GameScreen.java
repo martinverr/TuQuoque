@@ -33,9 +33,6 @@ public class GameScreen extends AbstractScreen {
 
     float elapsedTime=0;
 
-    // True = right, False = left
-    private boolean direction = true;
-
     public GameScreen(final GameStarter context){
         super(context);
         this.camera = context.getCamera();
@@ -74,10 +71,8 @@ public class GameScreen extends AbstractScreen {
         //if WASD or ARROWS -> setSpeed to player
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
             playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
-            direction=true;
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
             playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
-            direction=false;
         } else {
             playerB2D.setSpeedX(0);
         }
@@ -119,32 +114,11 @@ public class GameScreen extends AbstractScreen {
 
 
         batch.begin();
-
         //drawing player
-        if(playerB2D.B2DBody.getLinearVelocity().x != 0 || playerB2D.B2DBody.getLinearVelocity().y != 0){
-            if(direction)
-                batch.draw((TextureRegion) playerB2D.getWalkRightAnimation().getKeyFrame(elapsedTime,true),
+        batch.draw((TextureRegion) playerB2D.getCurrentAnimation().getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.65f,
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
-            else
-                batch.draw((TextureRegion) playerB2D.getWalkLeftAnimation().getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.65f,
-                        playerB2D.B2DBody.getPosition().y -0.7f,
-                        1.3f,1.6f);
-        }
-        else{
-            if(direction)
-                batch.draw((TextureRegion) playerB2D.getIdleRightAnimation().getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.65f,
-                        playerB2D.B2DBody.getPosition().y -0.7f,
-                        1.3f,1.6f);
-            else
-                batch.draw((TextureRegion) playerB2D.getIdleLeftAnimation().getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.65f,
-                        playerB2D.B2DBody.getPosition().y -0.7f,
-                        1.3f,1.6f);
-        }
         batch.end();
 
         camera.position.x = playerB2D.B2DBody.getPosition().x;
