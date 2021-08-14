@@ -5,9 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,18 +13,21 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.sprites.Border;
 import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.utils.WorldCreator;
+import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
 
 public class GameScreen extends AbstractScreen {
-
-
+    //Player
     private final Player playerB2D;
     private Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
 
+    //map
     private final OrthogonalTiledMapRenderer mapRenderer;
 
     private final OrthographicCamera camera;
 
+    //Borders
     private final Vector2[] vertices;
     private final Border border;
 
@@ -52,22 +52,22 @@ public class GameScreen extends AbstractScreen {
         vertices[7]=new Vector2(37,2.5f);
         vertices[8]=new Vector2(35,2.5f);
         vertices[9]=new Vector2(35,-4.5f);
-
         border =new Border(vertices, context.getWorld());
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
 
         //mapRenderer init
-        mapRenderer = new OrthogonalTiledMapRenderer(null, 1/32f, batch);
+        mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, batch);
+        mapRenderer.setMap(context.getAssetManager().get("map/prova.tmx", TiledMap.class));
 
+        //mapObjects in B2D World creation
+        new WorldCreator(world, mapRenderer.getMap());
     }
 
     @Override
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
-        mapRenderer.setMap(context.getAssetManager().get("map/prova.tmx", TiledMap.class));
-
     }
 
     private void handleInput(){
@@ -140,15 +140,12 @@ public class GameScreen extends AbstractScreen {
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
             else
-                batch.draw((TextureRegion) playerB2D.getIdleRightAnimation().getKeyFrame(elapsedTime,true),
+                batch.draw((TextureRegion) playerB2D.getIdleLeftAnimation().getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.65f,
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
         }
         batch.end();
-
-        // collision player-screenBorder -> player reposition
-        //TODO: box2D collision
 
         camera.position.x = playerB2D.B2DBody.getPosition().x;
         camera.position.y = playerB2D.B2DBody.getPosition().y;

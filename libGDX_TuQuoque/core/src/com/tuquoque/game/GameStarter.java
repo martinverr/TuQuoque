@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -21,9 +20,8 @@ import com.tuquoque.game.screens.ScreenType;
 import java.util.EnumMap;
 
 public class GameStarter extends Game {
-
-	//Screens
 	//Game vars
+	public static final float UNIT_SCALE = 1/32f;
 	private EnumMap<ScreenType, Screen> screenAvailable = new EnumMap<ScreenType, Screen>(ScreenType.class);
 	private OrthographicCamera camera;
 	private FitViewport viewport;
