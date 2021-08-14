@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="23">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="27">
  <tileset firstgid="1" source="tilesets/Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" name="gold" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tilesets/gold.png" trans="ffffff" width="128" height="128"/>
@@ -623,24 +623,22 @@
 0,0,0,0,0,0,0,0,281,322,263,263,263,263,263,263,263,263,263,263,263,263,263,324,122,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,124,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#aa0000" id="6" name="Solids" opacity="0.5" tintcolor="#000000">
-  <object id="2" x="735.938" y="6112.13">
-   <polygon points="0.0625,-0.125 32.0625,-0.125 32.0625,-288.125 -464.125,-288.313 -463.942,63.8734 -447.938,63.875 -447.938,-160.125 -0.0625,-160"/>
-  </object>
+ <objectgroup color="#aa0000" id="6" name="Solids" opacity="0.55" tintcolor="#000000">
   <object id="6" x="319.805" y="6079.82" width="128.003" height="63.9318"/>
   <object id="7" x="480" y="5966.91" width="159.818" height="81.2727"/>
   <object id="8" x="672.011" y="6030.9" width="63.7045" height="80.7273"/>
   <object id="10" x="514.048" y="6114" width="91.9697" height="29.0202"/>
   <object id="11" x="513.996" y="6241.98" width="91.9697" height="29.0202"/>
-  <object id="12" x="288" y="6240">
-   <polygon points="0,0 -15.9375,0.03125 -15.9778,159.956 480,160 480,-64 448,-64 448,96 0,96"/>
-  </object>
   <object id="21" x="1152.33" y="5896" width="271.333" height="150.333"/>
-  <object id="22" x="768" y="5856" width="128" height="256"/>
+  <object id="22" x="768" y="5889" width="128" height="223"/>
   <object id="24" x="896" y="6080" width="32" height="32"/>
   <object id="27" x="768" y="6336" width="672" height="64"/>
   <object id="29" x="800" y="6208" width="96" height="96"/>
   <object id="30" x="672" y="6176" width="64" height="160"/>
+  <object id="23" x="272" y="6270.33" width="15.3333" height="129.333"/>
+  <object id="24" x="272" y="5823.67" width="15.3333" height="351.333"/>
+  <object id="25" x="287.5" y="5825" width="447.5" height="126.5"/>
+  <object id="26" x="735" y="5824" width="32.5" height="287"/>
  </objectgroup>
  <layer id="2" name="Decorations" width="200" height="200">
   <data encoding="csv">
