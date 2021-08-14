@@ -50,9 +50,9 @@ public class WorldCreator {
             System.out.println("map created: " + mapBorders.position.x*UNIT_SCALE + ";" + mapBorders.position.y*UNIT_SCALE);
             ChainShape chainShape=new ChainShape();
             vertices=polygon.getVertices();
-            for(float vertex : vertices) {
-                vertex*=UNIT_SCALE;
-                System.out.println(vertex);
+            for(int i=0;i<vertices.length;i++){
+                vertices[i]*=UNIT_SCALE;
+                System.out.println(vertices[i]);
             }
 
             chainShape.createChain(vertices);
