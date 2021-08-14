@@ -44,7 +44,7 @@ public class WorldCreator {
             Polygon polygon= object.getPolygon();
             mapBorders.gravityScale=0;
             mapBorders.type= BodyDef.BodyType.StaticBody;
-            mapBorders.position.set(polygon.getX(),polygon.getY());
+            mapBorders.position.set(polygon.getX()*UNIT_SCALE,polygon.getY()*UNIT_SCALE);
 
             borders=world.createBody(mapBorders);
             System.out.println("map created: " + mapBorders.position.x*UNIT_SCALE + ";" + mapBorders.position.y*UNIT_SCALE);
@@ -55,7 +55,7 @@ public class WorldCreator {
                 System.out.println(vertices[i]);
             }
 
-            chainShape.createChain(vertices);
+            chainShape.createLoop(vertices);
             fixtureDef.shape=chainShape;
             borders.createFixture(fixtureDef);
         }
