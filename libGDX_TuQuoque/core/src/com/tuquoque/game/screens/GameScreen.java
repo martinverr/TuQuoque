@@ -24,13 +24,19 @@ public class GameScreen extends AbstractScreen {
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
 
-    private final OrthographicCamera camera;
+    //camera (not the gamestarter camera)
+    private final OrthographicCamera gamecamera;
 
     float elapsedTime=0;
 
     public GameScreen(final GameStarter context){
         super(context);
-        this.camera = context.getCamera();
+
+        //init camera
+        gamecamera = new OrthographicCamera(16, 9);
+        gamecamera.position.set(savedPlayerCoords, 0);
+        //gamecamera.update();
+        batch.setProjectionMatrix(gamecamera.combined);
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
@@ -81,7 +87,7 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
 
         //map render
-        mapRenderer.setView(camera);
+        mapRenderer.setView(gamecamera);
         mapRenderer.render();
 
         //handling input
@@ -103,13 +109,13 @@ public class GameScreen extends AbstractScreen {
                         1.3f,1.6f);
         batch.end();
 
-        camera.position.x = playerB2D.B2DBody.getPosition().x;
-        camera.position.y = playerB2D.B2DBody.getPosition().y;
-        camera.update();
+        gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
+        gamecamera.position.y = playerB2D.B2DBody.getPosition().y;
+        gamecamera.update();
 
         //World of B2D
         world.step(delta, 6, 2);
-        box2DDebugRenderer.render(world, viewport.getCamera().combined);
+        box2DDebugRenderer.render(world, gamecamera.combined);
     }
 
     @Override

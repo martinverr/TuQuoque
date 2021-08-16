@@ -56,7 +56,6 @@ public class GameStarter extends Game {
 		camera.update();
 		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		batch = new SpriteBatch();
-		batch.setProjectionMatrix(camera.combined);
 
 		setScreen(ScreenType.MAINMENU);
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -32,6 +33,8 @@ public class MainmenuScreen extends AbstractScreen {
 
     private Vector3 coordsPointed;
 
+    private final OrthographicCamera camera;
+
     /*
     * Constructor of Screen->Abstract Screen->LoadingScreen
     * <p>
@@ -42,6 +45,7 @@ public class MainmenuScreen extends AbstractScreen {
     public MainmenuScreen(final GameStarter context){
         super(context);
         //Others
+        camera = context.getCamera();
         coordsPointed = new Vector3();
 
         //texture
@@ -68,6 +72,7 @@ public class MainmenuScreen extends AbstractScreen {
     @Override
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
+        batch.setProjectionMatrix(camera.combined);
         themeMusic.play();
         BG.resume();
     }
@@ -84,21 +89,21 @@ public class MainmenuScreen extends AbstractScreen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         //get coords of mouse in coordsPointed
-        context.getCamera().update();
+        camera.update();
         coordsPointed.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-        context.getCamera().unproject(coordsPointed);
+        camera.unproject(coordsPointed);
 
-        context.getBatch().begin();
+        batch.begin();
 
         //draw moving background
         BG.updatePosition(16, 9, 1);
-        context.getBatch().draw(BG, BG.getX(), BG.getY(), 16*2, 9*2);
+        batch.draw(BG, BG.getX(), BG.getY(), 16*2, 9*2);
 
         //draw texture play button
-        context.getBatch().draw(texture_playbutton_inactive, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
+        batch.draw(texture_playbutton_inactive, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
         if(coordsPointed.x > 8-PLAY_BUTT_WIDTH/2 && coordsPointed.x < 8+PLAY_BUTT_WIDTH/2 &&
                 coordsPointed.y < 1 + PLAY_BUTT_HEIGHT && coordsPointed.y > 1){
-            context.getBatch().draw(texture_playbutton_active, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
+            batch.draw(texture_playbutton_active, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
             if(Gdx.input.justTouched()){
                 BG.stop();
                 context.setScreen(ScreenType.LOADING);
@@ -109,16 +114,16 @@ public class MainmenuScreen extends AbstractScreen {
         }
 
         //draw settings button
-        context.getBatch().draw(texture_settingsbutton_inactive, 8-SETT_BUTT_WIDTH/2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
+        batch.draw(texture_settingsbutton_inactive, 8-SETT_BUTT_WIDTH/2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
         if(coordsPointed.x > 8-SETT_BUTT_WIDTH/2 && coordsPointed.x < 8 + SETT_BUTT_WIDTH/2 &&
-                coordsPointed.y < 2.5f + SETT_BUTT_HEIGHT && coordsPointed.y > 2.5f){
-            context.getBatch().draw(texture_settingsbutton_active, 8-SETT_BUTT_WIDTH/2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
-            if(Gdx.input.justTouched()){
+                coordsPointed.y < 2.5f + SETT_BUTT_HEIGHT && coordsPointed.y > 2.5f) {
+            batch.draw(texture_settingsbutton_active, 8 - SETT_BUTT_WIDTH / 2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
+            if (Gdx.input.justTouched()) {
                 clickButtonSound.play();
                 context.setScreen(ScreenType.SETTINGS);
             }
         }
-        context.getBatch().end();
+        batch.end();
 
 
         //if SPACE pressed, set screen 'LOADING'
