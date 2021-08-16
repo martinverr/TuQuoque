@@ -77,6 +77,24 @@ public class GameScreen extends AbstractScreen {
             savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
             context.setScreen(ScreenType.MAINMENU);
         }
+
+        /**
+        * BOX2D DEBUG COMMANDS
+        */
+        //if NUMPAD_9 pressed -> set hitbox visible or not
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_9)){
+            box2DDebugRenderer.setDrawBodies(!box2DDebugRenderer.isDrawBodies());
+        }
+
+        //if NUMPAD_8 pressed -> set contacts visible or not
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)){
+            box2DDebugRenderer.setDrawContacts(!box2DDebugRenderer.isDrawContacts());
+        }
+        //if NUMPAD_7 pressed -> set velocity visible or not
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_7)){
+            box2DDebugRenderer.setDrawVelocities(!box2DDebugRenderer.isDrawVelocities());
+        }
+
     }
 
     @Override
