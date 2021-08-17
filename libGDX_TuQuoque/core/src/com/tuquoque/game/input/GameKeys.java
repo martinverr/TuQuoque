@@ -8,7 +8,10 @@ public enum GameKeys {
     LEFT(Input.Keys.A, Input.Keys.LEFT),
     RIGHT(Input.Keys.D, Input.Keys.RIGHT),
     NEXT(Input.Keys.SPACE, Input.Keys.ENTER),
-    BACK(Input.Keys.ESCAPE);
+    BACK(Input.Keys.ESCAPE),
+    DEBUG7(Input.Keys.NUMPAD_7),
+    DEBUG8(Input.Keys.NUMPAD_8),
+    DEBUG9(Input.Keys.NUMPAD_9);
 
     final int[] keyCode;
 

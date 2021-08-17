@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.input.InputManager;
 
 public abstract class AbstractScreen implements Screen {
    protected final GameStarter context;
@@ -13,6 +14,7 @@ public abstract class AbstractScreen implements Screen {
    protected World world;
    protected final Box2DDebugRenderer box2DDebugRenderer;
    protected final SpriteBatch batch;
+   protected final InputManager inputManager;
 
    public AbstractScreen(final GameStarter context){
        this.context = context;
@@ -20,10 +22,12 @@ public abstract class AbstractScreen implements Screen {
        batch = context.getBatch();
        this.world = context.getWorld();
        this.box2DDebugRenderer = context.getBox2DDebugRenderer();
+       this.inputManager = context.getInputManager();
    }
 
     @Override
     public void resize(int width, int height) {
        viewport.update(width, height);
     }
+
 }

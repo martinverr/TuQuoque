@@ -1,7 +1,6 @@
 package com.tuquoque.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,10 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.input.GameKeys;
+import com.tuquoque.game.input.InputListener;
+import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.utils.MovingTexture;
 
 
-public class MainmenuScreen extends AbstractScreen {
+public class MainmenuScreen extends AbstractScreen implements InputListener {
     private final float BG_WIDTH = 22;
     private final float BG_HEIGHT = 12;
     private final float PLAY_BUTT_WIDTH = 5;
@@ -35,7 +37,7 @@ public class MainmenuScreen extends AbstractScreen {
 
     private final OrthographicCamera camera;
 
-    /*
+    /**
     * Constructor of Screen->Abstract Screen->LoadingScreen
     * <p>
     * Create instances of Objects used in create() and render()
@@ -64,10 +66,11 @@ public class MainmenuScreen extends AbstractScreen {
         themeMusic.setLooping(true);
     }
 
-    /*
+    /**
      * Every time this Screen is shown (after pause() or other Screen gamestate
      *  clear OpenGL screen
      *  resume themeMusic
+     *  enable listener for inputs
      */
     @Override
     public void show() {
@@ -75,9 +78,10 @@ public class MainmenuScreen extends AbstractScreen {
         batch.setProjectionMatrix(camera.combined);
         themeMusic.play();
         BG.resume();
+        inputManager.addInputListener(this);
     }
 
-    /*
+    /**
      * Every new frame render() is called
      *
      * Render what will be seen in the screen
@@ -124,18 +128,9 @@ public class MainmenuScreen extends AbstractScreen {
             }
         }
         batch.end();
-
-
-        //if SPACE pressed, set screen 'LOADING'
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            BG.stop();
-            context.setScreen(ScreenType.LOADING);
-            themeMusic.pause();
-            playButtonSound.play();
-        }
     }
 
-    /*
+    /**
     * Every time the window is resized, resize() is called
     * <p>
     * update viewport with new size
@@ -159,10 +154,10 @@ public class MainmenuScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        inputManager.removeInputListener(this);
     }
 
-    /*
+    /**
     * Before a pause() or exit(), dispose no-more used Objects that Java Garbage Collector doesn't secure
     */
     @Override
@@ -178,5 +173,33 @@ public class MainmenuScreen extends AbstractScreen {
         texture_playbutton_active.dispose();
         texture_settingsbutton_active.dispose();
         texture_settingsbutton_inactive.dispose();
+    }
+
+    /**
+     * Implements method of interface InputListener
+     *
+     * @see InputListener
+     */
+    @Override
+    public void keyPressed(InputManager manager, GameKeys key) {
+        switch (key){
+            case NEXT: //set screen 'LOADING'
+                BG.stop();
+                context.setScreen(ScreenType.LOADING);
+                themeMusic.pause();
+                playButtonSound.play();
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Implements method of interface InputListener
+     *
+     * @see InputListener
+     * */
+    @Override
+    public void KeyUp(InputManager manager, GameKeys key) {
+
     }
 }

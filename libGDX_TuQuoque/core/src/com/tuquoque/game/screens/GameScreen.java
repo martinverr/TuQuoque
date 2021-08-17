@@ -2,7 +2,6 @@ package com.tuquoque.game.screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,8 +30,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
 
-    //input
-    private final InputManager inputManager;
+
 
     public GameScreen(final GameStarter context){
         super(context);
@@ -52,9 +50,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //mapObjects in B2D World creation
         new WorldCreator(world, mapRenderer.getMap());
-
-        //input
-        inputManager = context.getInputManager();
     }
 
     @Override
@@ -63,25 +58,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
         inputManager.addInputListener(this);
     }
 
-    private void handleInput(){
-        /**
-        * BOX2D DEBUG COMMANDS
-        */
-        //if NUMPAD_9 pressed -> set hitbox visible or not
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_9)){
-            box2DDebugRenderer.setDrawBodies(!box2DDebugRenderer.isDrawBodies());
-        }
-
-        //if NUMPAD_8 pressed -> set contacts visible or not
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)){
-            box2DDebugRenderer.setDrawContacts(!box2DDebugRenderer.isDrawContacts());
-        }
-        //if NUMPAD_7 pressed -> set velocity visible or not
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_7)){
-            box2DDebugRenderer.setDrawVelocities(!box2DDebugRenderer.isDrawVelocities());
-        }
-
-    }
 
     @Override
     public void render(float delta) {
@@ -96,9 +72,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
         //map render
         mapRenderer.setView(gamecamera);
         mapRenderer.render(layers_1);
-
-        //handling input
-        handleInput();
 
         //update player to new speed after possible moving inputs
         playerB2D.B2DBody.applyLinearImpulse(
@@ -115,12 +88,13 @@ public class GameScreen extends AbstractScreen implements InputListener {
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
         batch.end();
+        mapRenderer.render(layers_2);
 
+        //camera follows player
         gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
         gamecamera.position.y = playerB2D.B2DBody.getPosition().y;
         gamecamera.update();
 
-        mapRenderer.render(layers_2);
 
         //World of B2D
         world.step(delta, 6, 2);
@@ -155,6 +129,9 @@ public class GameScreen extends AbstractScreen implements InputListener {
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
         switch (key){
+            /*
+            * Player Movement
+            */
             case UP:
                 playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
                 break;
@@ -167,9 +144,26 @@ public class GameScreen extends AbstractScreen implements InputListener {
             case RIGHT:
                 playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
                 break;
+
+            /*
+            * Screens
+            */
             case BACK:
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
                 context.setScreen(ScreenType.MAINMENU);
+
+            /*
+             * BOX2D DEBUG COMMANDS
+             */
+            case DEBUG7:    //set velocity visible or not
+                box2DDebugRenderer.setDrawVelocities(!box2DDebugRenderer.isDrawVelocities());
+                break;
+            case DEBUG8:    //set contacts visible or not
+                box2DDebugRenderer.setDrawContacts(!box2DDebugRenderer.isDrawContacts());
+                break;
+            case DEBUG9:    //set hitbox visible or not
+                box2DDebugRenderer.setDrawBodies(!box2DDebugRenderer.isDrawBodies());
+                break;
             default:
                 break;
         }
@@ -190,8 +184,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
             case RIGHT:
                 playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.LEFT) ? -playerB2D.NOMINAL_SPEED : 0);
                 break;
-            case BACK:
-
             default:
                 break;
         }
