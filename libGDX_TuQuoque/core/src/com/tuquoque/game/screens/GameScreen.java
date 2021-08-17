@@ -101,7 +101,7 @@ public class GameScreen extends AbstractScreen {
     public void render(float delta) {
 
         int[] layers_1 ={0,1,2,3};
-        int[] layers_2 ={4,5,6};
+        int[] layers_2 ={4,5,6,7};
 
         elapsedTime+=Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
