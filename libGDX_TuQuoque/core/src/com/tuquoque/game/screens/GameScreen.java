@@ -11,15 +11,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.input.GameKeys;
+import com.tuquoque.game.input.InputListener;
+import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.sprites.Player;
 import com.tuquoque.game.utils.WorldCreator;
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
 
-public class GameScreen extends AbstractScreen {
+public class GameScreen extends AbstractScreen implements InputListener {
     //Player
     private final Player playerB2D;
     private final Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
+    float elapsedTime=0;
 
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -27,7 +31,8 @@ public class GameScreen extends AbstractScreen {
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
 
-    float elapsedTime=0;
+    //input
+    private final InputManager inputManager;
 
     public GameScreen(final GameStarter context){
         super(context);
@@ -47,37 +52,18 @@ public class GameScreen extends AbstractScreen {
 
         //mapObjects in B2D World creation
         new WorldCreator(world, mapRenderer.getMap());
+
+        //input
+        inputManager = context.getInputManager();
     }
 
     @Override
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
+        inputManager.addInputListener(this);
     }
 
     private void handleInput(){
-        //if WASD or ARROWS -> setSpeed to player
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
-            playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
-            playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
-        } else {
-            playerB2D.setSpeedX(0);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
-            playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
-            playerB2D.setSpeedY(-playerB2D.NOMINAL_SPEED);
-        } else {
-            playerB2D.setSpeedY(0);
-        }
-
-        //if ESC pressed -> set screen 'MAINMENU'
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
-            context.setScreen(ScreenType.MAINMENU);
-        }
-
         /**
         * BOX2D DEBUG COMMANDS
         */
@@ -158,11 +144,56 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        inputManager.removeInputListener(this);
     }
 
     @Override
     public void dispose() {
         mapRenderer.dispose();
+    }
+
+    @Override
+    public void keyPressed(InputManager manager, GameKeys key) {
+        switch (key){
+            case UP:
+                playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
+                break;
+            case DOWN:
+                playerB2D.setSpeedY(-playerB2D.NOMINAL_SPEED);
+                break;
+            case LEFT:
+                playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
+                break;
+            case RIGHT:
+                playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
+                break;
+            case BACK:
+                savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
+                context.setScreen(ScreenType.MAINMENU);
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void KeyUp(InputManager manager, GameKeys key) {
+        switch (key){
+            case UP:
+                playerB2D.setSpeedY(manager.isKeyPressed(GameKeys.DOWN) ? -playerB2D.NOMINAL_SPEED : 0);
+                break;
+            case DOWN:
+                playerB2D.setSpeedY(manager.isKeyPressed(GameKeys.UP) ? playerB2D.NOMINAL_SPEED : 0);
+                break;
+            case LEFT:
+                playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.RIGHT) ? playerB2D.NOMINAL_SPEED : 0);
+                break;
+            case RIGHT:
+                playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.LEFT) ? -playerB2D.NOMINAL_SPEED : 0);
+                break;
+            case BACK:
+
+            default:
+                break;
+        }
     }
 }

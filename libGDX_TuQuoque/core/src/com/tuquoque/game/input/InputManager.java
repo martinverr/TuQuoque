@@ -43,13 +43,28 @@ public class InputManager implements InputProcessor {
     public void notifyKeyDown(final GameKeys gameKey){
         keyStatus[gameKey.ordinal()] = true;
         for(final InputListener listener : listeners){
-            listener.KeyUp(this, gameKey);
+            listener.keyPressed(this, gameKey);
         }
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        final GameKeys gameKey = keyMapping[keycode];
+
+        if(gameKey == null){
+            return false;
+        }
+
+        notifyKeyUp(gameKey);
+
         return false;
+    }
+
+    public void notifyKeyUp(final GameKeys gameKey){
+        keyStatus[gameKey.ordinal()] = false;
+        for(final InputListener listener : listeners){
+            listener.KeyUp(this, gameKey);
+        }
     }
 
     @Override
@@ -80,5 +95,9 @@ public class InputManager implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    public boolean isKeyPressed(final GameKeys gameKey){
+        return keyStatus[gameKey.ordinal()];
     }
 }

@@ -2,6 +2,7 @@ package com.tuquoque.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +17,9 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.screens.ScreenType;
+
 import java.util.EnumMap;
 
 public class GameStarter extends Game {
@@ -37,7 +40,11 @@ public class GameStarter extends Game {
 	private World world;
 	private Box2DDebugRenderer box2DDebugRenderer;
 
+	//assetManager
 	private AssetManager assetManager;
+
+	//input
+	private InputManager inputManager;
 
 	@Override
 	public void create () {
@@ -62,6 +69,10 @@ public class GameStarter extends Game {
 		//AssetManager
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
+		//input
+		inputManager= new InputManager();
+		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager));
 	}
 
 	public void setScreen(final ScreenType screenType){
@@ -124,6 +135,13 @@ public class GameStarter extends Game {
 	 */
 	public AssetManager getAssetManager() {
 		return assetManager;
+	}
+
+	/*
+	 * Getter of inputManager
+	 */
+	public InputManager getInputManager() {
+		return inputManager;
 	}
 
 	/*
