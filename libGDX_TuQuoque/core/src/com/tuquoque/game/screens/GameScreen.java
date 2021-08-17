@@ -19,7 +19,7 @@ import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 public class GameScreen extends AbstractScreen {
     //Player
     private final Player playerB2D;
-    private Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
+    private final Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
 
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -100,13 +100,16 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
 
+        int[] layers_1 ={0,1,2,3};
+        int[] layers_2 ={4,5,6};
+
         elapsedTime+=Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
 
         //map render
         mapRenderer.setView(gamecamera);
-        mapRenderer.render();
+        mapRenderer.render(layers_1);
 
         //handling input
         handleInput();
@@ -130,6 +133,8 @@ public class GameScreen extends AbstractScreen {
         gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
         gamecamera.position.y = playerB2D.B2DBody.getPosition().y;
         gamecamera.update();
+
+        mapRenderer.render(layers_2);
 
         //World of B2D
         world.step(delta, 6, 2);
