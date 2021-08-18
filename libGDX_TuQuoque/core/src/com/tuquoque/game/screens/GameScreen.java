@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
@@ -23,6 +24,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
     private final Player playerB2D;
     private final Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
     float elapsedTime=0;
+    private boolean newMovementInput = false;
 
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -56,6 +58,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
         inputManager.addInputListener(this);
+        audioManager.playAudio(AudioType.AMBIENT1_PALATINO);
     }
 
 
@@ -73,12 +76,16 @@ public class GameScreen extends AbstractScreen implements InputListener {
         mapRenderer.setView(gamecamera);
         mapRenderer.render(layers_1);
 
-        //update player to new speed after possible moving inputs
-        playerB2D.B2DBody.applyLinearImpulse(
-                playerB2D.getSpeedX()-playerB2D.B2DBody.getLinearVelocity().x,
-                playerB2D.getSpeedY()-playerB2D.B2DBody.getLinearVelocity().y,
-                playerB2D.B2DBody.getWorldCenter().x, playerB2D.B2DBody.getWorldCenter().y,
-                true);
+        //update player to new speed after moving inputs
+        if(newMovementInput){
+            //TODO: add FOOTSTEP sound
+            // audioManager.playAudio(FOOTSTEP);
+            playerB2D.B2DBody.applyLinearImpulse(
+                    playerB2D.getSpeedX()-playerB2D.B2DBody.getLinearVelocity().x,
+                    playerB2D.getSpeedY()-playerB2D.B2DBody.getLinearVelocity().y,
+                    playerB2D.B2DBody.getWorldCenter().x, playerB2D.B2DBody.getWorldCenter().y,
+                    true);
+        }
 
 
         batch.begin();
@@ -134,14 +141,18 @@ public class GameScreen extends AbstractScreen implements InputListener {
             */
             case UP:
                 playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
+                newMovementInput = true;
                 break;
             case DOWN:
+                newMovementInput = true;
                 playerB2D.setSpeedY(-playerB2D.NOMINAL_SPEED);
                 break;
             case LEFT:
+                newMovementInput = true;
                 playerB2D.setSpeedX(-playerB2D.NOMINAL_SPEED);
                 break;
             case RIGHT:
+                newMovementInput = true;
                 playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
                 break;
 
@@ -173,15 +184,19 @@ public class GameScreen extends AbstractScreen implements InputListener {
     public void KeyUp(InputManager manager, GameKeys key) {
         switch (key){
             case UP:
+                newMovementInput = true;
                 playerB2D.setSpeedY(manager.isKeyPressed(GameKeys.DOWN) ? -playerB2D.NOMINAL_SPEED : 0);
                 break;
             case DOWN:
+                newMovementInput = true;
                 playerB2D.setSpeedY(manager.isKeyPressed(GameKeys.UP) ? playerB2D.NOMINAL_SPEED : 0);
                 break;
             case LEFT:
+                newMovementInput = true;
                 playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.RIGHT) ? playerB2D.NOMINAL_SPEED : 0);
                 break;
             case RIGHT:
+                newMovementInput = true;
                 playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.LEFT) ? -playerB2D.NOMINAL_SPEED : 0);
                 break;
             default:

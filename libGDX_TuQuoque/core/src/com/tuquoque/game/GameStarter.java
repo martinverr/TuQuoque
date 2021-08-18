@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.tuquoque.game.audio.AudioManager;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.screens.ScreenType;
 
@@ -43,7 +44,8 @@ public class GameStarter extends Game {
 	//assetManager
 	private AssetManager assetManager;
 
-	//input
+	//other manager
+	private AudioManager audioManager;
 	private InputManager inputManager;
 
 	@Override
@@ -64,15 +66,18 @@ public class GameStarter extends Game {
 		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		batch = new SpriteBatch();
 
-		setScreen(ScreenType.MAINMENU);
-
 		//AssetManager
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 
+		//AudioManager
+		audioManager = new AudioManager(assetManager);
+
 		//input
 		inputManager= new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager));
+
+		setScreen(ScreenType.MAINMENU);
 	}
 
 	public void setScreen(final ScreenType screenType){
@@ -95,57 +100,64 @@ public class GameStarter extends Game {
 	}
 
 
-	/*
+	/**
 	 * Getter of World
 	 */
 	public World getWorld() {
 		return world;
 	}
 
-	/*
+	/**
 	* Getter of camera
 	 */
 	public OrthographicCamera getCamera() {
 		return camera;
 	}
 
-	/*
+	/**
 	 * Getter of viewport
 	 */
 	public FitViewport getViewport() {
 		return viewport;
 	}
 
-	/*
+	/**
 	 * Getter of batch
 	 */
 	public SpriteBatch getBatch() {
 		return batch;
 	}
 
-	/*
+	/**
 	 * Getter of B2DDebugRenderer
 	 */
 	public Box2DDebugRenderer getBox2DDebugRenderer(){
 		return box2DDebugRenderer;
 	}
 
-	/*
+	/**
 	 * Getter of assetManager
 	 */
 	public AssetManager getAssetManager() {
 		return assetManager;
 	}
 
-	/*
+	/**
 	 * Getter of inputManager
 	 */
 	public InputManager getInputManager() {
 		return inputManager;
 	}
 
-	/*
-	*
+	/**
+	 * Getter of inputManager
+	 */
+	public AudioManager getAudioManager() {
+		return audioManager;
+	}
+
+	/**
+	* Each frame will update World of Box2D of a fixed timestamp
 	*/
 	@Override
 	public void render() {

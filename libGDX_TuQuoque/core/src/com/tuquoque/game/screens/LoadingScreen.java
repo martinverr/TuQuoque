@@ -3,10 +3,13 @@ package com.tuquoque.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.audio.AudioType;
 
 public class LoadingScreen extends AbstractScreen {
 
@@ -21,7 +24,19 @@ public class LoadingScreen extends AbstractScreen {
 
         //AssetManager
         assetManager = context.getAssetManager();
+
+        //load map
         context.getAssetManager().load("map/prova.tmx", TiledMap.class);
+
+        //load audio
+        for(final AudioType audioType : AudioType.values()){
+            if (audioType.isMusic()){
+                assetManager.load(audioType.getFilePath(), Music.class);
+            } else {
+                assetManager.load(audioType.getFilePath(), Sound.class);
+            }
+
+        }
     }
 
     @Override
