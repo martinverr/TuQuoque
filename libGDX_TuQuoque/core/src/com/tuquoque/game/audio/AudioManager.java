@@ -6,14 +6,29 @@ import com.badlogic.gdx.audio.Sound;
 
 import java.util.ArrayList;
 
+/**
+ * Class that manage to play (and stop) sounds like instances of Music, Sound, LoopingSound
+ * @see TypeOfSound
+ * and store music and LoopingSound that are currently playing
+ *
+ * The caller must provide an AssetManager with these audio loaded, and this manager will allow to use the methods
+ * playAudio(), stopCurrentMusic(), stopLoopingSound()
+ */
 public class AudioManager {
     private AudioType currentMusicType;
     private Music currentMusic;
     private final AssetManager assetManager;
 
+    //array of AudioType
     private ArrayList<AudioType> loopSoundsPlaying_at;
+    //arrays of LoopingSound associated to their AudioType
     private ArrayList<LoopingSound> loopSoundsPlaying_ls;
 
+    /**
+     * Constructor that init the vars used
+     *
+     * @param assetManager AssetManager where are loaded the audio tracks
+     */
     public AudioManager(final AssetManager assetManager){
         this.assetManager = assetManager;
         currentMusicType = null;
@@ -23,6 +38,16 @@ public class AudioManager {
         loopSoundsPlaying_ls = new ArrayList<>();
     }
 
+    /**
+     * Play the audio track depending on the typeOfSound:
+     * music: stop the current music, update it, and play the retrieved instance of Gdx.audio.Music from assetManager
+     * sound: play the retrieved instance of Gdx.audio.Sound from assetManager
+     * loopingSound: update the arrays of loopingSounds playing, create LoopingSound and plays it
+     * @see LoopingSound
+     *
+     * @param audioType AudioType of the audio that will be played
+     * @see AudioType
+     */
     public void playAudio(AudioType audioType){
         switch(audioType.getTypeOfSound()){
             case MUSIC:
@@ -52,15 +77,13 @@ public class AudioManager {
                     loopSoundsPlaying_at.add(audioType);
                     loopSoundsPlaying_ls.add(loopingSound);
                     loopingSound.play();
-
-                    //debug
-                    System.out.println("loopSoundsPlaying_at: " + loopSoundsPlaying_at.size());
-                    System.out.println("loopSoundsPlaying_ls: " + loopSoundsPlaying_ls.size());
-                    System.out.println("now play: " + loopingSound.getAudioType().name() + "(" + loopingSound + ")\n");
                 }
         }
     }
 
+    /**
+     * Method for the caller to stop the current music stored that is playing
+     */
     public void stopCurrentMusic(){
         if(currentMusic != null){
             currentMusic.stop();
@@ -69,29 +92,27 @@ public class AudioManager {
         }
     }
 
+    /**
+     * Stops a LoopingSound that is playing, updating the arrays
+     *
+     * @param audioType that identifies the LoopingSound instance that we want to stop
+     */
     public void stopLoopingSound(AudioType audioType){
         int index = loopSoundsPlaying_at.indexOf(audioType);
         if(index != -1){
-            //debug
-            System.out.println("now stop: " + loopSoundsPlaying_ls.get(index).getAudioType().name() + "(" + loopSoundsPlaying_ls.get(index) + ")");
-
             loopSoundsPlaying_ls.get(index).stop();
             loopSoundsPlaying_at.remove(index);
             loopSoundsPlaying_ls.remove(index);
-
-            //debug
-            System.out.println("loopSoundsPlaying_at: " + loopSoundsPlaying_at.size());
-            System.out.println("loopSoundsPlaying_ls: " + loopSoundsPlaying_ls.size() + "\n");
-
         }
     }
 }
 
-
+/**
+ * Class for objects that manages the audioType.typeOfSound LOOPINGSOUND
+ */
 class LoopingSound{
     private Sound sound;
-    private AudioType audioType;
-    private long soundId;
+    private final AudioType audioType;
 
     public LoopingSound(AudioType audioType, AssetManager assetManager) {
         this.audioType = audioType;
@@ -111,7 +132,7 @@ class LoopingSound{
     }
 
     void play(){
-        soundId = sound.play();
+        long soundId = sound.play();
         sound.setLooping(soundId, true);
         sound.setVolume(soundId, audioType.getVolume());
     }
@@ -120,7 +141,14 @@ class LoopingSound{
         sound.stop();
     }
 
-
+    /**
+     * Needed for the method contains() of the array of LoopingSounds
+     *
+     * A loopingSound is equal to an other one if their sounds are equal
+     *
+     * @param obj comparing object
+     * @return true if this object is equal to obj, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
