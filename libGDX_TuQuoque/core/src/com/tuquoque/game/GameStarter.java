@@ -178,5 +178,6 @@ public class GameStarter extends Game {
 		super.dispose();
 		world.dispose();
 		box2DDebugRenderer.dispose();
+		assetManager.dispose();
 	}
 }

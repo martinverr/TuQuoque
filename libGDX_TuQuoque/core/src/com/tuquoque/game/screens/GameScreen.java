@@ -56,7 +56,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
         inputManager.addInputListener(this);
-        audioManager.playAudio(AudioType.AMBIENT1_PALATINO);
+        audioManager.playAudio(AudioType.AMBIENT_PALATINO);
     }
 
 
@@ -76,8 +76,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //update player to new speed after moving inputs
         if(newMovementInput){
-            //TODO: add FOOTSTEP sound
-            // audioManager.playAudio(FOOTSTEP);
             playerB2D.B2DBody.applyLinearImpulse(
                     playerB2D.getSpeedX()-playerB2D.B2DBody.getLinearVelocity().x,
                     playerB2D.getSpeedY()-playerB2D.B2DBody.getLinearVelocity().y,
@@ -85,6 +83,10 @@ public class GameScreen extends AbstractScreen implements InputListener {
                     true);
         }
 
+        if(playerB2D.B2DBody.getLinearVelocity().isZero())
+            audioManager.stopLoopingSound(AudioType.FOOTSTEPS_STONE);
+        else
+            audioManager.playLoopingSound(AudioType.FOOTSTEPS_STONE);
 
         batch.begin();
         //drawing player
