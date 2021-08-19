@@ -86,7 +86,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
         if(playerB2D.B2DBody.getLinearVelocity().isZero())
             audioManager.stopLoopingSound(AudioType.FOOTSTEPS_STONE);
         else
-            audioManager.playLoopingSound(AudioType.FOOTSTEPS_STONE);
+            audioManager.playAudio(AudioType.FOOTSTEPS_STONE);
 
         batch.begin();
         //drawing player

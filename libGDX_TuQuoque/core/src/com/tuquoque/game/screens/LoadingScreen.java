@@ -1,7 +1,6 @@
 package com.tuquoque.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -31,6 +30,7 @@ public class LoadingScreen extends AbstractScreen {
         //load audio
         for(final AudioType audioType : AudioType.values()){
             if (audioType.isMusic()){
+                System.out.println("Music found: " + audioType.name());
                 assetManager.load(audioType.getFilePath(), Music.class);
             } else {
                 assetManager.load(audioType.getFilePath(), Sound.class);

@@ -24,24 +24,40 @@ public class AudioManager {
     }
 
     public void playAudio(AudioType audioType){
-        if(audioType.isMusic()){
-            if(currentMusicType == audioType){
-                return;
-            }
+        switch(audioType.getTypeOfSound()){
+            case MUSIC:
+                if(currentMusicType == audioType){
+                    return;
+                }
 
-            if(currentMusic != null){
-                currentMusic.stop();
-            }
+                if(currentMusic != null){
+                    currentMusic.stop();
+                }
 
-            currentMusicType = audioType;
-            currentMusic = assetManager.get(audioType.getFilePath(), Music.class);
-            currentMusic.setLooping(true);
-            currentMusic.setVolume(audioType.getVolume());
-            currentMusic.play();
+                currentMusicType = audioType;
+                currentMusic = assetManager.get(audioType.getFilePath(), Music.class);
+                currentMusic.setLooping(true);
+                currentMusic.setVolume(audioType.getVolume());
+                currentMusic.play();
+                break;
 
-        }
-        else{
-            assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume());
+            case SOUND:
+                assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume());
+                break;
+
+            case LOOPINGSOUND:
+                if(!loopSoundsPlaying_at.contains(audioType)){
+                    LoopingSound loopingSound = new LoopingSound(audioType, assetManager);
+
+                    loopSoundsPlaying_at.add(audioType);
+                    loopSoundsPlaying_ls.add(loopingSound);
+                    loopingSound.play();
+
+                    //debug
+                    System.out.println("loopSoundsPlaying_at: " + loopSoundsPlaying_at.size());
+                    System.out.println("loopSoundsPlaying_ls: " + loopSoundsPlaying_ls.size());
+                    System.out.println("now play: " + loopingSound.getAudioType().name() + "(" + loopingSound + ")\n");
+                }
         }
     }
 
@@ -50,22 +66,6 @@ public class AudioManager {
             currentMusic.stop();
             currentMusicType = null;
             currentMusic = null;
-        }
-    }
-
-    public void playLoopingSound(AudioType audioType){
-        if(!loopSoundsPlaying_at.contains(audioType)){
-            LoopingSound loopingSound = new LoopingSound(audioType, assetManager);
-
-            loopSoundsPlaying_at.add(audioType);
-            loopSoundsPlaying_ls.add(loopingSound);
-
-            //debug
-            System.out.println("loopSoundsPlaying_at: " + loopSoundsPlaying_at.size());
-            System.out.println("loopSoundsPlaying_ls: " + loopSoundsPlaying_ls.size());
-            System.out.println("now play: " + loopingSound.getAudioType().name() + "(" + loopingSound + ")\n");
-
-            loopingSound.play();
         }
     }
 
