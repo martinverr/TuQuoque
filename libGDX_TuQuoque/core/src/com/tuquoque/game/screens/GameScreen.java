@@ -32,8 +32,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
 
-
-
     public GameScreen(final GameStarter context){
         super(context);
 

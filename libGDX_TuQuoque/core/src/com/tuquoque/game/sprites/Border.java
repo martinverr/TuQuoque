@@ -29,7 +29,8 @@ public class Border {
         vertices=polygon.getVertices();
         for(int i=0;i<vertices.length;i++){
             vertices[i]*=UNIT_SCALE;
-            System.out.println(vertices[i]);
+            //debug
+            // System.out.println(vertices[i]);
         }
 
         chainShape.createLoop(vertices);

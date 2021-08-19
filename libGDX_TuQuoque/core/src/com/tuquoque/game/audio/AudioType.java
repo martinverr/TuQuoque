@@ -6,7 +6,9 @@ public enum AudioType {
     AMBIENT1_PALATINO("audio/background-ambient-palatino.wav", true, 0.5f),
     CLICK1_LIGHT("audio/click_light.wav", false, 0.5f),
     CLICK2_HEAVY("audio/click_heavy.wav", false, 0.5f),
-    CLICK3_SUCCESS("audio/click_success.wav", false, 0.5f);
+    CLICK3_SUCCESS("audio/click_success.wav", false, 0.5f),
+    FOOTSTEPS_STONE("audio/footsteps/footsteps-stone-merged.wav",true,1f),
+    CLEAN_FOOTSTEPS("audio/footsteps/clean-footstep.wav",true,1f);
 
     private final String filePath;
     private final boolean isMusic;
