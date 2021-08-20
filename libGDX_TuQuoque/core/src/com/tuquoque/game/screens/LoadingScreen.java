@@ -10,6 +10,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
 
+/*
+* TODO: l'ordine degli screen va modificato in modo che il primo sia il LoadingScreen, poi il MainMenu. Questo sia per
+*  aggiungere gli assets del mainmenu all'assetmanager, sia per risolvere quindi il bug della doppia musica mainmenu e game
+ */
+
 public class LoadingScreen extends AbstractScreen {
 
     private Texture loadingTexture;
@@ -47,11 +52,6 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
-        /* TODO: press space to GameScreen only if assetManager loaded (decide if do it manually or automatically
-        * if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-        *   context.setScreen(ScreenType.GAME);
-        * }
-        */
 
         batch.begin();
         batch.draw(loadingTexture, 0, 0, 16, 9);

@@ -33,9 +33,9 @@ public class Player extends Entity {
         WALKR; //walk right
     }
 
-    /*
+    /**
      * Init TextureAtlas frames and related Animations
-     * */
+     */
     private void animationDef(){
         idleRight =new TextureAtlas(Gdx.files.internal("player/idle_right.atlas"));
         idleLeft=new TextureAtlas(Gdx.files.internal("player/idle_left.atlas"));

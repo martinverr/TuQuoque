@@ -5,6 +5,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.tuquoque.game.sprites.NPC;
 import com.tuquoque.game.sprites.Player;
 
+/*
+* TODO: non mi piace che si passi al costruttore l'array di npc, creerei un array vuoto inizialmente e aggiungerei il
+*  metodo "void add(NPC npc)". In futuro ci sarà un loop dal caller per creare tutti gli npc magari memorizzati in un enum
+*
+* TODO: L'uso di Circle secondo me è sostituibile con un raggio, in ogni caso il raggio, o il cerchio che sia, vanno
+*  presi dal NPC stesso con dei getter, così come hai fatto con getPosition().
+*
+* TODO: in update() invece di follow() chiamiamo un npc.eventTrigger(Player) e sarà il npc specifico a fare qualcosa quando
+*  il playere entra nel raggio d'azione, per esempio followare il player. follow() va spostato di conseguenza in una
+*  delle classi NPC.
+*
+* TODO: il follow mi piace un sacco, metterei una condizione in più, se all'interno di un raggio piccolo non deve muoversi
+*  così si ferma vicino al player. il raggio sarà poco più del raggio hitbox del Player. Questo per evitare che un alleato
+*  faccia ostruzione e sposti il player, ma viceversa. Se è un nemico invece attaccherà o va bene che lo ostruisca apposta.
+*  intanto sarà tutto all'interno del codice dell'npc stesso
+*  */
 public class NPC_handler {
 
     private final NPC[] npcs;

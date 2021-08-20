@@ -33,6 +33,8 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
+    private final int[] layers_1 ={0,1,2,3};
+    private final int[] layers_2 ={4,5,6,7};
 
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
@@ -73,9 +75,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
     @Override
     public void render(float delta) {
 
-        int[] layers_1 ={0,1,2,3};
-        int[] layers_2 ={4,5,6,7};
-
         elapsedTime+=Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
@@ -93,6 +92,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
                     true);
         }
 
+        //footsteps sound if player is moving
         if(playerB2D.B2DBody.getLinearVelocity().isZero())
             audioManager.stopLoopingSound(AudioType.FOOTSTEPS_STONE);
         else
@@ -100,14 +100,14 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         batch.begin();
         //drawing player
-
         batch.draw((TextureRegion) playerB2D.getCurrentAnimation().getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.65f,
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
         batch.end();
-        mapRenderer.render(layers_2);
 
+        //drawing last layers of the map
+        mapRenderer.render(layers_2);
 
 
         //camera follows player

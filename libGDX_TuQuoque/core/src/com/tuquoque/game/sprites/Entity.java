@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+/*
+* TODO: entityDef è specifico di player o NPC o NPC1 etc (possono avere caratteristiche fisiche diverse),
+*  farei di Entity una classe abstract e le classi figlie devono implementarne i metodi entityDef() e animationDef().
+*/
 public class Entity extends Sprite {
 
     //BOX2D stuff
