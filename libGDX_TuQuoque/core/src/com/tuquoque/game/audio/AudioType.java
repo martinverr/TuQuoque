@@ -24,8 +24,8 @@ public enum AudioType {
     CLICK1_LIGHT("audio/click_light.wav", TypeOfSound.SOUND, 0.5f),
     CLICK2_HEAVY("audio/click_heavy.wav", TypeOfSound.SOUND, 0.5f),
     CLICK3_SUCCESS("audio/click_success.wav", TypeOfSound.SOUND, 0.5f),
-    FOOTSTEPS_STONE("audio/footsteps/footsteps-stone-merged.wav",TypeOfSound.LOOPINGSOUND,1f),
-    FOOTSTEPS_CLEAN("audio/footsteps/clean-footstep.wav",TypeOfSound.LOOPINGSOUND,0.5f);
+    FOOTSTEPS_STONE("audio/footsteps/footsteps-stone.wav",TypeOfSound.LOOPINGSOUND,1f),
+    FOOTSTEPS_CLEAN("audio/footsteps/footsteps-clean.wav",TypeOfSound.LOOPINGSOUND,0.5f);
 
     private final String filePath;
     private final TypeOfSound typeOfSound;

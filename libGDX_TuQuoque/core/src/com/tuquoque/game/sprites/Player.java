@@ -7,17 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Player extends Sprite {
+public class Player extends Entity {
 
-    //BOX2D stuff
     private World world;
-    public Body B2DBody;
-    private BodyDef bodyDef;
-    private FixtureDef fixtureDef;
-
-    public final float NOMINAL_SPEED = 1.3f;
-    private float speedX;
-    private float speedY;
 
     //animation stuff
     private TextureAtlas idleRight;
@@ -41,26 +33,7 @@ public class Player extends Sprite {
         WALKR; //walk right
     }
 
-    /**
-     * Getters and setters of SpeedX and SpeedY
-     * */
-    public void setSpeedX(float speedX) {
-        this.speedX = speedX;
-    }
-
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
-    }
-
-    public float getSpeedX() {
-        return speedX;
-    }
-
-    public float getSpeedY() {
-        return speedY;
-    }
-
-    /**
+    /*
      * Init TextureAtlas frames and related Animations
      * */
     private void animationDef(){
@@ -76,38 +49,20 @@ public class Player extends Sprite {
     }
 
     /**
-     * Init Box2D Body of player (BodyDef and FixtureDef related)
-     *
-     * @param coords coordinates of bodyDef.position
-     * */
-    private void playerDef(Vector2 coords){
-        bodyDef = new BodyDef();
-        bodyDef.position.set(coords.x, coords.y);
-        bodyDef.gravityScale = 0;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        fixtureDef = new FixtureDef();
-        PolygonShape playerShape = new PolygonShape();
-        playerShape.setAsBox(0.4f,0.65f);
-        fixtureDef.shape = playerShape;
-
-        B2DBody = world.createBody(bodyDef);
-        B2DBody.createFixture(fixtureDef);
-    }
-
-    /**
     * Constructor of Player
      *
-     * Create the Box2D Body of the player and init the animations of the its texture
+     * Create the Box2D Body of the player and init the animations of its texture
      *
      * @param world Box2D World where the player will be defined
      * @param coords coordinates of where the player will be spawned
     * */
+
     public Player(World world, Vector2 coords){
+        super(world,coords);
         this.world = world;
 
         //Box2d B2DBody
-        playerDef(coords);
+        entityDef(coords);
         //Animation animations
         animationDef();
     }

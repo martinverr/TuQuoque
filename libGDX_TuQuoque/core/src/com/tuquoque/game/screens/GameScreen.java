@@ -14,7 +14,9 @@ import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
+import com.tuquoque.game.sprites.NPC;
 import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.utils.NPC_handler;
 import com.tuquoque.game.utils.WorldCreator;
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
@@ -22,9 +24,12 @@ import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 public class GameScreen extends AbstractScreen implements InputListener {
     //Player
     private final Player playerB2D;
+    private final NPC npc1;
+    private final NPC npc2;
     private final Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
     float elapsedTime=0;
     private boolean newMovementInput = false;
+    private NPC_handler npc_handler;
 
     //map
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -43,6 +48,8 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
+        npc1=new NPC(world, new Vector2(10,5));
+        npc2 = new NPC(world, new Vector2(12,8));
 
         //mapRenderer init
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, batch);
@@ -50,6 +57,9 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //mapObjects in B2D World creation
         new WorldCreator(world, mapRenderer.getMap());
+
+        // creating NPC_handler
+        npc_handler=new NPC_handler(new NPC[]{npc1, npc2}, playerB2D);
     }
 
     @Override
@@ -90,12 +100,15 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         batch.begin();
         //drawing player
+
         batch.draw((TextureRegion) playerB2D.getCurrentAnimation().getKeyFrame(elapsedTime,true),
                         playerB2D.B2DBody.getPosition().x - 0.65f,
                         playerB2D.B2DBody.getPosition().y -0.7f,
                         1.3f,1.6f);
         batch.end();
         mapRenderer.render(layers_2);
+
+
 
         //camera follows player
         gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
@@ -106,6 +119,9 @@ public class GameScreen extends AbstractScreen implements InputListener {
         //World of B2D
         world.step(delta, 6, 2);
         box2DDebugRenderer.render(world, gamecamera.combined);
+
+        npc_handler.update();
+
     }
 
     @Override
