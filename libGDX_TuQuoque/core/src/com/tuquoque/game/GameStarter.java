@@ -77,7 +77,7 @@ public class GameStarter extends Game {
 		inputManager= new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager));
 
-		setScreen(ScreenType.MAINMENU);
+		setScreen(ScreenType.LOADING);
 	}
 
 	public void setScreen(final ScreenType screenType){

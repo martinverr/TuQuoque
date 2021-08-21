@@ -58,7 +58,7 @@ public class LoadingScreen extends AbstractScreen {
         batch.end();
 
         if(assetManager.update()){
-            context.setScreen(ScreenType.GAME);
+            context.setScreen(ScreenType.MAINMENU);
         }
     }
 

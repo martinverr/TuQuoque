@@ -110,7 +110,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
             batch.draw(texture_playbutton_active, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
             if(Gdx.input.justTouched()){
                 BG.stop();
-                context.setScreen(ScreenType.LOADING);
+                context.setScreen(ScreenType.GAME);
                 themeMusic.pause();
                 clickButtonSound.play();
                 playButtonSound.play();
