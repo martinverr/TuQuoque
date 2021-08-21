@@ -5,72 +5,64 @@ import com.badlogic.gdx.math.Vector2;
 import com.tuquoque.game.sprites.NPC;
 import com.tuquoque.game.sprites.Player;
 
-/*
-* TODO: non mi piace che si passi al costruttore l'array di npc, creerei un array vuoto inizialmente e aggiungerei il
-*  metodo "void add(NPC npc)". In futuro ci sarà un loop dal caller per creare tutti gli npc magari memorizzati in un enum
-*
-* TODO: L'uso di Circle secondo me è sostituibile con un raggio, in ogni caso il raggio, o il cerchio che sia, vanno
-*  presi dal NPC stesso con dei getter, così come hai fatto con getPosition().
-*
-* TODO: in update() invece di follow() chiamiamo un npc.eventTrigger(Player) e sarà il npc specifico a fare qualcosa quando
-*  il playere entra nel raggio d'azione, per esempio followare il player. follow() va spostato di conseguenza in una
-*  delle classi NPC.
-*
-* TODO: il follow mi piace un sacco, metterei una condizione in più, se all'interno di un raggio piccolo non deve muoversi
-*  così si ferma vicino al player. il raggio sarà poco più del raggio hitbox del Player. Questo per evitare che un alleato
-*  faccia ostruzione e sposti il player, ma viceversa. Se è un nemico invece attaccherà o va bene che lo ostruisca apposta.
-*  intanto sarà tutto all'interno del codice dell'npc stesso
-*  */
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class NPC_handler {
 
-    private final NPC[] npcs;
-    private final Circle[] circles;
+    private final ArrayList<NPC> npcs;
     private final Player player;
 
-    public NPC_handler(NPC[] npcs, Player player) {
-        this.npcs=npcs;
+    /**
+     * Constructor, set the player and an empty npcs list
+     *
+     * @param player The player the NPCs will interact with
+     */
+    public NPC_handler(Player player) {
+        this.npcs= new ArrayList<NPC>();
         this.player=player;
-
-        circles=new Circle[npcs.length];
-        for(int i=0;i< circles.length;i++)
-            circles[i]=new Circle();
     }
 
+    /**
+     * Constructor v2, set the player and a beginning list of npcs
+     *
+     * @param npcs array of NPCs that will be added immediately
+     * @param player The player the NPCs will interact with
+     */
+    public NPC_handler(NPC[] npcs, Player player) {
+        this.player=player;
+
+        this.npcs= new ArrayList<NPC>();
+        this.npcs.addAll(Arrays.asList(npcs));
+    }
+
+    /**
+     * add a NPC to be managed by this NPC_handler
+     *
+     * @param npc NPC to be added
+     */
+    public void addNPC(NPC npc){
+        npcs.add(npc);
+    }
+
+    /**
+     * remove a NPC from this NPC_handler
+     *
+     * @param npc NPC to be removed
+     */
+    public void remove(NPC npc){
+        npcs.remove(npc);
+    }
+
+    /**
+     * For each npc check if they are in their action radius to the player, if so trigger their action
+     */
     public void update(){
-        for(int i=0;i<npcs.length;i++){
-            circles[i].setRadius(10);
-            circles[i].setPosition(npcs[i].B2DBody.getPosition());
-
-            // npc follows player
-
-            follow(npcs[i], player.B2DBody.getPosition(), circles[i]);
+        for(NPC npc : npcs){
+            if (npc.B2DBody.getPosition().dst(player.B2DBody.getPosition()) < npc.getActionRadius())
+                npc.actionTriggered(player);
         }
     }
     
-    public void follow(NPC npc, Vector2 coords, Circle circle){
 
-        // Checks if circle contains the given coords and applies a linear impulse to reach these coords
-
-        if(circle.contains(coords)) {
-            if(coords.x<npc.B2DBody.getPosition().x){
-                npc.setSpeedX(-npc.NOMINAL_SPEED/2);
-            }
-            else
-                npc.setSpeedX(npc.NOMINAL_SPEED/2);
-
-            if(coords.y<npc.B2DBody.getPosition().y){
-                npc.setSpeedY(-npc.NOMINAL_SPEED/2);
-            }
-            else
-                npc.setSpeedY(npc.NOMINAL_SPEED/2);
-        }
-        else{
-            npc.setSpeedX(0);
-            npc.setSpeedY(0);
-        }
-
-        npc.B2DBody.applyLinearImpulse(npc.getSpeedX()-npc.B2DBody.getLinearVelocity().x,
-                npc.getSpeedY()-npc.B2DBody.getLinearVelocity().y,
-                npc.B2DBody.getWorldCenter().x,npc.B2DBody.getWorldCenter().y,true);
-    }
 }

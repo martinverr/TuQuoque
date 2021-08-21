@@ -3,21 +3,16 @@ package com.tuquoque.game.sprites;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.tuquoque.game.GameStarter;
 
-/*
-* TODO: circle in NPC non viene usato, ma è giusto che sia qui e non in NPChandler, ogni NPC ne può avere uno
-*  diverso. Per questo serve anche un getter del Circle (o sostituirlo con un float raggio e lasciare all'handler il compito
-*  di creare il Circle).
-*
-* TODO: aggiungere un metodo chiamato dal NPChandler quando il player è nel suo raggio d'azione, il nome
-*  può essere qualcosa tipo eventTrigger-playerInRange etc...
-*/
 public class NPC extends Entity {
 
-    public Vector2 coords;
-    private Circle circle;
+    private Vector2 coords;
+    private float actionRadius = 10;
 
     /**
      * Constructor of NPC
@@ -34,4 +29,74 @@ public class NPC extends Entity {
         entityDef(coords);
     }
 
+    /**
+     * Init Box2D Body of entity (BodyDef and FixtureDef related)
+     *
+     * @param coords coordinates of bodyDef.position
+     * */
+    public void entityDef(Vector2 coords) {
+        bodyDef.position.set(coords.x, coords.y);
+        bodyDef.gravityScale=0;
+        bodyDef.type= BodyDef.BodyType.DynamicBody;
+
+        PolygonShape NPCShape = new PolygonShape();
+        NPCShape.setAsBox(0.4f,0.65f);
+        fixtureDef.shape = NPCShape;
+
+        B2DBody = world.createBody(bodyDef);
+        B2DBody.createFixture(fixtureDef);
+    }
+
+    /**
+     * getter of actionRadius
+     *
+     * @return the radius in which the npc is aware of the player
+     */
+    public float getActionRadius() {
+        return actionRadius;
+    }
+
+    public void setActionRadius(float actionRadius) {
+        this.actionRadius = actionRadius;
+    }
+
+    /**
+     * The NPC_handler will notify the NPC when the player enters in his action radius by this method
+     *
+     * This NPC just follows the player
+     *
+     * @param player player whom the npc will interact
+     */
+    public void actionTriggered(Player player){
+        follow(player);
+    }
+
+
+    private void follow(Player player){
+        Vector2 pcoords = player.B2DBody.getPosition();
+        coords = B2DBody.getPosition();
+
+        // check if not too close to player, then set speed to follow him
+        if(player.B2DBody.getPosition().dst(this.B2DBody.getPosition()) > 1.5f){
+            if(pcoords.x< coords.x)
+                setSpeedX(-NOMINAL_SPEED/2);
+            else
+                setSpeedX(NOMINAL_SPEED/2);
+
+            if(pcoords.y < coords.y)
+                setSpeedY(-NOMINAL_SPEED/2);
+            else
+                setSpeedY(NOMINAL_SPEED/2);
+        }
+        else{ //if too close stop
+            setSpeedX(0);
+            setSpeedY(0);
+        }
+
+        B2DBody.applyLinearImpulse(
+                getSpeedX()-B2DBody.getLinearVelocity().x,
+                getSpeedY()-B2DBody.getLinearVelocity().y,
+                B2DBody.getWorldCenter().x,B2DBody.getWorldCenter().y,true);
+
+    }
 }

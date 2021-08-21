@@ -25,8 +25,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
     //Player
     private final Player playerB2D;
     private final NPC npc1;
-    private final NPC npc2;
-    private final Vector2 savedPlayerCoords = new Vector2(8, 4.5f);
+    private final Vector2 savedPlayerCoords = new Vector2(11, 12.5f);
     float elapsedTime=0;
     private boolean newMovementInput = false;
     private NPC_handler npc_handler;
@@ -50,8 +49,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
-        npc1=new NPC(world, new Vector2(10,5));
-        npc2 = new NPC(world, new Vector2(12,8));
+        npc1=new NPC(world, new Vector2(15,13));
 
         //mapRenderer init
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, batch);
@@ -61,7 +59,12 @@ public class GameScreen extends AbstractScreen implements InputListener {
         new WorldCreator(world, mapRenderer.getMap());
 
         // creating NPC_handler
-        npc_handler=new NPC_handler(new NPC[]{npc1, npc2}, playerB2D);
+        npc_handler = new NPC_handler(new NPC[]{npc1}, playerB2D);
+        /*
+        * oppure
+        * npc_handler = new NPC_handler(playerB2D)
+        * npc_handler.addNPC(npc1);
+        */
     }
 
     @Override

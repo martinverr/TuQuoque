@@ -2,7 +2,6 @@ package com.tuquoque.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -49,6 +48,25 @@ public class Player extends Entity {
     }
 
     /**
+     * Init Box2D Body of entity (BodyDef and FixtureDef related)
+     *
+     * @param coords coordinates of bodyDef.position
+     * */
+    public void entityDef(Vector2 coords) {
+
+        bodyDef.position.set(coords.x, coords.y);
+        bodyDef.gravityScale=0;
+        bodyDef.type= BodyDef.BodyType.DynamicBody;
+
+        PolygonShape playerShape = new PolygonShape();
+        playerShape.setAsBox(0.4f,0.65f);
+        fixtureDef.shape = playerShape;
+
+        B2DBody = world.createBody(bodyDef);
+        B2DBody.createFixture(fixtureDef);
+    }
+
+    /**
     * Constructor of Player
      *
      * Create the Box2D Body of the player and init the animations of its texture
@@ -56,7 +74,6 @@ public class Player extends Entity {
      * @param world Box2D World where the player will be defined
      * @param coords coordinates of where the player will be spawned
     * */
-
     public Player(World world, Vector2 coords){
         super(world,coords);
         this.world = world;
@@ -66,6 +83,7 @@ public class Player extends Entity {
         //Animation animations
         animationDef();
     }
+
 
     /**
     * getters of animations
