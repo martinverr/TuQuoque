@@ -11,9 +11,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
 
-/*
-* TODO: aggiungere gli assets del mainmenu all'assetmanager, sia per risolvere quindi il bug della doppia musica mainmenu e game
- */
 
 public class LoadingScreen extends AbstractScreen {
 

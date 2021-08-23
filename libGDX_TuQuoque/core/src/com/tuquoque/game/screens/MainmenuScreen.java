@@ -1,13 +1,13 @@
 package com.tuquoque.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
@@ -22,16 +22,12 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
     private final float SETT_BUTT_WIDTH = 5.5F;
     private final float SETT_BUTT_HEIGHT = 0.75F;
 
-
+    private AssetManager assetManager;
     private MovingTexture BG;
     private Texture texture_playbutton_active;
     private Texture texture_playbutton_inactive;
     private Texture texture_settingsbutton_active;
     private Texture texture_settingsbutton_inactive;
-
-    private Sound clickButtonSound;
-    private Sound playButtonSound;
-    private Music themeMusic;
 
     private Vector3 coordsPointed;
 
@@ -49,7 +45,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         //Others
         camera = context.getCamera();
         coordsPointed = new Vector3();
-
+        assetManager = context.getAssetManager();
         //texture
         BG = new MovingTexture(Gdx.files.internal("background/cesaricidio.jpg"), -1f, -1f, -0.5f, -0.5f);
         BG.setWidth(32);
@@ -58,12 +54,6 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         texture_playbutton_inactive = new Texture(Gdx.files.internal("buttons/playbutton_lightgrey.png"));
         texture_settingsbutton_active = new Texture(Gdx.files.internal("buttons/settingsbutton_red.png"));
         texture_settingsbutton_inactive = new Texture(Gdx.files.internal("buttons/settingsbutton_lightgrey.png"));
-
-        //Sound and Music
-        clickButtonSound = Gdx.audio.newSound(Gdx.files.internal("audio/click_heavy.wav"));
-        playButtonSound = Gdx.audio.newSound(Gdx.files.internal("audio/click_success.wav"));
-        themeMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/background-theme-1.wav"));
-        themeMusic.setLooping(true);
     }
 
     /**
@@ -76,7 +66,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
         batch.setProjectionMatrix(camera.combined);
-        themeMusic.play();
+        audioManager.playAudio(AudioType.THEME1);
         BG.resume();
         inputManager.addInputListener(this);
     }
@@ -110,10 +100,10 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
             batch.draw(texture_playbutton_active, 8-PLAY_BUTT_WIDTH/2, 1, PLAY_BUTT_WIDTH, PLAY_BUTT_HEIGHT);
             if(Gdx.input.justTouched()){
                 BG.stop();
+                audioManager.playAudio(AudioType.CLICK2_HEAVY);
+                audioManager.playAudio(AudioType.CLICK3_SUCCESS);
+
                 context.setScreen(ScreenType.GAME);
-                themeMusic.pause();
-                clickButtonSound.play();
-                playButtonSound.play();
             }
         }
 
@@ -123,7 +113,8 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
                 coordsPointed.y < 2.5f + SETT_BUTT_HEIGHT && coordsPointed.y > 2.5f) {
             batch.draw(texture_settingsbutton_active, 8 - SETT_BUTT_WIDTH / 2, 2.5f, SETT_BUTT_WIDTH, SETT_BUTT_HEIGHT);
             if (Gdx.input.justTouched()) {
-                clickButtonSound.play();
+                audioManager.playAudio(AudioType.CLICK2_HEAVY);
+
                 context.setScreen(ScreenType.SETTINGS);
             }
         }
@@ -162,11 +153,6 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
     */
     @Override
     public void dispose() {
-        //Sound and Music
-        clickButtonSound.dispose();
-        playButtonSound.dispose();
-        themeMusic.dispose();
-
         //Texture
         BG.dispose();
         texture_playbutton_inactive.dispose();
@@ -185,9 +171,8 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         switch (key){
             case NEXT: //set screen 'LOADING'
                 BG.stop();
+                audioManager.playAudio(AudioType.CLICK3_SUCCESS);
                 context.setScreen(ScreenType.GAME);
-                themeMusic.pause();
-                playButtonSound.play();
             default:
                 break;
         }
