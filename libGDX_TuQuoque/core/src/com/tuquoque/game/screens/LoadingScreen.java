@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -11,19 +12,18 @@ import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
 
 /*
-* TODO: l'ordine degli screen va modificato in modo che il primo sia il LoadingScreen, poi il MainMenu. Questo sia per
-*  aggiungere gli assets del mainmenu all'assetmanager, sia per risolvere quindi il bug della doppia musica mainmenu e game
+* TODO: aggiungere gli assets del mainmenu all'assetmanager, sia per risolvere quindi il bug della doppia musica mainmenu e game
  */
 
 public class LoadingScreen extends AbstractScreen {
 
-    private Texture loadingTexture;
-
-    private AssetManager assetManager;
+    private final Texture loadingTexture;
+    private final Camera camera;
+    private final AssetManager assetManager;
 
     public LoadingScreen(final GameStarter context){
         super(context);
-
+        camera = context.getCamera();
         loadingTexture = new Texture(Gdx.files.internal("background/loading.png"));
 
         //AssetManager
@@ -47,6 +47,7 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void show() {
         ScreenUtils.clear(0, 0, 0, 1);
+        batch.setProjectionMatrix(camera.combined);
     }
 
     @Override

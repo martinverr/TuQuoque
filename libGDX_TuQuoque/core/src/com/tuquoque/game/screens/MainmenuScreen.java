@@ -185,7 +185,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         switch (key){
             case NEXT: //set screen 'LOADING'
                 BG.stop();
-                context.setScreen(ScreenType.LOADING);
+                context.setScreen(ScreenType.GAME);
                 themeMusic.pause();
                 playButtonSound.play();
             default:
