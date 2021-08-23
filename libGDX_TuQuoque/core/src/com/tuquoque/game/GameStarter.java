@@ -5,15 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -31,7 +36,6 @@ public class GameStarter extends Game {
 	private FitViewport viewport;
 	private SpriteBatch batch;
 
-
 	//box2D vars and constants
 	private float accumulator;
 	private static final float FIXED_TIME_STAMP = 1/60f;
@@ -44,6 +48,8 @@ public class GameStarter extends Game {
 	//assetManager
 	private AssetManager assetManager;
 
+	//Skin
+	private Skin skin;
 	//other manager
 	private AudioManager audioManager;
 	private InputManager inputManager;
@@ -69,6 +75,9 @@ public class GameStarter extends Game {
 		//AssetManager
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
+		//ttf skin
+		skinInit();
 
 		//AudioManager
 		audioManager = new AudioManager(assetManager);
@@ -154,6 +163,25 @@ public class GameStarter extends Game {
 	 */
 	public AudioManager getAudioManager() {
 		return audioManager;
+	}
+
+	private void skinInit(){
+		final ObjectMap<String, Object> resources = new ObjectMap<String, Object>();
+		final FreeTypeFontGenerator FTFontGen = new FreeTypeFontGenerator(Gdx.files.internal("ui/Pixelmania.ttf"));
+		final FreeTypeFontGenerator.FreeTypeFontParameter FTFontPar= new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FTFontPar.minFilter = Texture.TextureFilter.Linear;
+		FTFontPar.magFilter = Texture.TextureFilter.Linear;
+		final int[] sizesFont = {16,20,26,32};
+		for(int size : sizesFont){
+			FTFontPar.size = size;
+			resources.put("font_"+size, FTFontGen.generateFont(FTFontPar));
+		}
+		FTFontGen.dispose();
+
+		final SkinLoader.SkinParameter skinPar = new SkinLoader.SkinParameter ("ui/hud.atlas", resources);
+		assetManager.load("ui/hud.json", Skin.class, skinPar);
+		assetManager.finishLoading();
+		skin = assetManager.get("ui/hud.json", Skin.class);
 	}
 
 	/**
