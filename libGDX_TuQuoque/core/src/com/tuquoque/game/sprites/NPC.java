@@ -9,6 +9,7 @@ public class NPC extends Entity {
 
     private Vector2 coords;
     private float actionRadius = 10;
+    float NPCspeed = NOMINAL_SPEED * 0.5f;
 
     /**
      * Constructor of NPC
@@ -52,6 +53,9 @@ public class NPC extends Entity {
         return actionRadius;
     }
 
+    /**
+     * setter of actionRadius
+     */
     public void setActionRadius(float actionRadius) {
         this.actionRadius = actionRadius;
     }
@@ -71,18 +75,28 @@ public class NPC extends Entity {
     private void follow(Player player){
         Vector2 pcoords = player.B2DBody.getPosition();
         coords = B2DBody.getPosition();
+        float distance = player.B2DBody.getPosition().dst(this.B2DBody.getPosition());
 
         // check if not too close to player, then set speed to follow him
-        if(player.B2DBody.getPosition().dst(this.B2DBody.getPosition()) > 1.5f){
+        if(distance > 1.5f){
+            //adjust speed
+            if (distance > 6){ //speed increments if npc is getting far
+                NPCspeed *= 1.5f;
+            }
+            if (distance < 3){ //speed returns normal
+                NPCspeed = NOMINAL_SPEED * 0.5f;
+            }
+
+            //set speed to the body
             if(pcoords.x< coords.x)
-                setSpeedX(-NOMINAL_SPEED/2);
+                setSpeedX(-NPCspeed);
             else
-                setSpeedX(NOMINAL_SPEED/2);
+                setSpeedX(NPCspeed);
 
             if(pcoords.y < coords.y)
-                setSpeedY(-NOMINAL_SPEED/2);
+                setSpeedY(-NPCspeed);
             else
-                setSpeedY(NOMINAL_SPEED/2);
+                setSpeedY(NPCspeed);
         }
         else{ //if too close stop
             setSpeedX(0);
