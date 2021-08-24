@@ -140,7 +140,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
     */
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        super.resize(width, height);
     }
 
     @Override
