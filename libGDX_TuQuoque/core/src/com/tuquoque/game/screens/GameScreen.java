@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
@@ -16,6 +18,7 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.sprites.NPC;
 import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.NPC_handler;
 import com.tuquoque.game.utils.WorldCreator;
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
@@ -65,6 +68,11 @@ public class GameScreen extends AbstractScreen implements InputListener {
         * npc_handler = new NPC_handler(playerB2D)
         * npc_handler.addNPC(npc1);
         */
+    }
+
+    @Override
+    protected Table getScreenUI(Skin skin) {
+        return new GameUI(stage, skin);
     }
 
     @Override

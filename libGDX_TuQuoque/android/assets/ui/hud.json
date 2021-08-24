@@ -9,6 +9,10 @@
   },
 
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+    "debug": {
+      "font": "font2_16",
+      "fontColor": "white"
+    },
     "normal": {
       "font": "font_20",
       "fontColor": "white"
@@ -29,24 +33,9 @@
 
   "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
     "default": {
-      "background": "after",
-      "knob": "activated",
-      "knobBefore": "before"
+      "background": "deactivated",
+      "knob": "after",
+      "knobBefore": "activated"
     }
-  },
-
-  "com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {
-
-    "default": {
-      "background": "after",
-      "knob": "activated",
-      "knobBefore": "before"
-    },
-
-    "deactivated": {
-      "background": "after",
-      "knob": "deactivated",
-      "knobBefore": "before"
-    }
-  }
-  }
+  } 
+}

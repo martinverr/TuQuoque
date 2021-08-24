@@ -4,6 +4,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioManager;
@@ -16,7 +19,9 @@ public abstract class AbstractScreen implements Screen {
    protected final Box2DDebugRenderer box2DDebugRenderer;
    protected final SpriteBatch batch;
    protected final InputManager inputManager;
-    protected final AudioManager audioManager;
+   protected final AudioManager audioManager;
+   protected final Stage stage;
+   protected  final Table screenUI;
 
    public AbstractScreen(final GameStarter context){
        this.context = context;
@@ -26,11 +31,26 @@ public abstract class AbstractScreen implements Screen {
        this.box2DDebugRenderer = context.getBox2DDebugRenderer();
        this.inputManager = context.getInputManager();
        this.audioManager = context.getAudioManager();
+
+       stage = context.getStage();
+       screenUI = getScreenUI(context.getSkin());
    }
+
+   protected abstract Table getScreenUI(final Skin skin);
 
     @Override
     public void resize(int width, int height) {
        viewport.update(width, height);
+       stage.getViewport().update(width, height, true);
     }
 
+    @Override
+    public void show(){
+        stage.addActor(screenUI);
+    }
+
+    @Override
+    public void hide(){
+        stage.getRoot().removeActor(screenUI);
+    }
 }

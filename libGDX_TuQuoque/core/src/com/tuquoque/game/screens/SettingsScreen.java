@@ -1,5 +1,7 @@
 package com.tuquoque.game.screens;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.input.GameKeys;
@@ -17,8 +19,14 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
     }
 
     @Override
+    protected Table getScreenUI(Skin skin) {
+        return null;
+    }
+
+    @Override
     public void show() {
         ScreenUtils.clear(1, 1, 1, 1);
+        inputManager.addInputListener(this);
     }
 
     @Override
@@ -39,7 +47,7 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
 
     @Override
     public void hide() {
-
+        inputManager.removeInputListener(this);
     }
 
     @Override

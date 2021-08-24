@@ -5,12 +5,15 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
+import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.MovingTexture;
 
 
@@ -56,6 +59,11 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         texture_settingsbutton_inactive = new Texture(Gdx.files.internal("buttons/settingsbutton_lightgrey.png"));
     }
 
+    @Override
+    protected Table getScreenUI(Skin skin) {
+        return new GameUI(stage, skin);
+    }
+
     /**
      * Every time this Screen is shown (after pause() or other Screen gamestate
      *  clear OpenGL screen
@@ -87,6 +95,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
         coordsPointed.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(coordsPointed);
 
+        //batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         //draw moving background
