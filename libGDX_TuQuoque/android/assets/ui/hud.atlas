@@ -1,41 +1,118 @@
 
 hud.png
-size: 64, 64
+size: 1024, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 afterBar
   rotate: false
-  xy: 49, 2
+  xy: 643, 76
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 54, 2
+  xy: 648, 76
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
+hotbarBegin
+  rotate: false
+  xy: 530, 78
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+hotbarEnd
+  rotate: false
+  xy: 2, 12
+  size: 66, 48
+  orig: 66, 48
+  offset: 0, 0
+  index: -1
+hotbarMid
+  rotate: false
+  xy: 70, 12
+  size: 50, 48
+  orig: 50, 48
+  offset: 0, 0
+  index: -1
+inventoryIconActive
+  rotate: false
+  xy: 386, 46
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
+inventoryIconInactive.png
+  rotate: false
+  xy: 458, 46
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
 knobBar
   rotate: false
-  xy: 40, 2
+  xy: 634, 76
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 21, 2
+  xy: 615, 76
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 2, 2
+  xy: 596, 76
   size: 17, 50
   orig: 17, 50
+  offset: 0, 0
+  index: -1
+menuIconActivate
+  rotate: false
+  xy: 295, 64
+  size: 89, 62
+  orig: 89, 62
+  offset: 0, 0
+  index: -1
+menuIconInactive.png
+  rotate: false
+  xy: 204, 64
+  size: 89, 62
+  orig: 89, 62
+  offset: 0, 0
+  index: -1
+playerStatus
+  rotate: false
+  xy: 2, 62
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+playerStatusExp
+  rotate: false
+  xy: 5, 2
+  size: 1, 8
+  orig: 1, 8
+  offset: 0, 0
+  index: -1
+playerStatusHealth
+  rotate: false
+  xy: 2, 2
+  size: 1, 8
+  orig: 1, 8
+  offset: 0, 0
+  index: -1
+playerStatusMana
+  rotate: false
+  xy: 8, 2
+  size: 1, 8
+  orig: 1, 8
   offset: 0, 0
   index: -1

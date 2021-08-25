@@ -2,6 +2,7 @@ package com.tuquoque.game.screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,7 @@ import com.tuquoque.game.sprites.Player;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.NPC_handler;
 import com.tuquoque.game.utils.WorldCreator;
+
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
 
