@@ -25,8 +25,9 @@ public class LoadingUI extends Table {
         add(currentLoadingAsset).expandX().fillX().bottom().colspan(2);
         row();
 
-        add(new Image(skin.getDrawable("before"))).width(50).padLeft(25);
-        add(progressBar).expandX().fillX().bottom().pad(20,0,20,25).prefWidth(1200);
+        add(new Image(skin.getDrawable("loadingBarBegin"))).width(50).padLeft(25);
+        add(progressBar).expandX().fillX().bottom().pad(20,0,20, 0).prefWidth(1200);
+        add(new Image(skin.getDrawable("loadingBarEnd"))).width(50).padRight(25);
         bottom();
         //setDebug(true);
     }
