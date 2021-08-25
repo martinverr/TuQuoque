@@ -33,9 +33,9 @@
 
   "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
     "default": {
-      "background": "deactivated",
-      "knob": "after",
-      "knobBefore": "activated"
+      "background": "beforeBar",
+      "knob": "knobBar",
+      "knobBefore": "afterBar"
     }
   } 
 }

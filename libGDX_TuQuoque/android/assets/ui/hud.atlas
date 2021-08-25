@@ -4,31 +4,38 @@ size: 64, 64
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-activated
+afterBar
   rotate: false
-  xy: 40, 2
+  xy: 49, 2
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
-after
+beforeBar
+  rotate: false
+  xy: 54, 2
+  size: 3, 50
+  orig: 3, 50
+  offset: 0, 0
+  index: -1
+knobBar
+  rotate: false
+  xy: 40, 2
+  size: 7, 50
+  orig: 7, 50
+  offset: 0, 0
+  index: -1
+loadingBarBegin
   rotate: false
   xy: 21, 2
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
-before
+loadingBarEnd
   rotate: false
   xy: 2, 2
   size: 17, 50
   orig: 17, 50
-  offset: 0, 0
-  index: -1
-deactivated
-  rotate: false
-  xy: 45, 2
-  size: 3, 50
-  orig: 3, 50
   offset: 0, 0
   index: -1
