@@ -38,7 +38,6 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
 
         // Setting up stage
         stage=new Stage(new FitViewport(1280,720));
-        Gdx.input.setInputProcessor(stage);
 
         // Actors
         music_ON_active=new Image(new Texture(Gdx.files.internal("buttons/music_ON_red.png")));
