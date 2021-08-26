@@ -29,7 +29,8 @@ public class GameUI extends Table {
         Button inventory = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
 
         //widgets 2nd row
-        Image playerStatus = new Image(skin.getDrawable("playerStatus"));   //sarà un table da noi definito in futuro
+        PlayerStatus playerStatus = new PlayerStatus(skin);
+                //(skin.getDrawable("playerStatus"));   //sarà un table da noi definito in futuro
         Hotbar hotbar = new Hotbar(skin);
 
 
@@ -68,19 +69,20 @@ class Hotbar extends Table{
     }
 }
 
-class playerStatus extends Table{
+class PlayerStatus extends Table{
 
-    public playerStatus(Skin skin){
+    VerticalGroup bars;
+
+    public PlayerStatus(Skin skin){
         super(skin);
         setDebug(true);
+        bars = new VerticalGroup();
+        bars.addActor().size(102,15).pad(4,0,2,0);
+        bars.addActor().size(102,15).pad(2,0,2,0);
+        bars.addActor().size(102,15).pad(2,0,4,0);
 
         add().size(74,64).colspan(3);
-        add().size(102,15).pad(4,0,2,0);
         add().size(21,64).colspan(3);
 
-        row();
-        add().size(102,15).pad(2,0,2,0);
-        row();
-        add().size(102,15).pad(2,0,4,0);
     }
 }

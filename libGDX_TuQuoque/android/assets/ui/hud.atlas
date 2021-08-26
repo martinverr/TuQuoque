@@ -144,24 +144,31 @@ playerStatus
   orig: 300, 96
   offset: 0, 0
   index: -1
+playerStatusBG
+  rotate: false
+  xy: 87, 38
+  size: 1, 12
+  orig: 1, 12
+  offset: 0, 0
+  index: -1
 playerStatusExp
   rotate: false
-  xy: 87, 42
+  xy: 1627, 96
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
   index: -1
 playerStatusHealth
   rotate: false
-  xy: 1555, 62
-  size: 1, 8
-  orig: 1, 8
+  xy: 1555, 58
+  size: 1, 12
+  orig: 1, 12
   offset: 0, 0
   index: -1
 playerStatusMana
   rotate: false
-  xy: 2022, 130
-  size: 1, 8
-  orig: 1, 8
+  xy: 2022, 126
+  size: 1, 12
+  orig: 1, 12
   offset: 0, 0
   index: -1
