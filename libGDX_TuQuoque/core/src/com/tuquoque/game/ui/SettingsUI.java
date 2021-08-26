@@ -7,5 +7,7 @@ public class SettingsUI extends Table {
     public SettingsUI(Skin skin) {
         super(skin);
         setFillParent(true);
+
+
     }
 }
