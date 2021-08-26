@@ -1,138 +1,166 @@
 
 hud.png
-size: 1024, 128
+size: 2048, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 afterBar
   rotate: false
-  xy: 853, 58
+  xy: 2041, 204
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 858, 58
+  xy: 1655, 106
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 hotbarBegin
   rotate: false
-  xy: 828, 60
+  xy: 71, 2
   size: 14, 48
   orig: 14, 48
   offset: 0, 0
   index: -1
 hotbarEnd
   rotate: false
-  xy: 811, 60
+  xy: 54, 2
   size: 15, 48
   orig: 15, 48
   offset: 0, 0
   index: -1
 hotbarMid
   rotate: false
-  xy: 721, 60
+  xy: 2, 2
   size: 50, 48
   orig: 50, 48
   offset: 0, 0
   index: -1
 inventoryIconActive
   rotate: false
-  xy: 577, 28
+  xy: 1950, 110
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive
   rotate: false
-  xy: 649, 28
+  xy: 1555, 72
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive.png
   rotate: false
-  xy: 649, 28
+  xy: 1555, 72
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 knobBar
   rotate: false
-  xy: 844, 58
+  xy: 1646, 106
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 792, 58
+  xy: 1627, 106
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 773, 58
+  xy: 2022, 140
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 menuIconActivate
   rotate: false
-  xy: 486, 46
+  xy: 1859, 128
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconActive
   rotate: false
-  xy: 395, 46
+  xy: 1950, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive.png
   rotate: false
-  xy: 304, 46
+  xy: 1859, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive
   rotate: false
-  xy: 304, 46
+  xy: 1859, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
+music_OFF_red
+  rotate: false
+  xy: 2, 52
+  size: 822, 99
+  orig: 822, 99
+  offset: 0, 0
+  index: -1
+music_OFF_white
+  rotate: false
+  xy: 2, 153
+  size: 822, 101
+  orig: 822, 101
+  offset: 0, 0
+  index: -1
+music_ON_red
+  rotate: false
+  xy: 826, 154
+  size: 729, 100
+  orig: 729, 100
+  offset: 0, 0
+  index: -1
+music_ON_white
+  rotate: false
+  xy: 826, 55
+  size: 727, 97
+  orig: 727, 97
+  offset: 0, 0
+  index: -1
 playerStatus
   rotate: false
-  xy: 2, 12
+  xy: 1557, 158
   size: 300, 96
   orig: 300, 96
   offset: 0, 0
   index: -1
 playerStatusExp
   rotate: false
-  xy: 304, 36
+  xy: 87, 42
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
   index: -1
 playerStatusHealth
   rotate: false
-  xy: 2, 2
+  xy: 1555, 62
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
   index: -1
 playerStatusMana
   rotate: false
-  xy: 721, 50
+  xy: 2022, 130
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
