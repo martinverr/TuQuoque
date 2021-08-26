@@ -3,8 +3,6 @@ package com.tuquoque.game.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
-import java.util.Locale;
-
 public class LoadingUI extends Table {
     private final ProgressBar progressBar;
     private final TextButton loadingText;
