@@ -67,3 +67,20 @@ class Hotbar extends Table{
         add(new Image(skin.getDrawable("hotbarEnd"))).bottom().expandX().left();
     }
 }
+
+class playerStatus extends Table{
+
+    public playerStatus(Skin skin){
+        super(skin);
+        setDebug(true);
+
+        add().size(74,64).colspan(3);
+        add().size(102,15).pad(4,0,2,0);
+        add().size(21,64).colspan(3);
+
+        row();
+        add().size(102,15).pad(2,0,2,0);
+        row();
+        add().size(102,15).pad(2,0,4,0);
+    }
+}
