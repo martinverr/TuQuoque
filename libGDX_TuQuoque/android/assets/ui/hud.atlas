@@ -6,98 +6,119 @@ filter: Nearest, Nearest
 repeat: none
 afterBar
   rotate: false
-  xy: 643, 76
+  xy: 853, 58
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 648, 76
+  xy: 858, 58
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 hotbarBegin
   rotate: false
-  xy: 530, 78
-  size: 64, 48
-  orig: 64, 48
+  xy: 828, 60
+  size: 14, 48
+  orig: 14, 48
   offset: 0, 0
   index: -1
 hotbarEnd
   rotate: false
-  xy: 2, 12
-  size: 66, 48
-  orig: 66, 48
+  xy: 811, 60
+  size: 15, 48
+  orig: 15, 48
   offset: 0, 0
   index: -1
 hotbarMid
   rotate: false
-  xy: 70, 12
+  xy: 721, 60
   size: 50, 48
   orig: 50, 48
   offset: 0, 0
   index: -1
 inventoryIconActive
   rotate: false
-  xy: 386, 46
+  xy: 577, 28
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive
   rotate: false
-  xy: 458, 46
+  xy: 649, 28
+  size: 70, 80
+  orig: 70, 80
+  offset: 0, 0
+  index: -1
+inventoryIconInactive.png
+  rotate: false
+  xy: 649, 28
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 knobBar
   rotate: false
-  xy: 634, 76
+  xy: 844, 58
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 615, 76
+  xy: 792, 58
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 596, 76
+  xy: 773, 58
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
+menuIconActivate
+  rotate: false
+  xy: 486, 46
+  size: 89, 62
+  orig: 89, 62
+  offset: 0, 0
+  index: -1
 menuIconActive
   rotate: false
-  xy: 295, 64
+  xy: 395, 46
+  size: 89, 62
+  orig: 89, 62
+  offset: 0, 0
+  index: -1
+menuIconInactive.png
+  rotate: false
+  xy: 304, 46
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive
   rotate: false
-  xy: 204, 64
+  xy: 304, 46
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 playerStatus
   rotate: false
-  xy: 2, 62
-  size: 200, 64
-  orig: 200, 64
+  xy: 2, 12
+  size: 300, 96
+  orig: 300, 96
   offset: 0, 0
   index: -1
 playerStatusExp
   rotate: false
-  xy: 5, 2
+  xy: 304, 36
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
@@ -111,7 +132,7 @@ playerStatusHealth
   index: -1
 playerStatusMana
   rotate: false
-  xy: 8, 2
+  xy: 721, 50
   size: 1, 8
   orig: 1, 8
   offset: 0, 0
