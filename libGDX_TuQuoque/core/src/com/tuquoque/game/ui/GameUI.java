@@ -1,17 +1,22 @@
 package com.tuquoque.game.ui;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.screens.ScreenType;
 
+import java.util.ArrayList;
+
 public class GameUI extends Table {
 
     public GameUI(final GameStarter context, final Skin skin){
         super(skin);
+
+        //table properties
         setFillParent(true);
+        pad(20);
+        setDebug(false);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -25,23 +30,40 @@ public class GameUI extends Table {
 
         //widgets 2nd row
         Image playerStatus = new Image(skin.getDrawable("playerStatus"));   //sarà un table da noi definito in futuro
-        Image hotbarBegin = new Image(skin.getDrawable("hotbarBegin"));     //cambiare l'immagine dell'hud per avere solo la parte fissa a sx
-        Image hotbar = new Image(skin.getDrawable("hotbarMid"));            //sarà un table da noi definito in futuro
-        Image hotbarEnd = new Image(skin.getDrawable("hotbarEnd"));         //cambiare l'immagine dell'hud per avere solo la parte fissa a dx
+        Hotbar hotbar = new Hotbar(skin);
 
-        //table properties
-        pad(20);
-        setDebug(false);
 
         //first row
         add(menu).top().left();
-        add(inventory).expandX().colspan(3).top().right();
+        add(inventory).expandX().top().right();
         row();
 
         //second row
         add(playerStatus).expandY().bottom();
-        add(hotbarBegin).expandX().bottom().right();
-        add(hotbar).bottom();
-        add(hotbarEnd).bottom().expandX().left();
+        add(hotbar).bottom().padRight(playerStatus.getWidth());
+    }
+}
+
+
+
+class Hotbar extends Table{
+    ArrayList<Stack> slots;
+
+    public Hotbar(Skin skin){
+        super(skin);
+        slots = new ArrayList<>(8);
+
+        setScale(1.5f);
+        setDebug(false);
+
+
+        add(new Image(skin.getDrawable("hotbarBegin"))).expandX().bottom().right();
+        for(int i=0; i<8; i++){
+            Stack currentStack = new Stack();
+            currentStack.add(new Image(skin.getDrawable("hotbarMid")));
+            add(currentStack);
+            slots.add(currentStack);
+        }
+        add(new Image(skin.getDrawable("hotbarEnd"))).bottom().expandX().left();
     }
 }

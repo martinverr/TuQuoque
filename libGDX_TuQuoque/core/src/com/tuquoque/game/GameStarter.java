@@ -66,7 +66,7 @@ public class GameStarter extends Game {
 		box2DDebugRenderer = new Box2DDebugRenderer();
 
 		// Invisible hitboxes
-		//box2DDebugRenderer.setDrawBodies(false);
+		box2DDebugRenderer.setDrawBodies(false);
 		accumulator = 0;
 
 		//Camera, viewport, batch

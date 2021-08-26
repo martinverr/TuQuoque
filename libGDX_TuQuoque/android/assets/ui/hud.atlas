@@ -6,35 +6,35 @@ filter: Nearest, Nearest
 repeat: none
 afterBar
   rotate: false
-  xy: 643, 76
+  xy: 80, 10
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 648, 76
+  xy: 85, 10
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 hotbarBegin
   rotate: false
-  xy: 530, 78
-  size: 64, 48
-  orig: 64, 48
+  xy: 568, 78
+  size: 14, 48
+  orig: 14, 48
   offset: 0, 0
   index: -1
 hotbarEnd
   rotate: false
-  xy: 2, 12
-  size: 66, 48
-  orig: 66, 48
+  xy: 54, 12
+  size: 15, 48
+  orig: 15, 48
   offset: 0, 0
   index: -1
 hotbarMid
   rotate: false
-  xy: 70, 12
+  xy: 2, 12
   size: 50, 48
   orig: 50, 48
   offset: 0, 0
@@ -55,21 +55,21 @@ inventoryIconInactive
   index: -1
 knobBar
   rotate: false
-  xy: 634, 76
+  xy: 71, 10
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 615, 76
+  xy: 549, 76
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 596, 76
+  xy: 530, 76
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
