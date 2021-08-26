@@ -74,12 +74,12 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return new GameUI(stage, skin);
+        return new GameUI(context, skin);
     }
 
     @Override
     public void show() {
-        ScreenUtils.clear(0, 0, 0, 1);
+        super.show();
         inputManager.addInputListener(this);
         audioManager.playAudio(AudioType.AMBIENT_PALATINO);
     }
@@ -154,6 +154,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
     @Override
     public void hide() {
+        super.hide();
         inputManager.removeInputListener(this);
     }
 
@@ -184,13 +185,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
                 newMovementInput = true;
                 playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
                 break;
-
-            /*
-            * Screens
-            */
-            case BACK:
-                savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
-                context.setScreen(ScreenType.MAINMENU);
 
             /*
              * BOX2D DEBUG COMMANDS
@@ -228,6 +222,14 @@ public class GameScreen extends AbstractScreen implements InputListener {
                 newMovementInput = true;
                 playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.LEFT) ? -playerB2D.NOMINAL_SPEED : 0);
                 break;
+
+            /*
+             * Screens
+             */
+            case BACK:
+                savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
+                context.setScreen(ScreenType.MAINMENU);
+
             default:
                 break;
         }

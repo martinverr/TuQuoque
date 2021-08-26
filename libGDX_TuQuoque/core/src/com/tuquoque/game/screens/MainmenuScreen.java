@@ -61,7 +61,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return new GameUI(stage, skin);
+        return null;
     }
 
     /**

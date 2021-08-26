@@ -46,7 +46,7 @@ inventoryIconActive
   orig: 70, 80
   offset: 0, 0
   index: -1
-inventoryIconInactive.png
+inventoryIconInactive
   rotate: false
   xy: 458, 46
   size: 70, 80
@@ -74,14 +74,14 @@ loadingBarEnd
   orig: 17, 50
   offset: 0, 0
   index: -1
-menuIconActivate
+menuIconActive
   rotate: false
   xy: 295, 64
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
-menuIconInactive.png
+menuIconInactive
   rotate: false
   xy: 204, 64
   size: 89, 62

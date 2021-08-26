@@ -90,7 +90,7 @@ public class GameStarter extends Game {
 
 		//input
 		inputManager= new InputManager();
-		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager));
+		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
 
 		setScreen(ScreenType.LOADING);
 	}
