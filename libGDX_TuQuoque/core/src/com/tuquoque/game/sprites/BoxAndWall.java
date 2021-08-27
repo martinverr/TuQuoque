@@ -33,5 +33,6 @@ public class BoxAndWall {
         shape.setAsBox(rect.getWidth()/2*UNIT_SCALE, rect.getHeight()/2*UNIT_SCALE);
         fdef.shape = shape;
         body.createFixture(fdef);
+        body.setUserData("GROUND");
         }
 }

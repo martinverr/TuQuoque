@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.tuquoque.game.audio.AudioManager;
 import com.tuquoque.game.input.InputManager;
+import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.screens.ScreenType;
 
 import java.util.EnumMap;
@@ -50,6 +51,9 @@ public class GameStarter extends Game {
 	//assetManager
 	private AssetManager assetManager;
 
+	//mapManager
+	private MapManager mapManager;
+
 	//Skin
 	private Stage stage;
 	private Skin skin;
@@ -64,7 +68,6 @@ public class GameStarter extends Game {
 		Box2D.init();
 		world = new World(new Vector2(0,-9.81f), true);
 		box2DDebugRenderer = new Box2DDebugRenderer();
-
 		// Invisible hitboxes
 		box2DDebugRenderer.setDrawBodies(false);
 		accumulator = 0;
@@ -80,10 +83,12 @@ public class GameStarter extends Game {
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 
+		//MapManager
+		mapManager = new MapManager(assetManager, world);
+
 		//Scene2D
 		skinInit();
 		stage = new Stage(new FitViewport(1280, 720));
-
 
 		//AudioManager
 		audioManager = new AudioManager(assetManager);
@@ -177,6 +182,10 @@ public class GameStarter extends Game {
 
 	public Skin getSkin() {
 		return skin;
+	}
+
+	public MapManager getMapManager(){
+		return mapManager;
 	}
 
 	private void skinInit(){

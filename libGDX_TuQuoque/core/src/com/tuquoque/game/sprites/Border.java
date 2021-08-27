@@ -36,5 +36,6 @@ public class Border {
         chainShape.createLoop(vertices);
         fixtureDef.shape=chainShape;
         borders.createFixture(fixtureDef);
+        borders.setUserData("GROUND");
     }
 }
