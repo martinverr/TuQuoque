@@ -16,7 +16,7 @@ public class InputManager implements InputProcessor {
             }
         }
         keyStatus = new boolean[GameKeys.values().length];
-        listeners = new Array<InputListener>();
+        listeners = new Array<>();
     }
 
     public void addInputListener(final InputListener listener){
@@ -94,7 +94,14 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        return false;
+        if(amountY == 0)
+            return false;
+
+        for(final InputListener listener : listeners){
+            listener.scrollVertical(this, amountY);
+        }
+
+        return true;
     }
 
     public boolean isKeyPressed(final GameKeys gameKey){

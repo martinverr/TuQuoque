@@ -24,4 +24,6 @@ public interface InputListener {
      * @param key key released
      * */
     void KeyUp(final InputManager manager, final GameKeys key);
+
+    void scrollVertical(final InputManager manager, final float amount);
 }

@@ -73,16 +73,18 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
 
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
-        switch (key){
-            case BACK: //set screen 'MAINMENU'
-                context.setScreen(ScreenType.MAINMENU);
-            default:
-                break;
+        if (key == GameKeys.BACK) { //set screen 'MAINMENU'
+            context.setScreen(ScreenType.MAINMENU);
         }
     }
 
     @Override
     public void KeyUp(InputManager manager, GameKeys key) {
+
+    }
+
+    @Override
+    public void scrollVertical(InputManager manager, float amount) {
 
     }
 }

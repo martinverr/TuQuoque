@@ -182,6 +182,9 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
                 BG.stop();
                 audioManager.playAudio(AudioType.CLICK3_SUCCESS);
                 context.setScreen(ScreenType.GAME);
+            case BACK:
+                Gdx.app.exit();
+                break;
             default:
                 break;
         }
@@ -194,6 +197,11 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
      * */
     @Override
     public void KeyUp(InputManager manager, GameKeys key) {
+
+    }
+
+    @Override
+    public void scrollVertical(InputManager manager, float amount) {
 
     }
 }

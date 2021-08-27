@@ -262,4 +262,9 @@ public class GameScreen extends AbstractScreen implements InputListener {
                 break;
         }
     }
+
+    @Override
+    public void scrollVertical(InputManager manager, float amount) {
+
+    }
 }
