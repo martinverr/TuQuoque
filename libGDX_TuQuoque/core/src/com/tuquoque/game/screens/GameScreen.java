@@ -265,6 +265,16 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
     @Override
     public void scrollVertical(InputManager manager, float amount) {
-
+        if(amount > 0){
+            for(int i=0; i<amount; i++){
+                ((GameUI) screenUI).nextSlotHotbar();
+            }
+        }
+        else{
+            amount *= -1;
+            for(int i=0; i<amount; i++){
+                ((GameUI) screenUI).previousSlotHotbar();
+            }
+        }
     }
 }

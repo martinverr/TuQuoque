@@ -65,4 +65,22 @@ public class GameUI extends Table {
     public void changeSlotHotbar(int slotIndex){
         hotbar.changeSlot(slotIndex);
     }
+
+    public void nextSlotHotbar() {
+        if(hotbar.getCurrentPointedSlot() != hotbar.getNumberOfSlots() - 1){
+            hotbar.changeSlot(hotbar.getCurrentPointedSlot() + 1);
+        }
+        else{
+            hotbar.changeSlot(0);
+        }
+    }
+    public void previousSlotHotbar() {
+        if(hotbar.getCurrentPointedSlot() != 0){
+            hotbar.changeSlot(hotbar.getCurrentPointedSlot() - 1);
+        }
+        else{
+            hotbar.changeSlot(hotbar.getNumberOfSlots() - 1);
+        }
+    }
+
 }
