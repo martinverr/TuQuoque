@@ -36,6 +36,25 @@
       "background": "beforeBar",
       "knob": "knobBar",
       "knobBefore": "afterBar"
+    },
+
+    "health": {
+      "background": "playerStatusBG",
+      "knob": "playerStatusHealth",
+      "knobBefore": "playerStatusHealth"
+    },
+
+    "mana": {
+      "background": "playerStatusBG",
+      "knob": "playerStatusMana",
+      "knobBefore": "playerStatusMana"
+    },
+
+    "exp": {
+      "background": "playerStatusBG",
+      "knob": "playerStatusExp",
+      "knobBefore": "playerStatusExp"
     }
+
   } 
 }

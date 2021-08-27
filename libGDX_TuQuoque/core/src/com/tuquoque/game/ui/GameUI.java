@@ -6,11 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.screens.ScreenType;
 
-import java.util.ArrayList;
 
 public class GameUI extends Table {
+    final private PlayerStatus playerStatus;
+    final private Hotbar hotbar;
 
-    public GameUI(final GameStarter context, final Skin skin){
+    public GameUI(final GameStarter context, final Skin skin) {
         super(skin);
 
         //table properties
@@ -20,18 +21,18 @@ public class GameUI extends Table {
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
-        menu.addListener(new ClickListener(){
+        menu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 context.setScreen(ScreenType.MAINMENU);
-            }});
+            }
+        });
         Button inventory = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
 
         //widgets 2nd row
-        PlayerStatus playerStatus = new PlayerStatus(skin);
-                //(skin.getDrawable("playerStatus"));   //sarà un table da noi definito in futuro
-        Hotbar hotbar = new Hotbar(skin);
+        playerStatus = new PlayerStatus(skin);
+        hotbar = new Hotbar(skin);
 
 
         //first row
@@ -41,48 +42,27 @@ public class GameUI extends Table {
 
         //second row
         add(playerStatus).expandY().bottom();
+        playerStatus.pack();
         add(hotbar).bottom().padRight(playerStatus.getWidth());
     }
-}
 
-
-
-class Hotbar extends Table{
-    ArrayList<Stack> slots;
-
-    public Hotbar(Skin skin){
-        super(skin);
-        slots = new ArrayList<>(8);
-
-        setScale(1.5f);
-        setDebug(false);
-
-
-        add(new Image(skin.getDrawable("hotbarBegin"))).expandX().bottom().right();
-        for(int i=0; i<8; i++){
-            Stack currentStack = new Stack();
-            currentStack.add(new Image(skin.getDrawable("hotbarMid")));
-            add(currentStack);
-            slots.add(currentStack);
-        }
-        add(new Image(skin.getDrawable("hotbarEnd"))).bottom().expandX().left();
+    public void setHealth(final float value){
+        playerStatus.setHealth(value);
     }
-}
 
-class PlayerStatus extends Table{
+    public void setExp(final float value){
+        playerStatus.setExp(value);
+    }
 
-    VerticalGroup bars;
+    public void setMana(final float value){
+        playerStatus.setMana(value);
+    }
 
-    public PlayerStatus(Skin skin){
-        super(skin);
-        setDebug(true);
-        bars = new VerticalGroup();
-        bars.addActor().size(102,15).pad(4,0,2,0);
-        bars.addActor().size(102,15).pad(2,0,2,0);
-        bars.addActor().size(102,15).pad(2,0,4,0);
+    public void setBars(final float healthValue, final float expValue, final float manaValue){
+        playerStatus.setBars(healthValue, expValue, manaValue);
+    }
 
-        add().size(74,64).colspan(3);
-        add().size(21,64).colspan(3);
-
+    public void changeSlotHotbar(int slotIndex){
+        hotbar.changeSlot(slotIndex);
     }
 }

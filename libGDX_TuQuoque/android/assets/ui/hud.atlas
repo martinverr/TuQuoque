@@ -6,14 +6,14 @@ filter: Nearest, Nearest
 repeat: none
 afterBar
   rotate: false
-  xy: 2041, 204
+  xy: 2043, 204
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 1655, 106
+  xy: 1802, 140
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
@@ -23,6 +23,13 @@ hotbarBegin
   xy: 71, 2
   size: 14, 48
   orig: 14, 48
+  offset: 0, 0
+  index: -1
+hotbarCursor
+  rotate: false
+  xy: 87, 32
+  size: 12, 18
+  orig: 12, 18
   offset: 0, 0
   index: -1
 hotbarEnd
@@ -41,70 +48,70 @@ hotbarMid
   index: -1
 inventoryIconActive
   rotate: false
-  xy: 1950, 110
+  xy: 1943, 174
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive
   rotate: false
-  xy: 1555, 72
+  xy: 1670, 110
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive.png
   rotate: false
-  xy: 1555, 72
+  xy: 1670, 110
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 knobBar
   rotate: false
-  xy: 1646, 106
+  xy: 2034, 204
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 1627, 106
+  xy: 1783, 140
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 2022, 140
+  xy: 2015, 204
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 menuIconActivate
   rotate: false
-  xy: 1859, 128
+  xy: 1852, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconActive
   rotate: false
-  xy: 1950, 192
+  xy: 1761, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive.png
   rotate: false
-  xy: 1859, 192
+  xy: 1670, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive
   rotate: false
-  xy: 1859, 192
+  xy: 1670, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
@@ -137,38 +144,45 @@ music_ON_white
   orig: 727, 97
   offset: 0, 0
   index: -1
-playerStatus
-  rotate: false
-  xy: 1557, 158
-  size: 300, 96
-  orig: 300, 96
-  offset: 0, 0
-  index: -1
 playerStatusBG
   rotate: false
-  xy: 87, 38
-  size: 1, 12
-  orig: 1, 12
+  xy: 2015, 178
+  size: 2, 24
+  orig: 2, 24
   offset: 0, 0
   index: -1
 playerStatusExp
   rotate: false
-  xy: 1627, 96
-  size: 1, 8
-  orig: 1, 8
+  xy: 1807, 166
+  size: 1, 24
+  orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusHealth
   rotate: false
-  xy: 1555, 58
-  size: 1, 12
-  orig: 1, 12
+  xy: 1783, 114
+  size: 1, 24
+  orig: 1, 24
+  offset: 0, 0
+  index: -1
+playerStatusLeft
+  rotate: false
+  xy: 1557, 158
+  size: 111, 96
+  orig: 111, 96
   offset: 0, 0
   index: -1
 playerStatusMana
   rotate: false
-  xy: 2022, 126
-  size: 1, 12
-  orig: 1, 12
+  xy: 87, 6
+  size: 1, 24
+  orig: 1, 24
+  offset: 0, 0
+  index: -1
+playerStatusRight
+  rotate: false
+  xy: 1742, 94
+  size: 39, 96
+  orig: 39, 96
   offset: 0, 0
   index: -1

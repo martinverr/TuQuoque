@@ -198,6 +198,34 @@ public class GameScreen extends AbstractScreen implements InputListener {
             case DEBUG9:    //set hitbox visible or not
                 box2DDebugRenderer.setDrawBodies(!box2DDebugRenderer.isDrawBodies());
                 break;
+
+            /*
+             * Inventory-Hotbar
+             */
+            case NUM1:
+                ((GameUI) screenUI).changeSlotHotbar(0);
+                break;
+            case NUM2:
+                ((GameUI) screenUI).changeSlotHotbar(1);
+                break;
+            case NUM3:
+                ((GameUI) screenUI).changeSlotHotbar(2);
+                break;
+            case NUM4:
+                ((GameUI) screenUI).changeSlotHotbar(3);
+                break;
+            case NUM5:
+                ((GameUI) screenUI).changeSlotHotbar(4);
+                break;
+            case NUM6:
+                ((GameUI) screenUI).changeSlotHotbar(5);
+                break;
+            case NUM7:
+                ((GameUI) screenUI).changeSlotHotbar(6);
+                break;
+            case NUM8:
+                ((GameUI) screenUI).changeSlotHotbar(7);
+                break;
             default:
                 break;
         }

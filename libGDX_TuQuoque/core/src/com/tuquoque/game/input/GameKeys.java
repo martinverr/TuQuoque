@@ -11,7 +11,15 @@ public enum GameKeys {
     BACK(Input.Keys.ESCAPE),
     DEBUG7(Input.Keys.NUMPAD_7),
     DEBUG8(Input.Keys.NUMPAD_8),
-    DEBUG9(Input.Keys.NUMPAD_9);
+    DEBUG9(Input.Keys.NUMPAD_9),
+    NUM1(Input.Keys.NUM_1),
+    NUM2(Input.Keys.NUM_2),
+    NUM3(Input.Keys.NUM_3),
+    NUM4(Input.Keys.NUM_4),
+    NUM5(Input.Keys.NUM_5),
+    NUM6(Input.Keys.NUM_6),
+    NUM7(Input.Keys.NUM_7),
+    NUM8(Input.Keys.NUM_8);
 
     final int[] keyCode;
 
