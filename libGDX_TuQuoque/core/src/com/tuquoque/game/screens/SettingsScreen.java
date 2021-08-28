@@ -67,6 +67,7 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
     @Override
     public void hide() {
         super.hide();
+        inputManager.removeInputListener(this);
     }
 
     @Override

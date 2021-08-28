@@ -183,7 +183,7 @@ public class MainmenuScreen extends AbstractScreen implements InputListener {
                 audioManager.playAudio(AudioType.CLICK3_SUCCESS);
                 context.setScreen(ScreenType.GAME);
             case BACK:
-                Gdx.app.exit();
+                //Gdx.app.exit();
                 break;
             default:
                 break;
