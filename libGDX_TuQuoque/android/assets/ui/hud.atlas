@@ -6,138 +6,75 @@ filter: Nearest, Nearest
 repeat: none
 AfterSlider
   rotate: false
-  xy: 1666, 120
+  xy: 1555, 64
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 BeforeSlider
   rotate: false
-  xy: 1637, 68
+  xy: 2037, 166
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 SliderEnding
   rotate: false
-  xy: 172, 14
+  xy: 87, 14
   size: 10, 36
   orig: 10, 36
   offset: 0, 0
   index: -1
 SliderBegin
   rotate: false
-  xy: 172, 14
+  xy: 87, 14
   size: 10, 36
   orig: 10, 36
   offset: 0, 0
   index: -1
 SliderKnob
   rotate: false
-  xy: 184, 14
+  xy: 1603, 120
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 afterBar
   rotate: false
-  xy: 1656, 106
+  xy: 1593, 106
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 1661, 106
+  xy: 1598, 106
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 hotbarBegin
   rotate: false
-  xy: 156, 2
-  size: 14, 48
-  orig: 14, 48
-  offset: 0, 0
-  index: -1
-hotbarBegin1
-  rotate: false
-  xy: 140, 2
-  size: 14, 48
-  orig: 14, 48
-  offset: 0, 0
-  index: -1
-hotbarBegin2
-  rotate: false
-  xy: 140, 2
+  xy: 71, 2
   size: 14, 48
   orig: 14, 48
   offset: 0, 0
   index: -1
 hotbarCursor
   rotate: false
-  xy: 1946, 120
-  size: 12, 18
-  orig: 12, 18
-  offset: 0, 0
-  index: -1
-hotbarCursor2
-  rotate: false
-  xy: 1965, 154
-  size: 12, 18
-  orig: 12, 18
-  offset: 0, 0
-  index: -1
-hotbarCursor1
-  rotate: false
-  xy: 1965, 154
-  size: 12, 18
-  orig: 12, 18
-  offset: 0, 0
-  index: -1
-hotbarCursorSfumato
-  rotate: false
-  xy: 1642, 86
+  xy: 1670, 172
   size: 12, 18
   orig: 12, 18
   offset: 0, 0
   index: -1
 hotbarEnd
   rotate: false
-  xy: 123, 2
-  size: 15, 48
-  orig: 15, 48
-  offset: 0, 0
-  index: -1
-hotbarEnd1
-  rotate: false
-  xy: 106, 2
-  size: 15, 48
-  orig: 15, 48
-  offset: 0, 0
-  index: -1
-hotbarEnd2
-  rotate: false
-  xy: 106, 2
+  xy: 54, 2
   size: 15, 48
   orig: 15, 48
   offset: 0, 0
   index: -1
 hotbarMid
-  rotate: false
-  xy: 54, 2
-  size: 50, 48
-  orig: 50, 48
-  offset: 0, 0
-  index: -1
-hotbarMid1
-  rotate: false
-  xy: 2, 2
-  size: 50, 48
-  orig: 50, 48
-  offset: 0, 0
-  index: -1
-hotbarMid2
   rotate: false
   xy: 2, 2
   size: 50, 48
@@ -146,21 +83,14 @@ hotbarMid2
   index: -1
 inventoryIconActive
   rotate: false
-  xy: 1965, 174
+  xy: 1852, 174
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive
   rotate: false
-  xy: 1874, 110
-  size: 70, 80
-  orig: 70, 80
-  offset: 0, 0
-  index: -1
-inventoryIconInactive.png
-  rotate: false
-  xy: 1874, 110
+  xy: 1924, 174
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
@@ -174,42 +104,28 @@ knobBar
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 1637, 106
+  xy: 1574, 106
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 1946, 140
+  xy: 1555, 102
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
-menuIconActivate
-  rotate: false
-  xy: 1783, 128
-  size: 89, 62
-  orig: 89, 62
-  offset: 0, 0
-  index: -1
 menuIconActive
   rotate: false
-  xy: 1874, 192
-  size: 89, 62
-  orig: 89, 62
-  offset: 0, 0
-  index: -1
-menuIconInactive.png
-  rotate: false
-  xy: 1783, 192
+  xy: 1761, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive
   rotate: false
-  xy: 1783, 192
+  xy: 1670, 192
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
@@ -244,21 +160,21 @@ music_ON_white
   index: -1
 playerStatusBG
   rotate: false
-  xy: 2037, 178
+  xy: 99, 26
   size: 2, 24
   orig: 2, 24
   offset: 0, 0
   index: -1
 playerStatusExp
   rotate: false
-  xy: 189, 26
+  xy: 2045, 178
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusHealth
   rotate: false
-  xy: 1671, 132
+  xy: 2042, 178
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
@@ -270,30 +186,16 @@ playerStatusLeft
   orig: 111, 96
   offset: 0, 0
   index: -1
-playerStatusLeft2
-  rotate: false
-  xy: 1670, 158
-  size: 111, 96
-  orig: 111, 96
-  offset: 0, 0
-  index: -1
 playerStatusMana
   rotate: false
-  xy: 2041, 178
+  xy: 1560, 76
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusRight
   rotate: false
-  xy: 1555, 56
-  size: 39, 96
-  orig: 39, 96
-  offset: 0, 0
-  index: -1
-playerStatusRight2
-  rotate: false
-  xy: 1596, 60
+  xy: 1996, 158
   size: 39, 96
   orig: 39, 96
   offset: 0, 0
