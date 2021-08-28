@@ -56,5 +56,13 @@
       "knobBefore": "playerStatusExp"
     }
 
-  } 
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {
+      "default": {
+        "background": "SliderBegin",
+        "knob": "SliderKnob",
+        "knobBefore": "BeforeSlider",
+        "knobAfter": "AfterSlider"
+      }
+  }
 }

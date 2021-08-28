@@ -20,6 +20,7 @@ import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
+import com.tuquoque.game.ui.SettingsUI;
 
 /*
 * TODO: Preferences(LibGDX)
@@ -35,18 +36,19 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return null;
+        return new SettingsUI(skin);
     }
 
     @Override
     public void show() {
+        super.show();
         ScreenUtils.clear(0, 0, 0, 1);
         inputManager.addInputListener(this);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
+        ScreenUtils.clear(1, 1, 1, 1);
     }
 
     public void resize(int width, int height){
@@ -64,7 +66,7 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
 
     @Override
     public void hide() {
-
+        super.hide();
     }
 
     @Override
