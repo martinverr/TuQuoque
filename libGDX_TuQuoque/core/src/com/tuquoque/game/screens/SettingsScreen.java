@@ -1,21 +1,8 @@
 package com.tuquoque.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
@@ -49,6 +36,7 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
+
     }
 
     public void resize(int width, int height){

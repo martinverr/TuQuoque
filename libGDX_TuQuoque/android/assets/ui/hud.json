@@ -5,6 +5,13 @@
       "g": 1,
       "b": 1,
       "a": 1
+    },
+
+    "black": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 1
     }
   },
 
@@ -64,5 +71,27 @@
         "knobBefore": "BeforeSlider",
         "knobAfter": "AfterSlider"
       }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+    "debug": {
+      "font": "font2_16",
+      "fontColor": "black"
+    },
+    "normal": {
+      "font": "font_20",
+      "fontColor": "black"
+    },
+    "big": {
+      "font": "font_26",
+      "fontColor": "black"
+    },
+    "small": {
+      "font": "font_16",
+      "fontColor": "black"
+    },
+    "huge": {
+      "font": "font_32",
+      "fontColor": "black"
+    }
   }
 }
