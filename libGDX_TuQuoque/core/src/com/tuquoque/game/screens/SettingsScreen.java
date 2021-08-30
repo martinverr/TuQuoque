@@ -19,23 +19,17 @@ import com.tuquoque.game.ui.SettingsUI;
 
 public class SettingsScreen extends AbstractScreen implements InputListener {
 
-    Slider musicVolume;
-    Slider effectsVolume;
     AudioManager audioManager;
-    AudioType audioType;
 
     public SettingsScreen(GameStarter context) {
         super(context);
-        musicVolume=((SettingsUI)screenUI).getMusicVolume();
-        effectsVolume=((SettingsUI)screenUI).getEffectsVolume();
 
         audioManager=context.getAudioManager();
-
     }
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return new SettingsUI(skin);
+        return new SettingsUI(skin, context);
     }
 
     @Override
@@ -48,11 +42,6 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
-        ((SettingsUI)screenUI).setMusicValue((int)(musicVolume.getValue()*100));
-        ((SettingsUI)screenUI).setEffectsValue((int)(effectsVolume.getValue()*100));
-
-        audioManager.getCurrentMusic().setVolume(musicVolume.getValue());
-
     }
 
     public void resize(int width, int height){

@@ -1,31 +1,43 @@
 package com.tuquoque.game.ui;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.tuquoque.game.GameStarter;
 
 public class SettingsUI extends Table {
 
-    public Label settingsMenu;
-    public Label music;
-    public Slider musicVolume;
-    public Slider effectsVolume;
-    public Label musicValue;
-    public Label effectsValue;
-    public Label effects;
+    private Slider musicVolume;
+    private Slider effectsVolume;
+    private Label musicValue;
+    private Label effectsValue;
 
-    public SettingsUI(Skin skin) {
+    public SettingsUI(Skin skin, final GameStarter context) {
         super(skin);
         setFillParent(true);
 
-        settingsMenu=new Label("SETTINGS MENU", skin, "huge");
-
-        music = new Label("MUSIC", skin, "huge");
-        effects=new Label("EFFECTS", skin, "huge");
+        Label settingsMenu=new Label("SETTINGS MENU", skin, "huge");
+        Label music = new Label("MUSIC", skin, "huge");
+        Label effects=new Label("EFFECTS", skin, "huge");
 
         musicValue=new Label("0",skin,"normal");
         effectsValue=new Label("0",skin,"normal");
 
         musicVolume=new Slider(0,1,0.01f,false,skin,"default");
+        musicVolume.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                musicValue.setText((int) (musicVolume.getValue() * 100));
+                context.getAudioManager().getCurrentMusic().setVolume(musicVolume.getValue());
+            }
+        });
         effectsVolume=new Slider(0,1,0.01f,false,skin,"default");
+        effectsVolume.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                effectsValue.setText((int) (effectsVolume.getValue() * 100));
+            }
+        });
 
         setDebug(false);
 
@@ -52,22 +64,6 @@ public class SettingsUI extends Table {
 
         musicVolume.setValue(1);
         effectsVolume.setValue(1);
-    }
-
-    public Slider getMusicVolume() {
-        return musicVolume;
-    }
-
-    public Slider getEffectsVolume(){
-        return effectsVolume;
-    }
-
-    public void setMusicValue(int volume){
-        musicValue.setText(String.valueOf(volume));
-    }
-
-    public void setEffectsValue(int volume){
-        effectsValue.setText(String.valueOf(volume));
     }
 
 }
