@@ -20,9 +20,9 @@ public class AudioManager {
     private final AssetManager assetManager;
 
     //array of AudioType
-    private ArrayList<AudioType> loopSoundsPlaying_at;
+    private final ArrayList<AudioType> loopSoundsPlaying_at;
     //arrays of LoopingSound associated to their AudioType
-    private ArrayList<LoopingSound> loopSoundsPlaying_ls;
+    private final ArrayList<LoopingSound> loopSoundsPlaying_ls;
 
     /**
      * Constructor that init the vars used
@@ -36,6 +36,10 @@ public class AudioManager {
 
         loopSoundsPlaying_at = new ArrayList<>();
         loopSoundsPlaying_ls = new ArrayList<>();
+    }
+
+    public Music getCurrentMusic() {
+        return currentMusic;
     }
 
     /**

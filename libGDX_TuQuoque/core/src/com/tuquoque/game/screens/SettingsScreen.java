@@ -1,9 +1,12 @@
 package com.tuquoque.game.screens;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.audio.AudioManager;
+import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
@@ -16,8 +19,17 @@ import com.tuquoque.game.ui.SettingsUI;
 
 public class SettingsScreen extends AbstractScreen implements InputListener {
 
+    Slider musicVolume;
+    Slider effectsVolume;
+    AudioManager audioManager;
+    AudioType audioType;
+
     public SettingsScreen(GameStarter context) {
         super(context);
+        musicVolume=((SettingsUI)screenUI).getMusicVolume();
+        effectsVolume=((SettingsUI)screenUI).getEffectsVolume();
+
+        audioManager=context.getAudioManager();
 
     }
 
@@ -36,6 +48,10 @@ public class SettingsScreen extends AbstractScreen implements InputListener {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
+        ((SettingsUI)screenUI).setMusicValue((int)(musicVolume.getValue()*100));
+        ((SettingsUI)screenUI).setEffectsValue((int)(effectsVolume.getValue()*100));
+
+        audioManager.getCurrentMusic().setVolume(musicVolume.getValue());
 
     }
 
