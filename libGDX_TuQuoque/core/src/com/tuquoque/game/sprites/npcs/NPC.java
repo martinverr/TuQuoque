@@ -1,15 +1,17 @@
-package com.tuquoque.game.sprites;
+package com.tuquoque.game.sprites.npcs;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.tuquoque.game.sprites.Entity;
+import com.tuquoque.game.sprites.Player;
 
-public class NPC extends Entity {
+public abstract class NPC extends Entity {
 
     private Vector2 coords;
     private float actionRadius = 10;
-    float NPCspeed = NOMINAL_SPEED * 0.5f;
+    float NPCspeed = NOMINAL_SPEED;
 
     /**
      * Constructor of NPC
@@ -20,29 +22,11 @@ public class NPC extends Entity {
      * @param coords coordinates of where the NPC will be spawned
      */
     public NPC(World world, Vector2 coords) {
-        super(world, coords);
+        super(world, coords, 0.4f, 0.65f);
 
         this.coords=coords;
-        entityDef(coords);
     }
 
-    /**
-     * Init Box2D Body of entity (BodyDef and FixtureDef related)
-     *
-     * @param coords coordinates of bodyDef.position
-     * */
-    public void entityDef(Vector2 coords) {
-        bodyDef.position.set(coords.x, coords.y);
-        bodyDef.gravityScale=0;
-        bodyDef.type= BodyDef.BodyType.DynamicBody;
-
-        PolygonShape NPCShape = new PolygonShape();
-        NPCShape.setAsBox(0.4f,0.65f);
-        fixtureDef.shape = NPCShape;
-
-        B2DBody = world.createBody(bodyDef);
-        B2DBody.createFixture(fixtureDef);
-    }
 
     /**
      * getter of actionRadius
@@ -67,24 +51,24 @@ public class NPC extends Entity {
      *
      * @param player player whom the npc will interact
      */
-    public void actionTriggered(Player player){
-        follow(player);
-    }
+    public abstract void actionTriggered(Player player);
 
 
-    private void follow(Player player){
+    void follow(Player player, float stopAtDistance, boolean speedUpIfFar){
         Vector2 pcoords = player.B2DBody.getPosition();
         coords = B2DBody.getPosition();
         float distance = player.B2DBody.getPosition().dst(this.B2DBody.getPosition());
 
         // check if not too close to player, then set speed to follow him
-        if(distance > 1.5f){
-            //adjust speed
-            if (distance > 6){ //speed increments if npc is getting far
-                NPCspeed *= 1.5f;
-            }
-            if (distance < 3){ //speed returns normal
-                NPCspeed = NOMINAL_SPEED * 0.5f;
+        if(distance > stopAtDistance){
+            if (speedUpIfFar){
+                //adjust speed
+                if (distance > stopAtDistance*4){ //speed increments if npc is getting far
+                    NPCspeed *= 1.5f;
+                }
+                if (distance < stopAtDistance*2){ //speed returns normal
+                    NPCspeed = NOMINAL_SPEED * 0.5f;
+                }
             }
 
             //set speed to the body

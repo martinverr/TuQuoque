@@ -16,11 +16,35 @@ public class Entity extends Sprite {
     private float speedX;
     private float speedY;
 
-    public Entity(World world, Vector2 coords){
+    public Entity(World world, Vector2 coords, float hWidth, float hHeight){
         this.world=world;
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
+
+        //Box2d B2DBody
+        entityDef(coords, hWidth, hHeight);
     }
+
+
+    /**
+     * Init Box2D Body of entity (BodyDef and FixtureDef related)
+     *
+     * @param coords coordinates of bodyDef.position
+     * */
+    public void entityDef(Vector2 coords, float hWidth, float hHeight) {
+
+        bodyDef.position.set(coords.x, coords.y);
+        bodyDef.gravityScale=0;
+        bodyDef.type= BodyDef.BodyType.DynamicBody;
+
+        PolygonShape playerShape = new PolygonShape();
+        playerShape.setAsBox(hWidth,hHeight);
+        fixtureDef.shape = playerShape;
+
+        B2DBody = world.createBody(bodyDef);
+        B2DBody.createFixture(fixtureDef);
+    }
+
 
     /**
      * Getters and setters of SpeedX and SpeedY

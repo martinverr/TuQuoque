@@ -7,32 +7,29 @@ public class SettingsUI extends Table {
     public SettingsUI(Skin skin) {
         super(skin);
         setFillParent(true);
-        TextField settingsMenu=new TextField("SETTINGS MENU", skin, "huge");
-        TextField music=new TextField("MUSIC", skin, "huge");
-        TextField effects=new TextField("EFFECTS", skin, "huge");
-        Image sliderBegin=new Image(skin.getDrawable("SliderBegin"));
-        Image sliderEnding=new Image(skin.getDrawable("SliderEnding"));
+        Label settingsMenu=new Label("SETTINGS MENU", skin, "huge");
+        Label music = new Label("MUSIC", skin, "huge");
+        Label effects=new Label("EFFECTS", skin, "huge");
         Slider musicVolume=new Slider(0,100,1,false,skin,"default");
+        Slider effectsSlider=new Slider(0,100,1,false,skin,"default");
 
         setDebug(true);
 
-        add(settingsMenu).growX().colspan(3).align(2);
-        row();
-
-        add(music).colspan(3).growX();
+        add(settingsMenu).colspan(3).top().center();
         row().padTop(20);
-        add(sliderBegin).right();
-        add(musicVolume).fillX();
-        add(sliderEnding).left();
 
+        add(music).colspan(3).center();
         row();
-
-        add(effects).colspan(3).growX();
-        row().padTop(20);
-        add(sliderBegin).right();
+        add(new Image(skin.getDrawable("SliderBegin"))).right();
         add(musicVolume).fillX();
-        add(sliderEnding).left();
+        add(new Image(skin.getDrawable("SliderBegin"))).left();
 
+        row().padTop(20);
 
+        add(effects).colspan(3).center();
+        row();
+        add(new Image(skin.getDrawable("SliderBegin"))).right();
+        add(effectsSlider).fillX();
+        add(new Image(skin.getDrawable("SliderBegin"))).left();
     }
 }

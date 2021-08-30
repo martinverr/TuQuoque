@@ -1,8 +1,6 @@
 package com.tuquoque.game.utils;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
-import com.tuquoque.game.sprites.NPC;
+import com.tuquoque.game.sprites.npcs.NPC;
 import com.tuquoque.game.sprites.Player;
 
 import java.util.ArrayList;

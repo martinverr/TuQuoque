@@ -4,6 +4,7 @@ package com.tuquoque.game.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,12 +14,15 @@ import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.ui.LoadingUI;
 
 
+
 public class LoadingScreen extends AbstractScreen {
 
     private final AssetManager assetManager;
+    private final Color bgColor;
 
     public LoadingScreen(final GameStarter context){
         super(context);
+        bgColor = context.getSkin().getColor("neroOpaco");
 
         //AssetManager
         assetManager = context.getAssetManager();
@@ -45,12 +49,12 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void show() {
         super.show();
-        ScreenUtils.clear(0, 0, 0, 1);
+        ScreenUtils.clear(bgColor);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
+        ScreenUtils.clear(bgColor);
 
         if(assetManager.update()){
             context.setScreen(ScreenType.MAINMENU);

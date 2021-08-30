@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,7 +16,8 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
-import com.tuquoque.game.sprites.NPC;
+import com.tuquoque.game.sprites.npcs.Follower;
+import com.tuquoque.game.sprites.npcs.NPC;
 import com.tuquoque.game.sprites.Player;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.NPC_handler;
@@ -55,7 +55,7 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
-        npc1=new NPC(world, new Vector2(15,13));
+        npc1=new Follower(world, new Vector2(15,13));
 
         //map init
         mapManager = context.getMapManager();

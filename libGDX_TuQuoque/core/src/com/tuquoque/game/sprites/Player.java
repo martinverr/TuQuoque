@@ -8,19 +8,14 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Player extends Entity {
 
-    private World world;
+    private final World world;
 
     //animation stuff
-    private TextureAtlas idleRight;
-    private TextureAtlas idleLeft;
-    private TextureAtlas walkRight;
-    private TextureAtlas walkLeft;
-    // True = right, False = left
     private boolean direction = true;
-    private Animation walkRightAnimation;
-    private Animation walkLeftAnimation;
-    private Animation idleRightAnimation;
-    private Animation idleLeftAnimation;
+    private Animation<TextureAtlas.AtlasRegion> walkRightAnimation;
+    private Animation<TextureAtlas.AtlasRegion> walkLeftAnimation;
+    private Animation<TextureAtlas.AtlasRegion> idleRightAnimation;
+    private Animation<TextureAtlas.AtlasRegion> idleLeftAnimation;
 
     /**
      * The 4(till now) possible status of the player
@@ -29,42 +24,24 @@ public class Player extends Entity {
         IDLEL, //stand left
         IDLER, //stand right
         WALKL, //walk left
-        WALKR; //walk right
+        WALKR //walk right
     }
 
     /**
      * Init TextureAtlas frames and related Animations
      */
     private void animationDef(){
-        idleRight =new TextureAtlas(Gdx.files.internal("player/idle_right.atlas"));
-        idleLeft=new TextureAtlas(Gdx.files.internal("player/idle_left.atlas"));
-        walkLeft=new TextureAtlas(Gdx.files.internal("player/walk_left.atlas"));
-        walkRight=new TextureAtlas(Gdx.files.internal("player/walk_right.atlas"));
+        TextureAtlas idleRight =new TextureAtlas(Gdx.files.internal("player/idle_right.atlas"));
+        TextureAtlas idleLeft=new TextureAtlas(Gdx.files.internal("player/idle_left.atlas"));
+        TextureAtlas walkLeft=new TextureAtlas(Gdx.files.internal("player/walk_left.atlas"));
+        TextureAtlas walkRight=new TextureAtlas(Gdx.files.internal("player/walk_right.atlas"));
 
-        walkRightAnimation=new Animation(1/8f, walkRight.getRegions());
-        walkLeftAnimation=new Animation(1/8f, walkLeft.getRegions());
-        idleLeftAnimation=new Animation(1/5f, idleLeft.getRegions());
-        idleRightAnimation=new Animation(1/5f, idleRight.getRegions());
+        walkLeftAnimation=new Animation <>(1/8f, walkLeft.getRegions());
+        walkRightAnimation=new Animation<>(1/8f, walkRight.getRegions());
+        idleLeftAnimation=new Animation <>(1/5f, idleLeft.getRegions());
+        idleRightAnimation=new Animation <>(1/5f, idleRight.getRegions());
     }
 
-    /**
-     * Init Box2D Body of entity (BodyDef and FixtureDef related)
-     *
-     * @param coords coordinates of bodyDef.position
-     * */
-    public void entityDef(Vector2 coords) {
-
-        bodyDef.position.set(coords.x, coords.y);
-        bodyDef.gravityScale=0;
-        bodyDef.type= BodyDef.BodyType.DynamicBody;
-
-        PolygonShape playerShape = new PolygonShape();
-        playerShape.setAsBox(0.4f,0.65f);
-        fixtureDef.shape = playerShape;
-
-        B2DBody = world.createBody(bodyDef);
-        B2DBody.createFixture(fixtureDef);
-    }
 
     /**
     * Constructor of Player
@@ -75,34 +52,13 @@ public class Player extends Entity {
      * @param coords coordinates of where the player will be spawned
     * */
     public Player(World world, Vector2 coords){
-        super(world,coords);
+        super(world, coords, 0.4f, 0.65f);
         this.world = world;
 
-        //Box2d B2DBody
-        entityDef(coords);
         //Animation animations
         animationDef();
     }
 
-
-    /**
-    * getters of animations
-    */
-    public Animation getWalkRightAnimation() {
-        return walkRightAnimation;
-    }
-
-    public Animation getWalkLeftAnimation() {
-        return walkLeftAnimation;
-    }
-
-    public Animation getIdleRightAnimation() {
-        return idleRightAnimation;
-    }
-
-    public Animation getIdleLeftAnimation() {
-        return idleLeftAnimation;
-    }
 
     /**
      * return current status of the player considering last direction and if it's moving
@@ -128,7 +84,7 @@ public class Player extends Entity {
     /**
      * return the animation for the current state of the player
      */
-    public Animation getCurrentAnimation(){
+    public Animation<TextureAtlas.AtlasRegion> getCurrentAnimation(){
         switch (getStatus()){
             case IDLEL:
                 return idleLeftAnimation;
