@@ -22,4 +22,9 @@ public class Follower extends NPC{
     public void actionTriggered(Player player) {
         follow(player, 1.5f, true);
     }
+
+    @Override
+    public void draw() {
+
+    }
 }

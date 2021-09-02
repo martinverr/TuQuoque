@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
+import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.LoadingUI;
 
 
@@ -28,7 +29,9 @@ public class LoadingScreen extends AbstractScreen {
         assetManager = context.getAssetManager();
 
         //load map
-        context.getAssetManager().load("map/prova.tmx", TiledMap.class);
+        for(MapType map : MapType.values()){
+            context.getAssetManager().load(map.getFilePath(), TiledMap.class);
+        }
 
         //load audio
         for(final AudioType audioType : AudioType.values()){

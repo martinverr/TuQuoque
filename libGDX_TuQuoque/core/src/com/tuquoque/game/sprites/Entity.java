@@ -4,14 +4,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Entity extends Sprite {
+public class Entity {
 
     //BOX2D stuff
     World world;
     public Body B2DBody;
     BodyDef bodyDef;
     FixtureDef fixtureDef;
+    private float bodyHalfWidth;
+    private float bodyHalfHeight;
 
+    //speed
     public final float NOMINAL_SPEED = 1.3f;
     private float speedX;
     private float speedY;
@@ -20,6 +23,8 @@ public class Entity extends Sprite {
         this.world=world;
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
+        this.bodyHalfWidth = hWidth;
+        this.bodyHalfHeight = hHeight;
 
         //Box2d B2DBody
         entityDef(coords, hWidth, hHeight);
@@ -65,4 +70,8 @@ public class Entity extends Sprite {
         return speedY;
     }
 
+    public void teleportTo(Vector2 coordinates){
+        world.destroyBody(B2DBody);
+        entityDef(coordinates, bodyHalfWidth, bodyHalfHeight);
+    }
 }

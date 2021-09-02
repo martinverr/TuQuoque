@@ -26,11 +26,12 @@ public class Border {
         // System.out.println("map created: " + mapBorders.position.x*UNIT_SCALE + ";" + mapBorders.position.y*UNIT_SCALE);
 
         ChainShape chainShape=new ChainShape();
-        vertices=polygon.getVertices();
+
+        vertices=polygon.getVertices().clone();
         for(int i=0;i<vertices.length;i++){
-            vertices[i]*=UNIT_SCALE;
+            vertices[i] = UNIT_SCALE * vertices[i];
             //debug
-            // System.out.println(vertices[i]);
+            //System.out.println(vertices[i]);
         }
 
         chainShape.createLoop(vertices);

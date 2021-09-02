@@ -4,7 +4,6 @@ package com.tuquoque.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -21,12 +20,11 @@ import com.tuquoque.game.sprites.npcs.NPC;
 import com.tuquoque.game.sprites.Player;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.NPC_handler;
-import com.tuquoque.game.utils.WorldCreator;
 
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
 
-public class GameScreen extends AbstractScreen implements InputListener {
+public class GameScreen extends AbstractScreen implements InputListener, MapManager.MapListener {
     //Player
     private final Player playerB2D;
     private final NPC npc1;
@@ -59,12 +57,9 @@ public class GameScreen extends AbstractScreen implements InputListener {
 
         //map init
         mapManager = context.getMapManager();
-        mapManager.loadMap(MapType.CITY);
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, batch);
-        mapRenderer.setMap(mapManager.getCurrentMap());
-
-        //mapObjects in B2D World creation
-        new WorldCreator(world, mapRenderer.getMap());
+        mapManager.addMapListener(this);
+        mapManager.loadMap(MapType.CITY);
 
         // creating NPC_handler
         npc_handler = new NPC_handler(new NPC[]{npc1}, playerB2D);
@@ -96,8 +91,10 @@ public class GameScreen extends AbstractScreen implements InputListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
 
         //map render
-        mapRenderer.setView(gamecamera);
-        mapRenderer.render(layers_1);
+        if(mapRenderer.getMap() != null){
+            mapRenderer.setView(gamecamera);
+            mapRenderer.render(layers_1);
+        }
 
         //update player to new speed after moving inputs
         if(newMovementInput){
@@ -114,13 +111,14 @@ public class GameScreen extends AbstractScreen implements InputListener {
         else
             audioManager.playAudio(AudioType.FOOTSTEPS_STONE);
 
-        batch.begin();
+        //update NPCs
+        npc_handler.update();
+
         //drawing player
-        batch.draw((TextureRegion) playerB2D.getCurrentAnimation().getKeyFrame(elapsedTime,true),
-                        playerB2D.B2DBody.getPosition().x - 0.65f,
-                        playerB2D.B2DBody.getPosition().y -0.7f,
-                        1.3f,1.6f);
+        batch.begin();
+        playerB2D.draw(batch, elapsedTime);
         batch.end();
+
 
         //drawing last layers of the map
         mapRenderer.render(layers_2);
@@ -135,9 +133,6 @@ public class GameScreen extends AbstractScreen implements InputListener {
         //World of B2D
         world.step(delta, 6, 2);
         box2DDebugRenderer.render(world, gamecamera.combined);
-
-        npc_handler.update();
-
     }
 
     @Override
@@ -261,6 +256,22 @@ public class GameScreen extends AbstractScreen implements InputListener {
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
                 context.setScreen(ScreenType.MAINMENU);
 
+            /*
+             * DEBUG NEW FEATURES
+             */
+            case DEBUG:
+                MapType nextMap = MapType.values()[0];
+                for(int i = 0; i < MapType.values().length; i++){
+                    if (mapManager.getCurrentMapType() == MapType.values()[i]){
+                        if(i+1 < MapType.values().length){
+                            nextMap = MapType.values()[i+1];
+                        }
+                    }
+                }
+                mapManager.loadMap(nextMap);
+                mapManager.playerAtSpawnMap(playerB2D);
+                npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(2,0));
+                break;
             default:
                 break;
         }
@@ -279,5 +290,10 @@ public class GameScreen extends AbstractScreen implements InputListener {
                 ((GameUI) screenUI).previousSlotHotbar();
             }
         }
+    }
+
+    @Override
+    public void mapChanged() {
+        mapRenderer.setMap(mapManager.getCurrentMap());
     }
 }

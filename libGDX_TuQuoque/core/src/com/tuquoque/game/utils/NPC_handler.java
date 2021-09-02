@@ -62,5 +62,7 @@ public class NPC_handler {
         }
     }
     
-
+    public int getNPCsCount(){
+        return npcs.size();
+    }
 }

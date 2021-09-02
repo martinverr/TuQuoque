@@ -93,4 +93,6 @@ public abstract class NPC extends Entity {
                 B2DBody.getWorldCenter().x,B2DBody.getWorldCenter().y,true);
 
     }
+
+    public abstract void draw();
 }

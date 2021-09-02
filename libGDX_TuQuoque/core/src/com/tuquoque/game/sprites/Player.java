@@ -2,6 +2,7 @@ package com.tuquoque.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -96,5 +97,17 @@ public class Player extends Entity {
             case WALKR:
                 return walkRightAnimation;
         }
+    }
+
+
+    public void draw(Batch batch, float elapsedTime) {
+        if (batch.isDrawing()) {
+            batch.draw(getCurrentAnimation().getKeyFrame(elapsedTime, true),
+                    B2DBody.getPosition().x - 0.65f,
+                    B2DBody.getPosition().y - 0.7f,
+                    1.3f, 1.6f);
+        }
+        else
+            Gdx.app.debug(this.getClass().getSimpleName(), "batch not drawing");
     }
 }
