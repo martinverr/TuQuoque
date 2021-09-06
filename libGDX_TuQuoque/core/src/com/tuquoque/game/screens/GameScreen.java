@@ -85,16 +85,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     public void render(float delta) {
-
-        elapsedTime+=Gdx.graphics.getDeltaTime();
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
-
-        //map render
-        if(mapRenderer.getMap() != null){
-            mapRenderer.setView(gamecamera);
-            mapRenderer.render(layers_1);
-        }
+        elapsedTime = (elapsedTime + Gdx.graphics.getDeltaTime()) % 10;
 
         //update player to new speed after moving inputs
         if(newMovementInput){
@@ -105,6 +96,11 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                     true);
         }
 
+        //camera follows player
+        gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
+        gamecamera.position.y = playerB2D.B2DBody.getPosition().y;
+        gamecamera.update();
+
         //footsteps sound if player is moving
         if(playerB2D.B2DBody.getLinearVelocity().isZero())
             audioManager.stopLoopingSound(AudioType.FOOTSTEPS_STONE);
@@ -114,6 +110,19 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         //update NPCs
         npc_handler.update();
 
+        renderDraw(delta);
+    }
+
+    void renderDraw(float delta){
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT|GL20.GL_DEPTH_BUFFER_BIT);
+
+        //map render background layers
+        if(mapRenderer.getMap() != null){
+            mapRenderer.setView(gamecamera);
+            mapRenderer.render(layers_1);
+        }
+
         //drawing player
         batch.begin();
         playerB2D.draw(batch, elapsedTime);
@@ -122,13 +131,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
         //drawing last layers of the map
         mapRenderer.render(layers_2);
-
-
-        //camera follows player
-        gamecamera.position.x = playerB2D.B2DBody.getPosition().x;
-        gamecamera.position.y = playerB2D.B2DBody.getPosition().y;
-        gamecamera.update();
-
 
         //World of B2D
         world.step(delta, 6, 2);
