@@ -23,5 +23,14 @@ public enum MapType {
     public Vector2 getSpawnCoordinates(){
         return new Vector2(x, y);
     }
+
+    public static MapType getMapTypeByName(String MapTypeName) {
+        for (MapType mapType : MapType.values()){
+            if (mapType.name().equals(MapTypeName)){
+                return mapType;
+            }
+        }
+        return null;
+    }
 }
 

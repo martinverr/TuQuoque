@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.tuquoque.game.sprites.Border;
 import com.tuquoque.game.sprites.BoxAndWall;
+import com.tuquoque.game.sprites.Portal;
 
 
 public class WorldCreator {
@@ -24,6 +25,10 @@ public class WorldCreator {
 
         for (PolygonMapObject object : map.getLayers().get("Solids").getObjects().getByType(PolygonMapObject.class)){
             new Border(world, map, object);
+        }
+
+        for (MapObject object : map.getLayers().get("portals").getObjects().getByType(RectangleMapObject.class)){
+            new Portal(world, map, object);
         }
 }
 
