@@ -13,6 +13,7 @@ public class Portal {
 
     private BodyDef bdef;
     private Body body;
+    private Fixture fixture;
     private Rectangle rect;
     private String destinationStr;
     private MapType destinationMapType;
@@ -29,13 +30,17 @@ public class Portal {
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(rect.getWidth()/2*UNIT_SCALE, rect.getHeight()/2*UNIT_SCALE);
-        body.createFixture(shape, 0f);
+        fixture = body.createFixture(shape, 0f);
         body.setUserData("GROUND");
 
         shape.dispose();
 
+        fixture.setUserData(this);
         destinationStr = object.getName();
         destinationMapType = MapType.getMapTypeByName(destinationStr);
     }
 
+    public MapType getDestinationMapType() {
+        return destinationMapType;
+    }
 }

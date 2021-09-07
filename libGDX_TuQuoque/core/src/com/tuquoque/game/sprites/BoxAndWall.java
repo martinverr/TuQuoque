@@ -34,5 +34,7 @@ public class BoxAndWall {
         fdef.shape = shape;
         body.createFixture(fdef);
         body.setUserData("GROUND");
+
+        shape.dispose();
         }
 }

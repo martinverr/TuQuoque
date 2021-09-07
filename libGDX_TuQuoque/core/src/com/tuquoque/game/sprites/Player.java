@@ -58,6 +58,19 @@ public class Player extends Entity {
 
         //Animation animations
         animationDef();
+
+        playerBodyDef();
+    }
+
+    void playerBodyDef(){
+        PolygonShape sensorShape = new PolygonShape();
+        sensorShape.setAsBox(0.5f, 0.75f);
+        fixtureDef.shape = sensorShape;
+        fixtureDef.isSensor = true;
+        B2DBody.createFixture(fixtureDef).setUserData("player_sensor");
+
+        fixtureDef.isSensor = false;
+        sensorShape.dispose();
     }
 
 
@@ -108,6 +121,13 @@ public class Player extends Entity {
                     1.3f, 1.6f);
         }
         else
-            Gdx.app.debug(this.getClass().getSimpleName(), "batch not drawing");
+            Gdx.app.error(this.getClass().getSimpleName(), "batch not drawing");
+    }
+
+    @Override
+    public void teleportTo(Vector2 coordinates){
+        world.destroyBody(B2DBody);
+        entityDef(coordinates, 0.4f, 0.65f);
+        playerBodyDef();
     }
 }

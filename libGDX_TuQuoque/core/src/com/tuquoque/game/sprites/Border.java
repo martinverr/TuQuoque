@@ -38,5 +38,7 @@ public class Border {
         fixtureDef.shape=chainShape;
         borders.createFixture(fixtureDef);
         borders.setUserData("GROUND");
+
+        chainShape.dispose();
     }
 }

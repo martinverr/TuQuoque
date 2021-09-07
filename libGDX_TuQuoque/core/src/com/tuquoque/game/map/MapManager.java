@@ -15,6 +15,8 @@ public class MapManager {
     private final World world;
     private WorldCreator currentWorldCreator;
     private final Array<MapListener> mapListeners;
+    private MapType safeMapLoaderNextMap = null;
+    private boolean safeMapLoaderUpdated = true;
 
     public MapManager(AssetManager assetManager, World world){
         this.assetManager = assetManager;
@@ -64,6 +66,18 @@ public class MapManager {
 
     public void addMapListener(final MapListener mapListener) {
         mapListeners.add(mapListener);
+    }
+
+    public void loadMapSafe(MapType nextMap){
+        this.safeMapLoaderNextMap = nextMap;
+        safeMapLoaderUpdated = false;
+    }
+
+    public void safeMapLoader(){
+        if (!safeMapLoaderUpdated && !world.isLocked()){
+            loadMap(safeMapLoaderNextMap);
+            safeMapLoaderUpdated = true;
+        }
     }
 
     public interface MapListener {

@@ -48,6 +48,8 @@ public class Entity {
 
         B2DBody = world.createBody(bodyDef);
         B2DBody.createFixture(fixtureDef);
+
+        playerShape.dispose();
     }
 
 

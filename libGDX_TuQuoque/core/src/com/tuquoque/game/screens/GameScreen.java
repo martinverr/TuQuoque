@@ -20,6 +20,7 @@ import com.tuquoque.game.sprites.npcs.NPC;
 import com.tuquoque.game.sprites.Player;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.NPC_handler;
+import com.tuquoque.game.utils.WorldContactListener;
 
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
@@ -68,6 +69,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         * npc_handler = new NPC_handler(playerB2D)
         * npc_handler.addNPC(npc1);
         */
+
+        world.setContactListener(new WorldContactListener(context));
     }
 
     @Override
@@ -86,6 +89,9 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     @Override
     public void render(float delta) {
         elapsedTime = (elapsedTime + Gdx.graphics.getDeltaTime()) % 10;
+
+        //update map if changed
+        mapManager.safeMapLoader();
 
         //update player to new speed after moving inputs
         if(newMovementInput){
@@ -271,8 +277,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                     }
                 }
                 mapManager.loadMap(nextMap);
-                mapManager.playerAtSpawnMap(playerB2D);
-                npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(2,0));
                 break;
             default:
                 break;
@@ -297,5 +301,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     @Override
     public void mapChanged() {
         mapRenderer.setMap(mapManager.getCurrentMap());
+        mapManager.playerAtSpawnMap(playerB2D);
+        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,2));
     }
 }
