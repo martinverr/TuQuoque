@@ -1,11 +1,9 @@
-package com.tuquoque.game.sprites.npcs;
+package com.tuquoque.game.world.npcs;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.tuquoque.game.sprites.Entity;
-import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.world.Entity;
+import com.tuquoque.game.world.Player;
 
 public abstract class NPC extends Entity {
 
@@ -21,8 +19,8 @@ public abstract class NPC extends Entity {
      * @param world  Box2D World where the NPC will be defined
      * @param coords coordinates of where the NPC will be spawned
      */
-    public NPC(World world, Vector2 coords) {
-        super(world, coords, 0.4f, 0.65f);
+    public NPC(World world, float hWidth, float hHeight, Vector2 coords) {
+        super(world, coords, hWidth, hHeight);
 
         this.coords=coords;
     }

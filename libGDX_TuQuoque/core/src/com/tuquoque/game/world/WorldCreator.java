@@ -1,14 +1,12 @@
-package com.tuquoque.game.utils;
+package com.tuquoque.game.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.tuquoque.game.sprites.Border;
-import com.tuquoque.game.sprites.BoxAndWall;
-import com.tuquoque.game.sprites.Portal;
 
 
 public class WorldCreator {
@@ -34,9 +32,14 @@ public class WorldCreator {
 
     public void selfDestroy(){
         world.getBodies(bodies);
+        int deleted = 0;
+        int max = world.getBodyCount();
         for(Body body : bodies){
-            if(body.getUserData() != null && body.getUserData().equals("GROUND"))
+            if(body.getUserData() != null && body.getUserData().equals("mapObject")){
                 world.destroyBody(body);
+                deleted++;
+            }
         }
+        Gdx.app.debug(this.getClass().getSimpleName(), deleted + " out of " + max + "; remained " + world.getBodyCount());
     }
 }

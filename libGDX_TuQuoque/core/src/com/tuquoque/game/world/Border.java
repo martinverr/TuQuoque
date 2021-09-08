@@ -1,4 +1,4 @@
-package com.tuquoque.game.sprites;
+package com.tuquoque.game.world;
 
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.math.Polygon;
@@ -36,8 +36,8 @@ public class Border {
 
         chainShape.createLoop(vertices);
         fixtureDef.shape=chainShape;
-        borders.createFixture(fixtureDef);
-        borders.setUserData("GROUND");
+        borders.createFixture(fixtureDef).setUserData(this);
+        borders.setUserData("mapObject");
 
         chainShape.dispose();
     }

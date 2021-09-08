@@ -1,4 +1,4 @@
-package com.tuquoque.game.sprites;
+package com.tuquoque.game.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;

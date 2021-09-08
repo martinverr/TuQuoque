@@ -1,7 +1,7 @@
-package com.tuquoque.game.utils;
+package com.tuquoque.game.world.npcs;
 
-import com.tuquoque.game.sprites.npcs.NPC;
-import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.world.npcs.NPC;
+import com.tuquoque.game.world.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,8 +5,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.tuquoque.game.sprites.Player;
-import com.tuquoque.game.utils.WorldCreator;
+import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.WorldCreator;
 
 public class MapManager {
     private MapType currentMapType;
@@ -50,7 +50,7 @@ public class MapManager {
             }
 
             //debug
-            Gdx.app.log(MapManager.class.getSimpleName(), "Moving to new map: " + currentMapType.name());
+            Gdx.app.debug(MapManager.class.getSimpleName(), "Moving to new map: " + currentMapType.name());
 
             //destroy bodies of old map if there are
             if(currentWorldCreator != null){

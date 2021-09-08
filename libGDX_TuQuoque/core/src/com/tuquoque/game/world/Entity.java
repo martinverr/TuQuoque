@@ -1,6 +1,5 @@
-package com.tuquoque.game.sprites;
+package com.tuquoque.game.world;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -13,6 +12,7 @@ public class Entity {
     FixtureDef fixtureDef;
     private float bodyHalfWidth;
     private float bodyHalfHeight;
+    private Fixture fixture;
 
     //speed
     public final float NOMINAL_SPEED = 1.3f;
@@ -47,7 +47,8 @@ public class Entity {
         fixtureDef.shape = playerShape;
 
         B2DBody = world.createBody(bodyDef);
-        B2DBody.createFixture(fixtureDef);
+        fixture = B2DBody.createFixture(fixtureDef);
+        fixture.setUserData(this);
 
         playerShape.dispose();
     }
@@ -70,6 +71,10 @@ public class Entity {
 
     public float getSpeedY() {
         return speedY;
+    }
+
+    public void setFixureUserData(Object userData){
+            fixture.setUserData(userData);
     }
 
     public void teleportTo(Vector2 coordinates){

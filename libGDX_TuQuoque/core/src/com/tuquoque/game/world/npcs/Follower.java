@@ -1,8 +1,8 @@
-package com.tuquoque.game.sprites.npcs;
+package com.tuquoque.game.world.npcs;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.tuquoque.game.sprites.Player;
+import com.tuquoque.game.world.Player;
 
 public class Follower extends NPC{
     /**
@@ -14,7 +14,7 @@ public class Follower extends NPC{
      * @param coords coordinates of where the NPC will be spawned
      */
     public Follower(World world, Vector2 coords) {
-        super(world, coords);
+        super(world, 0.65f, 0.4f, coords);
         NPCspeed *= 0.5f;
     }
 
