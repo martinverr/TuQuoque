@@ -17,7 +17,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(false);
+        setDebug(true);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -28,22 +28,41 @@ public class GameUI extends Table {
                 context.setScreen(ScreenType.MAINMENU);
             }
         });
-        Button inventory = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
+        Button inventoryButt = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
 
-        //widgets 2nd row
+        //widget 2nd row
+        final Inventory inventory = new Inventory(skin);
+        inventoryButt.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if(inventory.isOpened())
+                    inventory.close();
+                else
+                    inventory.open();
+            }
+        });
+
+        //widgets 3rd row
         playerStatus = new PlayerStatus(skin);
         hotbar = new Hotbar(skin);
 
 
         //first row
         add(menu).top().left();
-        add(inventory).expandX().top().right();
+        add(inventoryButt).colspan(2).expandX().top().right();
         row();
 
         //second row
-        add(playerStatus).expandY().bottom();
+        add();
+        add(inventory).expandY().center(); //TODO: Inventory
+        add(); //TODO: ActionsPossible
+        row();
+
+        //third row
+        add(playerStatus).bottom();
         playerStatus.pack();
-        add(hotbar).bottom().padRight(playerStatus.getWidth());
+        add(hotbar).colspan(2).bottom().padRight(playerStatus.getWidth());
     }
 
     public void setHealth(final float value){

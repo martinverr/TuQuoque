@@ -6,56 +6,56 @@ filter: Nearest, Nearest
 repeat: none
 AfterSlider
   rotate: false
-  xy: 1387, 37
+  xy: 1787, 32
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 BeforeSlider
   rotate: false
-  xy: 1517, 87
+  xy: 1917, 82
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 SliderEnding
   rotate: false
-  xy: 1375, 37
+  xy: 1775, 32
   size: 10, 36
   orig: 10, 36
   offset: 0, 0
   index: -1
 SliderBegin
   rotate: false
-  xy: 1375, 37
+  xy: 1775, 32
   size: 10, 36
   orig: 10, 36
   offset: 0, 0
   index: -1
 SliderKnob
   rotate: false
-  xy: 1522, 87
+  xy: 1922, 82
   size: 3, 36
   orig: 3, 36
   offset: 0, 0
   index: -1
 afterBar
   rotate: false
-  xy: 1507, 73
+  xy: 1907, 68
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 beforeBar
   rotate: false
-  xy: 1512, 73
+  xy: 1912, 68
   size: 3, 50
   orig: 3, 50
   offset: 0, 0
   index: -1
 hotbarBegin
   rotate: false
-  xy: 1482, 75
+  xy: 1882, 70
   size: 14, 48
   orig: 14, 48
   offset: 0, 0
@@ -69,119 +69,203 @@ hotbarCursor
   index: -1
 hotbarEnd
   rotate: false
-  xy: 1465, 75
+  xy: 1865, 70
   size: 15, 48
   orig: 15, 48
   offset: 0, 0
   index: -1
 hotbarMid
   rotate: false
-  xy: 1375, 75
+  xy: 1775, 70
   size: 50, 48
   orig: 50, 48
   offset: 0, 0
   index: -1
+invSlot-boots
+  rotate: false
+  xy: 644, 32
+  size: 72, 86
+  orig: 72, 86
+  offset: 0, 0
+  index: -1
+invSlot-bottom-left
+  rotate: false
+  xy: 718, 42
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+invSlot-bottom-mid
+  rotate: false
+  xy: 1442, 42
+  size: 72, 76
+  orig: 72, 76
+  offset: 0, 0
+  index: -1
+invSlot-bottom-right
+  rotate: false
+  xy: 796, 42
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+invSlot-chest
+  rotate: false
+  xy: 570, 32
+  size: 72, 86
+  orig: 72, 86
+  offset: 0, 0
+  index: -1
+invSlot-helmet
+  rotate: false
+  xy: 492, 32
+  size: 76, 86
+  orig: 76, 86
+  offset: 0, 0
+  index: -1
+invSlot-mid-left
+  rotate: false
+  xy: 1212, 46
+  size: 76, 72
+  orig: 76, 72
+  offset: 0, 0
+  index: -1
+invSlot-mid-mid
+  rotate: false
+  xy: 1368, 46
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+invSlot-mid-right
+  rotate: false
+  xy: 1290, 46
+  size: 76, 72
+  orig: 76, 72
+  offset: 0, 0
+  index: -1
+invSlot-top-left
+  rotate: false
+  xy: 874, 42
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+invSlot-top-mid
+  rotate: false
+  xy: 1516, 42
+  size: 72, 76
+  orig: 72, 76
+  offset: 0, 0
+  index: -1
+invSlot-top-right
+  rotate: false
+  xy: 952, 42
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+invSlot-weapon
+  rotate: false
+  xy: 414, 32
+  size: 76, 86
+  orig: 76, 86
+  offset: 0, 0
+  index: -1
 inventoryIconActive
   rotate: false
-  xy: 1190, 43
+  xy: 1590, 38
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
 inventoryIconInactive
   rotate: false
-  xy: 1262, 43
+  xy: 1662, 38
   size: 70, 80
   orig: 70, 80
   offset: 0, 0
   index: -1
+inventoryTop
+  rotate: false
+  xy: 2, 22
+  size: 297, 96
+  orig: 297, 96
+  offset: 0, 0
+  index: -1
 knobBar
   rotate: false
-  xy: 1498, 73
+  xy: 1898, 68
   size: 7, 50
   orig: 7, 50
   offset: 0, 0
   index: -1
 loadingBarBegin
   rotate: false
-  xy: 1446, 73
+  xy: 1846, 68
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 loadingBarEnd
   rotate: false
-  xy: 1427, 73
+  xy: 1827, 68
   size: 17, 50
   orig: 17, 50
   offset: 0, 0
   index: -1
 menuIconActive
   rotate: false
-  xy: 1099, 61
+  xy: 1121, 56
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
 menuIconInactive
   rotate: false
-  xy: 1008, 61
+  xy: 1030, 56
   size: 89, 62
   orig: 89, 62
   offset: 0, 0
   index: -1
-music_red
-  rotate: false
-  xy: 449, 24
-  size: 444, 99
-  orig: 444, 99
-  offset: 0, 0
-  index: -1
-music_white
-  rotate: false
-  xy: 2, 22
-  size: 445, 101
-  orig: 445, 101
-  offset: 0, 0
-  index: -1
 playerStatusBG
   rotate: false
-  xy: 1008, 35
+  xy: 1792, 44
   size: 2, 24
   orig: 2, 24
   offset: 0, 0
   index: -1
 playerStatusExp
   rotate: false
-  xy: 1527, 99
+  xy: 1796, 44
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusHealth
   rotate: false
-  xy: 1392, 49
+  xy: 1927, 94
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusLeft
   rotate: false
-  xy: 895, 27
+  xy: 301, 22
   size: 111, 96
   orig: 111, 96
   offset: 0, 0
   index: -1
 playerStatusMana
   rotate: false
-  xy: 1012, 35
+  xy: 1930, 94
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 playerStatusRight
   rotate: false
-  xy: 1334, 27
+  xy: 1734, 22
   size: 39, 96
   orig: 39, 96
   offset: 0, 0
