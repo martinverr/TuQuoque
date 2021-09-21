@@ -1,13 +1,21 @@
 package com.tuquoque.game.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Array;
+import com.tuquoque.game.world.Player;
 
 public class Inventory extends Table {
     private Stack title;
-    private Table inventorySlots;
-    private Table inventoryBottomSlots;
+    private Table inventorySlotsTable;
+    private Table inventoryBottomSlotsTable;
+    private Array<InventorySlot> inventory;
+    private Player player;
 
-    public Inventory(Skin skin){
+    private final int ROWS = 3;
+    private final int COLUMNS = 5;
+
+
+    public Inventory(Skin skin, Player player){
         super(skin);
         setVisible(false);
 
@@ -21,42 +29,47 @@ public class Inventory extends Table {
         title.add(titleLabel);
 
         // Main inventory slots setup
-        inventorySlots= new Table(skin);
-        for(int r=0; r<3; r++){
-            for(int c=0; c<5; c++){
+        inventorySlotsTable = new Table(skin);
+        inventory = new Array<>(COLUMNS*ROWS);
+        for(int r=0; r<ROWS; r++){
+            for(int c=0; c<COLUMNS; c++){
                 String name = "invSlot";
                 if(r == 0)
                     name+="-top";
-                else if(r == 2)
+                else if(r == ROWS-1)
                     name+="-bottom";
                 else
                     name+="-mid";
 
                 if(c == 0)
                     name+="-left";
-                else if(c == 4)
+                else if(c == COLUMNS-1)
                     name+="-right";
                 else
                     name+="-mid";
 
-                inventorySlots.add(new Image(skin.getDrawable(name)));
+                InventorySlot inventorySlot = new InventorySlot(name, skin);
+                inventorySlotsTable.add(inventorySlot);
+                inventory.add(inventorySlot);
             }
-            inventorySlots.row();
+            inventorySlotsTable.row();
         }
 
         // Accessories slots setup
-        inventoryBottomSlots=new Table(skin);
-        inventoryBottomSlots.add(new Image(skin.getDrawable("invSlot-helmet")));
-        inventoryBottomSlots.add(new Image(skin.getDrawable("invSlot-chest")));
-        inventoryBottomSlots.add(new Image(skin.getDrawable("invSlot-boots")));
-        inventoryBottomSlots.add(new Image(skin.getDrawable("invSlot-weapon")));
+        inventoryBottomSlotsTable = new Table(skin);
+        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-helmet")));
+        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-chest")));
+        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-boots")));
+        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-weapon")));
 
         // Complete inventory setup
         add(title);
         row();
-        add(inventorySlots);
+        add(inventorySlotsTable);
         row();
-        add(inventoryBottomSlots);
+        add(inventoryBottomSlotsTable);
+
+        addItemToInventory(new Item("helmet", 200, 1));
     }
 
     public void open(){
@@ -69,5 +82,36 @@ public class Inventory extends Table {
 
     public boolean isOpened(){
         return isVisible();
+    }
+
+    public void printInventory(){
+        int index = 0;
+        for(InventorySlot slot : inventory){
+            System.out.print(index + ": ");
+            if(slot.containsItems())
+                System.out.println(slot.getItem());
+            else
+                System.out.println("empty");
+
+            index++;
+        }
+    }
+
+    public int addItemToInventory(Item item){
+        int index = 0;
+
+        for(InventorySlot slot : inventory){
+            if(!slot.containsItems()){
+                slot.addItem(item);
+                return 1;
+            }
+
+            if(slot.getItem().equals(item)){
+                slot.getItem().incrementQuantity();
+                return slot.getItem().getQuantity();
+            }
+            index++;
+        }
+        return 0;
     }
 }

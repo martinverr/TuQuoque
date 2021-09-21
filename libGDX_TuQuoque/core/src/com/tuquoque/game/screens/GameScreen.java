@@ -15,6 +15,8 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.Inventory;
+import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.world.npcs.Follower;
 import com.tuquoque.game.world.npcs.NPC;
 import com.tuquoque.game.world.Player;
@@ -49,7 +51,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         //init camera
         gamecamera = new OrthographicCamera(16, 9);
         gamecamera.position.set(savedPlayerCoords, 0);
-        //gamecamera.update();
         batch.setProjectionMatrix(gamecamera.combined);
 
         //Create player
@@ -75,7 +76,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return new GameUI(context, skin);
+        return new GameUI(context, skin, playerB2D);
     }
 
     @Override
@@ -171,10 +172,10 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
-        switch (key){
+        switch (key) {
             /*
-            * Player Movement
-            */
+             * Player Movement
+             */
             case UP:
                 playerB2D.setSpeedY(playerB2D.NOMINAL_SPEED);
                 newMovementInput = true;
@@ -206,6 +207,17 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 break;
 
             /*
+             * Screens
+             */
+            case BACK:
+                if (((GameUI) screenUI).getInventory().isOpened()){
+                    ((GameUI) screenUI).getInventory().close();
+                    break;
+                }
+                savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
+                context.setScreen(ScreenType.MAINMENU);
+
+            /*
              * Inventory-Hotbar
              */
             case NUM1:
@@ -232,6 +244,34 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
             case NUM8:
                 ((GameUI) screenUI).changeSlotHotbar(7);
                 break;
+            case INVENTORY:
+                Inventory inventory = ((GameUI) screenUI).getInventory();
+                if(inventory.isOpened())
+                    inventory.close();
+                else
+                    inventory.open();
+                break;
+
+            /*
+             * DEBUG NEW FEATURES
+             */
+            case DEBUG:
+                /* SWITCH AMONG MAPS
+                MapType nextMap = MapType.values()[0];
+                for(int i = 0; i < MapType.values().length; i++){
+                    if (mapManager.getCurrentMapType() == MapType.values()[i]){
+                        if(i+1 < MapType.values().length){
+                            nextMap = MapType.values()[i+1];
+                        }
+                    }
+                }
+                mapManager.loadMap(nextMap);
+                */
+
+                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100));
+                ((GameUI) screenUI).getInventory().printInventory();
+                break;
+
             default:
                 break;
         }
@@ -255,28 +295,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
             case RIGHT:
                 newMovementInput = true;
                 playerB2D.setSpeedX(manager.isKeyPressed(GameKeys.LEFT) ? -playerB2D.NOMINAL_SPEED : 0);
-                break;
-
-            /*
-             * Screens
-             */
-            case BACK:
-                savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
-                context.setScreen(ScreenType.MAINMENU);
-
-            /*
-             * DEBUG NEW FEATURES
-             */
-            case DEBUG:
-                MapType nextMap = MapType.values()[0];
-                for(int i = 0; i < MapType.values().length; i++){
-                    if (mapManager.getCurrentMapType() == MapType.values()[i]){
-                        if(i+1 < MapType.values().length){
-                            nextMap = MapType.values()[i+1];
-                        }
-                    }
-                }
-                mapManager.loadMap(nextMap);
                 break;
             default:
                 break;

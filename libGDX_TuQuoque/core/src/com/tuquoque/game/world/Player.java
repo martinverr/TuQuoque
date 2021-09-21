@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
+import com.tuquoque.game.ui.Item;
 
 public class Player extends Entity {
 
@@ -17,6 +19,8 @@ public class Player extends Entity {
     private Animation<TextureAtlas.AtlasRegion> walkLeftAnimation;
     private Animation<TextureAtlas.AtlasRegion> idleRightAnimation;
     private Animation<TextureAtlas.AtlasRegion> idleLeftAnimation;
+
+    private Array<Item> playerInv;
 
     /**
      * The 4(till now) possible status of the player
@@ -55,6 +59,7 @@ public class Player extends Entity {
     public Player(World world, Vector2 coords){
         super(world, coords, 0.4f, 0.65f);
         this.world = world;
+        playerInv = new Array<>(15);
 
         //Animation animations
         animationDef();
@@ -112,6 +117,9 @@ public class Player extends Entity {
         }
     }
 
+    public Array<Item> getPlayerInv() {
+        return playerInv;
+    }
 
     public void draw(Batch batch, float elapsedTime) {
         if (batch.isDrawing()) {

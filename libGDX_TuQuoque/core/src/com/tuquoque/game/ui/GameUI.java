@@ -5,19 +5,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.screens.ScreenType;
+import com.tuquoque.game.world.Player;
 
 
 public class GameUI extends Table {
     final private PlayerStatus playerStatus;
     final private Hotbar hotbar;
+    final private Inventory inventory;
 
-    public GameUI(final GameStarter context, final Skin skin) {
+    public GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
 
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(true);
+        setDebug(false);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -31,7 +33,7 @@ public class GameUI extends Table {
         Button inventoryButt = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
 
         //widget 2nd row
-        final Inventory inventory = new Inventory(skin);
+        inventory = new Inventory(skin, player);
         inventoryButt.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -55,7 +57,7 @@ public class GameUI extends Table {
 
         //second row
         add();
-        add(inventory).expandY().center(); //TODO: Inventory
+        add(inventory).expandY().center();
         add(); //TODO: ActionsPossible
         row();
 
@@ -102,4 +104,7 @@ public class GameUI extends Table {
         }
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
 }

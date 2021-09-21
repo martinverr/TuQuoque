@@ -32,7 +32,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:raw/loadingBar,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/playerStatus,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/hotbar,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/icons,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/slider,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/inventory,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
+inputFiles=[{path:raw/loadingBar,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/playerStatus,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/hotbar,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/icons,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/slider,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/inventory,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false},{path:raw/items,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
 
 
 -PROJ-
