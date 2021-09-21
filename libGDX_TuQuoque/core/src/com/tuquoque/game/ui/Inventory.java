@@ -86,31 +86,42 @@ public class Inventory extends Table {
 
     public void printInventory(){
         int index = 0;
+        System.out.println("Inventory\n{");
         for(InventorySlot slot : inventory){
-            System.out.print(index + ": ");
+            System.out.print("\t" + index + ": ");
             if(slot.containsItems())
-                System.out.println(slot.getItem());
+                System.out.println("["+slot.getItem()+"]; ");
             else
-                System.out.println("empty");
+                System.out.println("[];");
 
             index++;
         }
+        System.out.println("}\n");
+    }
+
+    private int indexOf(Item item){
+        int index = 0;
+
+        for(InventorySlot slot : inventory){
+            if(slot.containsItems() && slot.getItem().equals(item))
+                return index;
+            index++;
+        }
+        return -1;
     }
 
     public int addItemToInventory(Item item){
-        int index = 0;
+        if(indexOf(item) != -1){
+            InventorySlot slot = inventory.get(indexOf(item));
+            slot.addItem(item);
+            return slot.getItem().getQuantity();
+        }
 
         for(InventorySlot slot : inventory){
             if(!slot.containsItems()){
                 slot.addItem(item);
-                return 1;
+                return item.getQuantity();
             }
-
-            if(slot.getItem().equals(item)){
-                slot.getItem().incrementQuantity();
-                return slot.getItem().getQuantity();
-            }
-            index++;
         }
         return 0;
     }

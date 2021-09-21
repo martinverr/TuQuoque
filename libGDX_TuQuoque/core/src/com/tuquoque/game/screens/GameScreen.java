@@ -268,7 +268,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 mapManager.loadMap(nextMap);
                 */
 
-                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100));
+                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100, 3));
+                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("tomato", 101, 1));
                 ((GameUI) screenUI).getInventory().printInventory();
                 break;
 
