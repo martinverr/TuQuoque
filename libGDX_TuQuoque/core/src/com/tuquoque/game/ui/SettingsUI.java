@@ -1,5 +1,6 @@
 package com.tuquoque.game.ui;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -11,13 +12,14 @@ public class SettingsUI extends Table {
     private Slider effectsVolume;
     private Label musicValue;
     private Label effectsValue;
+    private Sound sound;
 
     public SettingsUI(Skin skin, final GameStarter context) {
         super(skin);
         setFillParent(true);
 
         Label settingsMenu=new Label("SETTINGS MENU", skin, "huge");
-        Label music = new Label("MUSIC", skin, "huge");
+        final Label music = new Label("MUSIC", skin, "huge");
         Label effects=new Label("EFFECTS", skin, "huge");
 
         musicValue=new Label("0",skin,"normal");
@@ -36,6 +38,7 @@ public class SettingsUI extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 effectsValue.setText((int) (effectsVolume.getValue() * 100));
+                context.getAudioManager().setVolumeSound(effectsVolume.getValue());
             }
         });
 
