@@ -19,6 +19,8 @@ public class AudioManager {
     private Music currentMusic;
     private final AssetManager assetManager;
 
+    private float volumeSoundModifier=1;
+
     //array of AudioType
     private final ArrayList<AudioType> loopSoundsPlaying_at;
     //arrays of LoopingSound associated to their AudioType
@@ -41,6 +43,13 @@ public class AudioManager {
     public Music getCurrentMusic() {
         return currentMusic;
     }
+
+    public void setVolumeSound(float volumeSoundModifier) {
+        this.volumeSoundModifier = volumeSoundModifier;
+    }
+
+
+
 
     /**
      * Play the audio track depending on the typeOfSound:
@@ -71,18 +80,20 @@ public class AudioManager {
                 break;
 
             case SOUND:
-                assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume());
+                assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume()*volumeSoundModifier);
                 break;
 
             case LOOPINGSOUND:
                 if(!loopSoundsPlaying_at.contains(audioType)){
                     LoopingSound loopingSound = new LoopingSound(audioType, assetManager);
+                    loopingSound.setVolumeSoundModifier(volumeSoundModifier);
 
                     loopSoundsPlaying_at.add(audioType);
                     loopSoundsPlaying_ls.add(loopingSound);
                     loopingSound.play();
                 }
         }
+
     }
 
     /**
@@ -109,14 +120,24 @@ public class AudioManager {
             loopSoundsPlaying_ls.remove(index);
         }
     }
+
+
 }
+
+
 
 /**
  * Class for objects that manages the audioType.typeOfSound LOOPINGSOUND
  */
 class LoopingSound{
     private Sound sound;
+    private long soundId;
     private final AudioType audioType;
+    private float volumeSoundModifier = 1;
+
+    public void setVolumeSoundModifier(float volumeSoundModifier){
+        this.volumeSoundModifier = volumeSoundModifier;
+    }
 
     public LoopingSound(AudioType audioType, AssetManager assetManager) {
         this.audioType = audioType;
@@ -136,9 +157,9 @@ class LoopingSound{
     }
 
     void play(){
-        long soundId = sound.play();
+        soundId = sound.play();
         sound.setLooping(soundId, true);
-        sound.setVolume(soundId, audioType.getVolume());
+        sound.setVolume(soundId, audioType.getVolume() * volumeSoundModifier);
     }
 
     void stop(){
@@ -167,4 +188,6 @@ class LoopingSound{
 
         return this.sound.equals(other.sound);
     }
+
+
 }
