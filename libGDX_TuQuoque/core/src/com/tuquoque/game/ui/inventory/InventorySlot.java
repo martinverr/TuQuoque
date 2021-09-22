@@ -1,10 +1,11 @@
-package com.tuquoque.game.ui;
+package com.tuquoque.game.ui.inventory;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.utils.Align;
+import com.tuquoque.game.ui.Item;
 
 public class InventorySlot extends Stack {
     private Item item = null;
@@ -24,7 +25,7 @@ public class InventorySlot extends Stack {
             quantityLabel.setAlignment(Align.bottomRight);
 
             removeItem();
-            this.add(new Image(skin.getDrawable("item_" + item.getID())));
+            this.add(item.getItemImage(skin));
             this.add(quantityLabel);
         }
         this.item = item;

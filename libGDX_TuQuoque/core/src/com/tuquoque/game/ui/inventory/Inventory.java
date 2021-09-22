@@ -1,23 +1,29 @@
-package com.tuquoque.game.ui;
+package com.tuquoque.game.ui.inventory;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
+import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.world.Player;
 
-public class Inventory extends Table {
-    private Stack title;
-    private Table inventorySlotsTable;
-    private Table inventoryBottomSlotsTable;
-    private Array<InventorySlot> inventory;
-    private Player player;
 
+public class Inventory extends Table {
+    private final Array<InventorySlot> inventory;
+    private Player player;
     private final int ROWS = 3;
     private final int COLUMNS = 5;
+    private final DragAndDrop dragAndDrop;
 
-
-    public Inventory(Skin skin, Player player){
+    public Inventory(Skin skin, Player player, GameStarter context){
         super(skin);
         setVisible(false);
+        dragAndDrop = new DragAndDrop();
+
+        final Stack title;
+        final Table inventorySlotsTable;
+        final Table inventoryBottomSlotsTable;
 
         // Title Setup
         title = new Stack();
@@ -48,9 +54,15 @@ public class Inventory extends Table {
                 else
                     name+="-mid";
 
+
+                //add(new Image(skin.getDrawable(typeOfSlot)));
                 InventorySlot inventorySlot = new InventorySlot(name, skin);
+
                 inventorySlotsTable.add(inventorySlot);
                 inventory.add(inventorySlot);
+                dragAndDrop.addSource(new SlotSource(inventorySlot));
+                dragAndDrop.addTarget(new SlotTarget(inventorySlot));
+
             }
             inventorySlotsTable.row();
         }
@@ -69,7 +81,7 @@ public class Inventory extends Table {
         row();
         add(inventoryBottomSlotsTable);
 
-        addItemToInventory(new Item("helmet", 200, 1));
+        addItemToInventory(new Item("helmet", 200));
     }
 
     public void open(){
@@ -124,5 +136,56 @@ public class Inventory extends Table {
             }
         }
         return 0;
+    }
+
+
+    class SlotSource extends DragAndDrop.Source{
+        public SlotSource (InventorySlot inventorySlot){
+            super(inventorySlot);
+        }
+
+
+        @Override
+        public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+            DragAndDrop.Payload payload = new DragAndDrop.Payload();
+            InventorySlot slotSource = (InventorySlot) getActor();
+
+            if(slotSource.containsItems()){
+                payload.setObject(slotSource);
+                payload.setDragActor(slotSource.getItem().getItemImage(getSkin()));
+                return payload;
+            }
+            else
+                return null;
+        }
+    }
+
+    class SlotTarget extends DragAndDrop.Target{
+        public SlotTarget (InventorySlot inventorySlot){
+            super(inventorySlot);
+        }
+
+        @Override
+        public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+            InventorySlot draggedSlot = (InventorySlot) payload.getObject();
+            InventorySlot targetSlot = (InventorySlot) getActor();
+            return !draggedSlot.equals(targetSlot);
+        }
+
+        @Override
+        public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+            InventorySlot sourceSlot = (InventorySlot) source.getActor();
+            InventorySlot targetSlot = (InventorySlot) getActor();
+            if (!targetSlot.containsItems() || targetSlot.getItem().equals(sourceSlot.getItem())){
+                targetSlot.addItem(sourceSlot.getItem());
+                sourceSlot.removeItem();
+            }
+            else{
+                Item tempSwap = new Item(sourceSlot.getItem().getName(), sourceSlot.getItem().getID(), sourceSlot.getItem().getQuantity());
+                sourceSlot.addItem(targetSlot.getItem());
+                targetSlot.addItem(tempSwap);
+            }
+
+        }
     }
 }

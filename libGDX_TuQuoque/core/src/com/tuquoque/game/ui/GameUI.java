@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.screens.ScreenType;
+import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.Player;
 
 
@@ -33,7 +34,7 @@ public class GameUI extends Table {
         Button inventoryButt = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
 
         //widget 2nd row
-        inventory = new Inventory(skin, player);
+        inventory = new Inventory(skin, player, context);
         inventoryButt.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -1,5 +1,8 @@
 package com.tuquoque.game.ui;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 public class Item {
     private final String name;
     private final int ID;
@@ -35,6 +38,10 @@ public class Item {
 
     public void incrementQuantity(){
         quantity++;
+    }
+
+    public Image getItemImage(Skin skin) {
+        return new Image(skin.getDrawable("item_" + ID));
     }
 
     @Override

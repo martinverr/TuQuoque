@@ -15,7 +15,7 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
-import com.tuquoque.game.ui.Inventory;
+import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.world.npcs.Follower;
 import com.tuquoque.game.world.npcs.NPC;
