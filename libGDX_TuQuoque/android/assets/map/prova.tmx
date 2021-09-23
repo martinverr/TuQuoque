@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="59">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="59">
  <tileset firstgid="1" source="tilesets/Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" name="gold" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tilesets/gold.png" trans="ffffff" width="128" height="128"/>
@@ -828,31 +828,31 @@
 </data>
  </layer>
  <objectgroup color="#aa0000" id="6" name="Solids" opacity="0.5" tintcolor="#000000">
-  <object id="6" x="319.805" y="5856.75" width="128.003"/>
-  <object id="7" x="480" y="5710.91" width="159.818" height="49.606"/>
-  <object id="10" x="514.412" y="5858.18" width="91.9697" height="2.47475"/>
-  <object id="55" x="514.048" y="5986.55" width="91.9697" height="2.47475"/>
-  <object id="24" x="896" y="5824" width="32"/>
-  <object id="29" x="800" y="5952" width="96" height="64"/>
-  <object id="23" x="288" y="5568" width="448" height="96.5"/>
-  <object id="24" x="736" y="5568" width="32" height="256"/>
-  <object id="33" x="768" y="5600" width="128" height="224"/>
-  <object id="36" x="672" y="5791.73" width="64" height="32.2708"/>
+  <object id="6" x="319.805" y="5839.75" width="128.003" height="47"/>
+  <object id="7" x="480" y="5710.91" width="159.818" height="80.2727"/>
+  <object id="10" x="514.412" y="5858.18" width="91.9697" height="27.8081"/>
+  <object id="55" x="514.048" y="5986.55" width="91.9697" height="26.4748"/>
+  <object id="24" x="896" y="5824" width="32" height="31"/>
+  <object id="29" x="800" y="5932.5" width="96" height="115.5"/>
+  <object id="23" x="288" y="5568" width="448" height="127.5"/>
+  <object id="24" x="736" y="5568" width="32" height="287"/>
+  <object id="33" x="768" y="5600" width="128" height="255"/>
+  <object id="36" x="672" y="5775.73" width="64" height="78.9375"/>
   <object id="37" x="1696" y="5632" visible="0">
    <polygon points="-256,-32 -256,512 -1440,512 -1440,-64 -928,-64 -928,-32"/>
   </object>
-  <object id="41" x="1167.25" y="5760.25" width="16.75"/>
-  <object id="43" x="1231" y="5760" width="16.75"/>
-  <object id="44" x="1263.25" y="5760.25" width="16.75"/>
-  <object id="45" x="1294.75" y="5760.25" width="16.75"/>
-  <object id="46" x="1327.5" y="5759.75" width="16.75"/>
-  <object id="47" x="1359" y="5759.5" width="16.75"/>
-  <object id="48" x="1391.5" y="5760" width="16.75"/>
-  <object id="42" x="1199" y="5760.5" width="17"/>
-  <object id="49" x="768" y="6080" width="672" height="64"/>
-  <object id="50" x="288" y="6112" width="480" height="32"/>
-  <object id="53" x="736" y="5921" width="32" height="191"/>
-  <object id="54" x="672" y="5920" width="63" height="143.5"/>
+  <object id="41" x="1167.25" y="5760.25" width="16.75" height="32"/>
+  <object id="43" x="1231" y="5760" width="16.75" height="31.5"/>
+  <object id="44" x="1263.25" y="5760.25" width="16.75" height="31"/>
+  <object id="45" x="1294.75" y="5760.25" width="16.75" height="31.5"/>
+  <object id="46" x="1327.5" y="5759.75" width="16.75" height="32"/>
+  <object id="47" x="1359" y="5759.5" width="16.75" height="32"/>
+  <object id="48" x="1391.5" y="5760" width="16.75" height="31.5"/>
+  <object id="42" x="1199" y="5760" width="17" height="31.5"/>
+  <object id="49" x="768" y="6061.5" width="672" height="82.5"/>
+  <object id="50" x="288" y="6080.5" width="480" height="63.5"/>
+  <object id="53" x="736" y="5888.5" width="32" height="191.5"/>
+  <object id="54" x="672" y="5904.67" width="63" height="174.167"/>
   <object id="57" x="256" y="5568" width="32" height="352"/>
   <object id="58" x="256" y="5984" width="32" height="160"/>
  </objectgroup>

@@ -135,7 +135,7 @@ public class Player extends Entity {
     @Override
     public void teleportTo(Vector2 coordinates){
         world.destroyBody(B2DBody);
-        entityDef(coordinates, 0.4f, 0.65f);
+        entityDef(coordinates, 0.4f, 0.01f);
         playerBodyDef();
     }
 }
