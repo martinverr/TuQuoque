@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="36">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="70">
  <tileset firstgid="1" source="tilesets/Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" name="gold" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tilesets/gold.png" trans="ffffff" width="128" height="128"/>
@@ -1105,6 +1105,36 @@
   <object id="34" x="5888" y="192" width="32" height="352"/>
   <object id="35" x="4664.5" y="363.5">
    <polygon points="0,0 -7.5,-8 -6.5,-48 0,-59 76,-59.25 93.25,-34.25 143,-28 151.25,-18 149.5,-3 124.5,13 111.75,34 37.5,36.25 23.75,26.25 20.75,12"/>
+  </object>
+  <object id="47" x="4199.97" y="608.038" width="16.0625" height="48.15"/>
+  <object id="48" x="4231.84" y="544.05" width="16.0625" height="48.15"/>
+  <object id="49" x="4264" y="800" width="16.0625" height="48.15"/>
+  <object id="50" x="4424.09" y="736" width="16.0625" height="48.15"/>
+  <object id="51" x="4327.88" y="640" width="16.0625" height="48.15"/>
+  <object id="52" x="4423.97" y="544" width="16.0625" height="48.15"/>
+  <object id="53" x="4551.84" y="384" width="16.0625" height="48.15"/>
+  <object id="54" x="4520" y="224.425" width="16.0625" height="48.15"/>
+  <object id="55" x="4456" y="96.175" width="16.0625" height="48.15"/>
+  <object id="56" x="4616" y="32.175" width="16.0625" height="48.15"/>
+  <object id="57" x="4808" y="0" width="16.0625" height="48.15"/>
+  <object id="58" x="4199.88" y="160" width="16.0625" height="48.15"/>
+  <object id="59" x="4296" y="96" width="16.0625" height="48.15"/>
+  <object id="60" x="4327.97" y="192" width="16.0625" height="48.15"/>
+  <object id="61" x="4359.97" y="352" width="16.0625" height="48.15"/>
+  <object id="62" x="4743.97" y="512" width="16.0625" height="48.15"/>
+  <object id="63" x="4199.79" y="384.107" width="16.0625" height="48.15"/>
+  <object id="64" x="5760" y="1344" width="32" height="32"/>
+  <object id="65" x="4683.06" y="963.563">
+   <polygon points="0,0 11.9375,-0.5625 18.0625,6.6875 19,15 15,25.4375 6.125,25.75 5.625,21.8125 -6.4375,21.25 -8.8125,12.8125"/>
+  </object>
+  <object id="67" x="4670.91" y="976.091">
+   <polygon points="0,0 0.181818,-3.45455 -7,-12.6364 -18.8182,-6.45455 -26.7273,-7.18182 -30.7273,-3.09091 -30.2727,1.09091 -27,2 -25,10 -7.18182,9.90909"/>
+  </object>
+  <object id="68" x="4446.75" y="656.125">
+   <polygon points="0,0 0.181818,-3.45455 -7,-12.6364 -18.8182,-6.45455 -26.7273,-7.18182 -30.7273,-3.09091 -30.2727,1.09091 -27,2 -25,10 -7.18182,9.90909"/>
+  </object>
+  <object id="69" x="4286.7" y="176.091">
+   <polygon points="0,0 0.181818,-3.45455 -7,-12.6364 -18.8182,-6.45455 -26.7273,-7.18182 -30.7273,-3.09091 -30.2727,1.09091 -27,2 -25,10 -7.18182,9.90909"/>
   </object>
  </objectgroup>
  <layer id="2" name="Decorations" width="200" height="200">
