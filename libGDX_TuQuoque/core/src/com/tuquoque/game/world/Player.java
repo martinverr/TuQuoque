@@ -12,6 +12,9 @@ import com.tuquoque.game.ui.Item;
 public class Player extends Entity {
 
     private final World world;
+    private final float B2D_BODY_DEF_WIDTH = 0.4f;
+    private final float B2D_BODY_DEF_HEIGHT = 0.6f;
+
 
     //animation stuff
     private boolean direction = true;
@@ -57,7 +60,8 @@ public class Player extends Entity {
      * @param coords coordinates of where the player will be spawned
     * */
     public Player(World world, Vector2 coords){
-        super(world, coords, 0.4f, 0.65f);
+        //offset to legs = - heightEntireBox + heightLegs / 2
+        super(world, coords, 0.4f, 0.15f, -0.6f +0.15f/2);
         this.world = world;
         playerInv = new Array<>(15);
 
@@ -69,7 +73,7 @@ public class Player extends Entity {
 
     void playerBodyDef(){
         PolygonShape sensorShape = new PolygonShape();
-        sensorShape.setAsBox(0.5f, 0.75f);
+        sensorShape.setAsBox(B2D_BODY_DEF_WIDTH, B2D_BODY_DEF_HEIGHT);
         fixtureDef.shape = sensorShape;
         fixtureDef.isSensor = true;
         B2DBody.createFixture(fixtureDef).setUserData("player_sensor");
@@ -135,7 +139,8 @@ public class Player extends Entity {
     @Override
     public void teleportTo(Vector2 coordinates){
         world.destroyBody(B2DBody);
-        entityDef(coordinates, 0.4f, 0.01f);
+        //offset to legs = - heightEntireBox + heightLegs / 2
+        entityDef(coordinates, B2D_BODY_DEF_WIDTH, 0.15f, -B2D_BODY_DEF_HEIGHT +0.15f/2);
         playerBodyDef();
     }
 }

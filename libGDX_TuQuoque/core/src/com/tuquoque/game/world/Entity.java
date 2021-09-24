@@ -19,6 +19,16 @@ public class Entity {
     private float speedX;
     private float speedY;
 
+    public Entity(World world, Vector2 coords, float hWidth, float hHeight, float offset){
+        this.world=world;
+        bodyDef = new BodyDef();
+        fixtureDef = new FixtureDef();
+        this.bodyHalfWidth = hWidth;
+        this.bodyHalfHeight = hHeight;
+
+        //Box2d B2DBody
+        entityDef(coords, hWidth, hHeight, offset);
+    }
     public Entity(World world, Vector2 coords, float hWidth, float hHeight){
         this.world=world;
         bodyDef = new BodyDef();
@@ -27,8 +37,9 @@ public class Entity {
         this.bodyHalfHeight = hHeight;
 
         //Box2d B2DBody
-        entityDef(coords, hWidth, hHeight);
+        entityDef(coords, hWidth, hHeight, 0);
     }
+
 
 
     /**
@@ -36,14 +47,14 @@ public class Entity {
      *
      * @param coords coordinates of bodyDef.position
      * */
-    public void entityDef(Vector2 coords, float hWidth, float hHeight) {
+    public void entityDef(Vector2 coords, float hWidth, float hHeight, float offsetY) {
 
         bodyDef.position.set(coords.x, coords.y);
         bodyDef.gravityScale=0;
         bodyDef.type= BodyDef.BodyType.DynamicBody;
 
         PolygonShape playerShape = new PolygonShape();
-        playerShape.setAsBox(hWidth,hHeight);
+        playerShape.setAsBox(hWidth,hHeight,new Vector2(0,offsetY),0);
         fixtureDef.shape = playerShape;
 
         B2DBody = world.createBody(bodyDef);
@@ -79,6 +90,6 @@ public class Entity {
 
     public void teleportTo(Vector2 coordinates){
         world.destroyBody(B2DBody);
-        entityDef(coordinates, bodyHalfWidth, bodyHalfHeight);
+        entityDef(coordinates, bodyHalfWidth, bodyHalfHeight, 0);
     }
 }
