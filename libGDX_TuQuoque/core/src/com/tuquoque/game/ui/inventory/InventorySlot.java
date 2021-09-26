@@ -10,14 +10,24 @@ import com.tuquoque.game.ui.Item;
 public class InventorySlot extends Stack {
     private Item item = null;
     private final Skin skin;
+    private String typeOfItemAccepted;
 
     public InventorySlot(String typeOfSlot, Skin skin){
         this.skin = skin;
         add(new Image(skin.getDrawable(typeOfSlot)));
     }
 
-    public void addItem(Item item){
+    public InventorySlot(String typeOfSlot, Skin skin, String typeOfItemAccepted){
+        this.skin = skin;
+        add(new Image(skin.getDrawable(typeOfSlot)));
+        this.typeOfItemAccepted = typeOfItemAccepted;
+    }
+
+    public boolean addItem(Item item){
         if(item != null){
+            if(typeOfItemAccepted != null && !item.getItemType().equals(typeOfItemAccepted))
+                return false;
+
             if(item.equals(this.item))
                 item.setQuantity(item.getQuantity() + this.item.getQuantity());
 
@@ -29,6 +39,7 @@ public class InventorySlot extends Stack {
             this.add(quantityLabel);
         }
         this.item = item;
+        return false;
     }
 
     public void removeItem(){
@@ -45,5 +56,19 @@ public class InventorySlot extends Stack {
 
     public boolean containsItems(){
         return item != null;
+    }
+
+    public boolean isItemAccepted(Item item){
+        if(item == null)
+            return false;
+
+        if(typeOfItemAccepted == null)
+            return true;
+        else{
+            if(item.getItemType() == null)
+                return false;
+            else
+                return item.getItemType().equals(typeOfItemAccepted);
+        }
     }
 }

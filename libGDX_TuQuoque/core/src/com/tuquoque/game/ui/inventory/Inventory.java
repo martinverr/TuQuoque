@@ -14,12 +14,19 @@ public class Inventory extends Table {
     private Player player;
     private final int ROWS = 3;
     private final int COLUMNS = 5;
+    private final int NO_BOTTOM_SLOTS = 4;
+    private final int HELMET_SLOT_INDEX = ROWS*COLUMNS;
+    private final int CHEST_SLOT_INDEX = ROWS*COLUMNS+1;
+    private final int BOOTS_SLOT_INDEX = ROWS*COLUMNS+2;
+    private final int WEAPON_SLOT_INDEX = ROWS*COLUMNS+3;
+
     private final DragAndDrop dragAndDrop;
 
     public Inventory(Skin skin, Player player, GameStarter context){
         super(skin);
         setVisible(false);
         dragAndDrop = new DragAndDrop();
+        inventory = new Array<>(COLUMNS*ROWS+NO_BOTTOM_SLOTS);
 
         final Stack title;
         final Table inventorySlotsTable;
@@ -36,7 +43,6 @@ public class Inventory extends Table {
 
         // Main inventory slots setup
         inventorySlotsTable = new Table(skin);
-        inventory = new Array<>(COLUMNS*ROWS);
         for(int r=0; r<ROWS; r++){
             for(int c=0; c<COLUMNS; c++){
                 String name = "invSlot";
@@ -69,10 +75,15 @@ public class Inventory extends Table {
 
         // Accessories slots setup
         inventoryBottomSlotsTable = new Table(skin);
-        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-helmet")));
-        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-chest")));
-        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-boots")));
-        inventoryBottomSlotsTable.add(new Image(skin.getDrawable("invSlot-weapon")));
+        String[] namesBottomSlots = {"invSlot-helmet", "invSlot-chest", "invSlot-boots", "invSlot-weapon"};
+
+        for(String bottomSlotName : namesBottomSlots){
+            InventorySlot inventorySlot = new InventorySlot(bottomSlotName, skin, bottomSlotName.split("-")[1]);
+            inventoryBottomSlotsTable.add(inventorySlot);
+            inventory.add(inventorySlot);
+            dragAndDrop.addSource(new SlotSource(inventorySlot));
+            dragAndDrop.addTarget(new SlotTarget(inventorySlot));
+        }
 
         // Complete inventory setup
         add(title);
@@ -81,7 +92,7 @@ public class Inventory extends Table {
         row();
         add(inventoryBottomSlotsTable);
 
-        addItemToInventory(new Item("helmet", 200));
+        addItemToInventoryAtIndex(new Item("helmet_01", 200, 1, "helmet"), HELMET_SLOT_INDEX);
     }
 
     public void open(){
@@ -138,6 +149,10 @@ public class Inventory extends Table {
         return 0;
     }
 
+    public int addItemToInventoryAtIndex(Item item, int index){
+        inventory.get(index).addItem(item);
+        return item.getQuantity();
+    }
 
     class SlotSource extends DragAndDrop.Source{
         public SlotSource (InventorySlot inventorySlot){
@@ -169,7 +184,9 @@ public class Inventory extends Table {
         public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
             InventorySlot draggedSlot = (InventorySlot) payload.getObject();
             InventorySlot targetSlot = (InventorySlot) getActor();
-            return !draggedSlot.equals(targetSlot);
+
+            //false if target is the source or the item(type) is not acceptable
+            return !draggedSlot.equals(targetSlot) && targetSlot.isItemAccepted(draggedSlot.getItem());
         }
 
         @Override
