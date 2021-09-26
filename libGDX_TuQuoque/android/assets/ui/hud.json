@@ -40,7 +40,7 @@
     },
     "small-white": {
       "font": "font2_16",
-      "fontColor": "white",
+      "fontColor": "white"
     },
       "huge": {
         "font": "font_32",

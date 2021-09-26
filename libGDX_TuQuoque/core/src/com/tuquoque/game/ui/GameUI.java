@@ -13,6 +13,7 @@ public class GameUI extends Table {
     final private PlayerStatus playerStatus;
     final private Hotbar hotbar;
     final private Inventory inventory;
+    final private Dialogue dialogue;
 
     public GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
@@ -20,7 +21,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(false);
+        setDebug(true);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -32,6 +33,7 @@ public class GameUI extends Table {
             }
         });
         Button inventoryButt = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
+        Button dialogueButt=new Button(skin.getDrawable("dialogueButton"));
 
         //widget 2nd row
         inventory = new Inventory(skin, player, context);
@@ -46,19 +48,27 @@ public class GameUI extends Table {
             }
         });
 
+        dialogue=new Dialogue(skin, "PROVA");
+        dialogueButt.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event,x,y);
+                dialogue.setVisible(!dialogue.isVisible());
+            }
+        });
+
         //widgets 3rd row
         playerStatus = new PlayerStatus(skin);
         hotbar = new Hotbar(skin);
 
-
         //first row
         add(menu).top().left();
-        add(inventoryButt).colspan(2).expandX().top().right();
+        add(inventoryButt).expandX().top().right();
+        add(dialogueButt).top().right().size(100,80);
         row();
 
         //second row
-        add();
         add(inventory).expandY().center();
+        add(dialogue).bottom().size(500, 100);
         add(); //TODO: ActionsPossible
         row();
 
