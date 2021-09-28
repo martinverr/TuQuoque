@@ -1,17 +1,18 @@
 package com.tuquoque.game.ui.inventory;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.world.Player;
 
-
 public class Inventory extends Table {
-    private final Array<InventorySlot> inventory;
-    private Player player;
     private final int ROWS = 3;
     private final int COLUMNS = 5;
     private final int NO_BOTTOM_SLOTS = 4;
@@ -19,15 +20,16 @@ public class Inventory extends Table {
     private final int CHEST_SLOT_INDEX = ROWS*COLUMNS+1;
     private final int BOOTS_SLOT_INDEX = ROWS*COLUMNS+2;
     private final int WEAPON_SLOT_INDEX = ROWS*COLUMNS+3;
+    private final Array<InventorySlot> inventory;
 
     private final DragAndDrop dragAndDrop;
 
     public Inventory(Skin skin, Player player, GameStarter context){
         super(skin);
         setVisible(false);
+
         dragAndDrop = new DragAndDrop();
         inventory = new Array<>(COLUMNS*ROWS+NO_BOTTOM_SLOTS);
-
         final Stack title;
         final Table inventorySlotsTable;
         final Table inventoryBottomSlotsTable;
@@ -107,6 +109,7 @@ public class Inventory extends Table {
         return isVisible();
     }
 
+
     public void printInventory(){
         int index = 0;
         System.out.println("Inventory\n{");
@@ -133,6 +136,8 @@ public class Inventory extends Table {
         return -1;
     }
 
+
+
     public int addItemToInventory(Item item){
         if(indexOf(item) != -1){
             InventorySlot slot = inventory.get(indexOf(item));
@@ -152,6 +157,46 @@ public class Inventory extends Table {
     public int addItemToInventoryAtIndex(Item item, int index){
         inventory.get(index).addItem(item);
         return item.getQuantity();
+    }
+
+    public void saveInv() {
+        Json json = new Json();
+        Array<Item> array = new Array<>();
+        int index = 0;
+
+        for(InventorySlot slot : inventory){
+            if(slot.containsItems()){
+                Item currSavingItem = slot.getItem().copy();
+                currSavingItem.setIndexInInv(index);
+                array.add(currSavingItem);
+            }
+            index++;
+        }
+
+        json.setOutputType(JsonWriter.OutputType.json);
+        String savedJSON = json.prettyPrint(array);
+        FileHandle file = Gdx.files.local("data/items.json");
+        file.writeString(savedJSON, false);
+    }
+
+    public void loadInv(){
+        Json json = new Json();
+        Array<Item> items = new Array<>();
+
+        String loadedJson = Gdx.files.local("data/items.json").readString();
+        items = json.fromJson(Array.class, loadedJson);
+        //System.out.println(items);
+
+        clearInventory();
+        for(Item item : items){
+            inventory.get(item.getIndexInInv()).addItem(item);
+        }
+    }
+
+    private void clearInventory(){
+        for(InventorySlot slot : inventory){
+            slot.removeItem();
+        }
     }
 
     class SlotSource extends DragAndDrop.Source{

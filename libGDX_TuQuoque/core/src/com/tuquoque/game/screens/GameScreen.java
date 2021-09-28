@@ -256,21 +256,11 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * DEBUG NEW FEATURES
              */
             case DEBUG:
-                /* SWITCH AMONG MAPS
-                MapType nextMap = MapType.values()[0];
-                for(int i = 0; i < MapType.values().length; i++){
-                    if (mapManager.getCurrentMapType() == MapType.values()[i]){
-                        if(i+1 < MapType.values().length){
-                            nextMap = MapType.values()[i+1];
-                        }
-                    }
-                }
-                mapManager.loadMap(nextMap);
-                */
-
                 ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100, 3));
                 ((GameUI) screenUI).getInventory().addItemToInventory(new Item("tomato", 101, 1));
-                ((GameUI) screenUI).getInventory().printInventory();
+                //((GameUI) screenUI).getInventory().printInventory();
+                ((GameUI) screenUI).getInventory().saveInv();
+                ((GameUI) screenUI).getInventory().loadInv();
                 break;
 
             default:

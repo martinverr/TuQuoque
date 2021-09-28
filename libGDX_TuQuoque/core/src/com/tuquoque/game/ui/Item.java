@@ -8,6 +8,7 @@ public class Item {
     private final int ID;
     private int quantity;
     private String type;
+    private int indexInInv;
 
     public Item(String name, int ID){
         this.name = name;
@@ -29,6 +30,11 @@ public class Item {
         this.type = type;
     }
 
+    public Item(){
+        this.name = null;
+        this.ID = -1;
+    }
+
     public int getID() {
         return ID;
     }
@@ -41,20 +47,32 @@ public class Item {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public String getItemType(){
+        return type;
     }
 
-    public void incrementQuantity(){
-        quantity++;
+    public int getIndexInInv() {
+        return indexInInv;
     }
 
     public Image getItemImage(Skin skin) {
         return new Image(skin.getDrawable("item_" + ID));
     }
 
-    public String getItemType(){
-        return type;
+    public void incrementQuantity(){
+        quantity++;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setIndexInInv(int indexInInv) {
+        this.indexInInv = indexInInv;
+    }
+
+    public Item copy(){
+        return new Item(name, ID, quantity, type);
     }
 
     @Override
