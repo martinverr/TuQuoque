@@ -13,6 +13,7 @@ public class Dialogue extends Table {
 
     public Dialogue(Skin skin, String text) {
             this.skin=skin;
+            this.setVisible(false);
 
             Image dialogueBox=new Image(skin.getDrawable("DialogueBar"));
             add(dialogueBox).size(500,100);

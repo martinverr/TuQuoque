@@ -21,7 +21,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(true);
+        setDebug(false);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
