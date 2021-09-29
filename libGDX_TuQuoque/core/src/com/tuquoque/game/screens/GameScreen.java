@@ -35,6 +35,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     float elapsedTime=0;
     private boolean newMovementInput = false;
     private NPC_handler npc_handler;
+    private Inventory inventory;
 
     //map
     private final MapManager mapManager;
@@ -55,6 +56,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
         //Create player
         playerB2D = new Player(world, savedPlayerCoords);
+        inventory = ((GameUI) screenUI).getInventory();
+        inventory.loadInv();
         npc1=new Follower(world, new Vector2(15,13));
 
         //map init
@@ -151,7 +154,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     public void pause() {
-
+        inventory.saveInv();
     }
 
     @Override
@@ -215,6 +218,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                     break;
                 }
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
+                inventory.saveInv();
                 context.setScreen(ScreenType.MAINMENU);
 
             /*
@@ -259,8 +263,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100, 3));
                 ((GameUI) screenUI).getInventory().addItemToInventory(new Item("tomato", 101, 1));
                 //((GameUI) screenUI).getInventory().printInventory();
-                ((GameUI) screenUI).getInventory().saveInv();
-                ((GameUI) screenUI).getInventory().loadInv();
+                //((GameUI) screenUI).getInventory().saveInv();
+                //((GameUI) screenUI).getInventory().loadInv();
                 break;
 
             default:

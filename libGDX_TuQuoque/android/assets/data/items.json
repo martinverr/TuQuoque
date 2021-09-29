@@ -3,13 +3,13 @@
 	"class": "com.tuquoque.game.ui.Item",
 	"name": "bread",
 	"ID": 100,
-	"quantity": 3
+	"quantity": 15
 },
 {
 	"class": "com.tuquoque.game.ui.Item",
 	"name": "tomato",
 	"ID": 101,
-	"quantity": 1,
+	"quantity": 5,
 	"indexInInv": 1
 },
 {

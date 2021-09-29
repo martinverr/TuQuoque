@@ -97,6 +97,7 @@ public class Inventory extends Table {
         addItemToInventoryAtIndex(new Item("helmet_01", 200, 1, "helmet"), HELMET_SLOT_INDEX);
     }
 
+
     public void open(){
         setVisible(true);
     }
@@ -105,11 +106,16 @@ public class Inventory extends Table {
         setVisible(false);
     }
 
+    /**
+     * @return true if the InventoryUI is open
+     */
     public boolean isOpened(){
         return isVisible();
     }
 
-
+    /**
+     * Print for debug purposes of inventory
+     */
     public void printInventory(){
         int index = 0;
         System.out.println("Inventory\n{");
@@ -125,6 +131,10 @@ public class Inventory extends Table {
         System.out.println("}\n");
     }
 
+    /**
+     * @param item item to be found
+     * @return index of the InventorySlot containing that item
+     */
     private int indexOf(Item item){
         int index = 0;
 
@@ -137,14 +147,20 @@ public class Inventory extends Table {
     }
 
 
-
+    /**
+     * Add item to the inventory, in the slot containing that item, if possible, or in the first one found
+     * @param item item to be added
+     * @return new quantity of the item
+     */
     public int addItemToInventory(Item item){
+        //if there's a slot containing that item, add the item there
         if(indexOf(item) != -1){
             InventorySlot slot = inventory.get(indexOf(item));
             slot.addItem(item);
             return slot.getItem().getQuantity();
         }
 
+        //if there's not, add the the first empty slot
         for(InventorySlot slot : inventory){
             if(!slot.containsItems()){
                 slot.addItem(item);
@@ -154,11 +170,22 @@ public class Inventory extends Table {
         return 0;
     }
 
+    /**
+     * Add an item to a specified slot
+     *
+     * @param item item to be added
+     * @param index index where item will be put
+     * @return the new quantity of the Item
+     */
     public int addItemToInventoryAtIndex(Item item, int index){
         inventory.get(index).addItem(item);
         return item.getQuantity();
     }
 
+    /**
+     * Overwrite the json file where we put an array of the current items in the inventory slots, setting their actual
+     * index
+     */
     public void saveInv() {
         Json json = new Json();
         Array<Item> array = new Array<>();
@@ -179,6 +206,9 @@ public class Inventory extends Table {
         file.writeString(savedJSON, false);
     }
 
+    /**
+     * get the Items saved in json file, clear inventory and put them into it
+     */
     public void loadInv(){
         Json json = new Json();
         Array<Item> items = new Array<>();
@@ -193,18 +223,32 @@ public class Inventory extends Table {
         }
     }
 
+    /**
+     * remove items of the Inventory' slots
+     */
     private void clearInventory(){
         for(InventorySlot slot : inventory){
             slot.removeItem();
         }
     }
 
+
+    /**
+     * SlotSource is an InventorySlot Source for the DragAndDrop of our inventory.
+     *
+     * Extends DragAndDrop.Source and define dragStart()
+     */
     class SlotSource extends DragAndDrop.Source{
         public SlotSource (InventorySlot inventorySlot){
             super(inventorySlot);
         }
 
-
+        /**
+         * If a slot is dragged and contains some Item, sets the payload object as the InventorySlot of the source
+         * and set the dragActor as a copy of the Image representing the Item
+         *
+         * @return the payload setted
+         */
         @Override
         public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
             DragAndDrop.Payload payload = new DragAndDrop.Payload();
@@ -220,34 +264,61 @@ public class Inventory extends Table {
         }
     }
 
-    class SlotTarget extends DragAndDrop.Target{
-        public SlotTarget (InventorySlot inventorySlot){
-            super(inventorySlot);
+}
+
+
+/**
+ * SlotTarget is an InventorySlot Target for the DragAndDrop of our inventory.
+ *
+ * Extends DragAndDrop.Target and define drag() and drop() in our case
+ */
+class SlotTarget extends DragAndDrop.Target{
+    public SlotTarget (InventorySlot inventorySlot){
+        super(inventorySlot);
+    }
+
+    /**
+     * if the target currently pointed is valid for drop()
+     *
+     * discard following cases:
+     * -The slot pointed is the source slot
+     * -The slot pointed accepts specific ItemType and does not match with the payload's Item
+     *
+     * @param source dragAndDrop source
+     * @param payload payload of current dragged slot (source)
+     * @param x x of pointer
+     * @param y y of pointer
+     * @param pointer pointer
+     * @return true if the target currently pointed is valid for drop()
+     */
+    @Override
+    public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+        InventorySlot draggedSlot = (InventorySlot) payload.getObject();
+        InventorySlot targetSlot = (InventorySlot) getActor();
+
+        return !draggedSlot.equals(targetSlot) && targetSlot.isItemAccepted(draggedSlot.getItem());
+    }
+
+    /**
+     * Drop the Item of Payload/Source to the new ItemSlot(SlotTarget).
+     * The Item is droppable because already checked in drag()
+     *
+     * If target slot is empty or contains the same Item: move the Item from source(add to target and remove from source)
+     * else: swap the Items between source and target
+     */
+    @Override
+    public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+        InventorySlot sourceSlot = (InventorySlot) source.getActor();
+        InventorySlot targetSlot = (InventorySlot) getActor();
+        if (!targetSlot.containsItems() || targetSlot.getItem().equals(sourceSlot.getItem())){
+            targetSlot.addItem(sourceSlot.getItem());
+            sourceSlot.removeItem();
+        }
+        else{
+            Item tempSwap = new Item(sourceSlot.getItem().getName(), sourceSlot.getItem().getID(), sourceSlot.getItem().getQuantity());
+            sourceSlot.addItem(targetSlot.getItem());
+            targetSlot.addItem(tempSwap);
         }
 
-        @Override
-        public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-            InventorySlot draggedSlot = (InventorySlot) payload.getObject();
-            InventorySlot targetSlot = (InventorySlot) getActor();
-
-            //false if target is the source or the item(type) is not acceptable
-            return !draggedSlot.equals(targetSlot) && targetSlot.isItemAccepted(draggedSlot.getItem());
-        }
-
-        @Override
-        public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-            InventorySlot sourceSlot = (InventorySlot) source.getActor();
-            InventorySlot targetSlot = (InventorySlot) getActor();
-            if (!targetSlot.containsItems() || targetSlot.getItem().equals(sourceSlot.getItem())){
-                targetSlot.addItem(sourceSlot.getItem());
-                sourceSlot.removeItem();
-            }
-            else{
-                Item tempSwap = new Item(sourceSlot.getItem().getName(), sourceSlot.getItem().getID(), sourceSlot.getItem().getQuantity());
-                sourceSlot.addItem(targetSlot.getItem());
-                targetSlot.addItem(tempSwap);
-            }
-
-        }
     }
 }
