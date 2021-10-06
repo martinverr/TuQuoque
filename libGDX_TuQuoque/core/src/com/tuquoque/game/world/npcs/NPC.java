@@ -1,5 +1,6 @@
 package com.tuquoque.game.world.npcs;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.tuquoque.game.world.Entity;
@@ -51,46 +52,5 @@ public abstract class NPC extends Entity {
      */
     public abstract void actionTriggered(Player player);
 
-
-    void follow(Player player, float stopAtDistance, boolean speedUpIfFar){
-        Vector2 pcoords = player.B2DBody.getPosition();
-        coords = B2DBody.getPosition();
-        float distance = player.B2DBody.getPosition().dst(this.B2DBody.getPosition());
-
-        // check if not too close to player, then set speed to follow him
-        if(distance > stopAtDistance){
-            if (speedUpIfFar){
-                //adjust speed
-                if (distance > stopAtDistance*4){ //speed increments if npc is getting far
-                    NPCspeed *= 1.5f;
-                }
-                if (distance < stopAtDistance*2){ //speed returns normal
-                    NPCspeed = NOMINAL_SPEED * 0.5f;
-                }
-            }
-
-            //set speed to the body
-            if(pcoords.x< coords.x)
-                setSpeedX(-NPCspeed);
-            else
-                setSpeedX(NPCspeed);
-
-            if(pcoords.y < coords.y)
-                setSpeedY(-NPCspeed);
-            else
-                setSpeedY(NPCspeed);
-        }
-        else{ //if too close stop
-            setSpeedX(0);
-            setSpeedY(0);
-        }
-
-        B2DBody.applyLinearImpulse(
-                getSpeedX()-B2DBody.getLinearVelocity().x,
-                getSpeedY()-B2DBody.getLinearVelocity().y,
-                B2DBody.getWorldCenter().x,B2DBody.getWorldCenter().y,true);
-
-    }
-
-    public abstract void draw();
+    public abstract void draw(Batch batch, float elapsedTime);
 }

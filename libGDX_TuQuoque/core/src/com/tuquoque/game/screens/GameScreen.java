@@ -17,7 +17,7 @@ import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.ui.Item;
-import com.tuquoque.game.world.npcs.Follower;
+import com.tuquoque.game.world.npcs.Dog;
 import com.tuquoque.game.world.npcs.NPC;
 import com.tuquoque.game.world.Player;
 import com.tuquoque.game.ui.GameUI;
@@ -58,7 +58,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         playerB2D = new Player(world, savedPlayerCoords);
         inventory = ((GameUI) screenUI).getInventory();
         inventory.loadInv();
-        npc1=new Follower(world, new Vector2(15,13));
+        npc1=new Dog(world, new Vector2(15,13));
 
         //map init
         mapManager = context.getMapManager();
@@ -136,6 +136,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         //drawing player
         batch.begin();
         playerB2D.draw(batch, elapsedTime);
+        npc_handler.draw(batch, elapsedTime);
         batch.end();
 
 

@@ -1,16 +1,16 @@
 [
 {
 	"class": "com.tuquoque.game.ui.Item",
-	"name": "bread",
-	"ID": 100,
-	"quantity": 15
+	"name": "tomato",
+	"ID": 101,
+	"quantity": 5
 },
 {
 	"class": "com.tuquoque.game.ui.Item",
-	"name": "tomato",
-	"ID": 101,
-	"quantity": 5,
-	"indexInInv": 1
+	"name": "bread",
+	"ID": 100,
+	"quantity": 15,
+	"indexInInv": 13
 },
 {
 	"class": "com.tuquoque.game.ui.Item",

@@ -1,0 +1,20 @@
+
+idle_left.png
+size: 256, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+idle_left
+  rotate: false
+  xy: 2, 2
+  size: 64, 41
+  orig: 64, 41
+  offset: 0, 0
+  index: 4
+idle_left
+  rotate: false
+  xy: 68, 2
+  size: 64, 41
+  orig: 64, 41
+  offset: 0, 0
+  index: 3

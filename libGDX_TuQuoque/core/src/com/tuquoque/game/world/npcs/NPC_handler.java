@@ -1,5 +1,7 @@
 package com.tuquoque.game.world.npcs;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.tuquoque.game.world.npcs.NPC;
 import com.tuquoque.game.world.Player;
 
@@ -61,7 +63,18 @@ public class NPC_handler {
                 npc.actionTriggered(player);
         }
     }
-    
+
+    public void draw(Batch batch, float elapsedTime) {
+        if (batch.isDrawing()) {
+            for(NPC npc : npcs){
+                if (npc.B2DBody.getPosition().dst(player.B2DBody.getPosition()) < 10)
+                    npc.draw(batch, elapsedTime);
+            }
+        }
+        else
+            Gdx.app.error(this.getClass().getSimpleName(), "batch not drawing");
+    }
+
     public int getNPCsCount(){
         return npcs.size();
     }
