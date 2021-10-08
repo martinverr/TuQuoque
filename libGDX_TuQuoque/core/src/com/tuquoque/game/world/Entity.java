@@ -2,8 +2,10 @@ package com.tuquoque.game.world;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.tuquoque.game.world.npcs.animation.NpcAnimation;
 
 public class Entity {
+    private NpcAnimation npcAnimation;
 
     //BOX2D stuff
     World world;
@@ -84,8 +86,22 @@ public class Entity {
         return speedY;
     }
 
-    public void setFixureUserData(Object userData){
+    public void setFixtureUserData(Object userData){
             fixture.setUserData(userData);
+    }
+
+    /**
+     * getter of npcAnimation
+     */
+    public NpcAnimation getNpcAnimation() {
+        return npcAnimation;
+    }
+
+    /**
+     * setter of npcAnimation
+     */
+    public void setNpcAnimation(NpcAnimation npcAnimation) {
+        this.npcAnimation = npcAnimation;
     }
 
     public void teleportTo(Vector2 coordinates){

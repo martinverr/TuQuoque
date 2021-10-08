@@ -1,29 +1,14 @@
 package com.tuquoque.game.world.npcs;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.npcs.animation.DogAnimation;
 
 public class Dog extends NPC{
     private Vector2 coords;
-
-    private enum Status {
-        IDLEL, //stand left
-        IDLER, //stand right
-        WALKL, //walk left
-        WALKR //walk right
-    }
-
-    //animation stuff
-    private boolean direction = true;
-    private Animation<TextureAtlas.AtlasRegion> walkRightAnimation;
-    private Animation<TextureAtlas.AtlasRegion> walkLeftAnimation;
-    private Animation<TextureAtlas.AtlasRegion> idleRightAnimation;
-    private Animation<TextureAtlas.AtlasRegion> idleLeftAnimation;
 
     /**
      * Constructor of NPC
@@ -34,66 +19,12 @@ public class Dog extends NPC{
      * @param coords coordinates of where the NPC will be spawned
      */
     public Dog(World world, Vector2 coords) {
-        super(world, 0.8f, 0.15f, coords);
-        NPCspeed *= 0.75f;
+        super(world, 0.8f, 0.4f, coords);
+        NPCspeed *= 0.5f;
 
-        animationDef();
+        setNpcAnimation(new DogAnimation(this));
     }
 
-
-    /**
-     * Init TextureAtlas frames and related Animations
-     */
-    private void animationDef(){
-        TextureAtlas idleRight =new TextureAtlas(Gdx.files.internal("NPC/doggo/idle_right.atlas"));
-        TextureAtlas idleLeft=new TextureAtlas(Gdx.files.internal("NPC/doggo/idle_left.atlas"));
-        TextureAtlas walkLeft=new TextureAtlas(Gdx.files.internal("NPC/doggo/move_left.atlas"));
-        TextureAtlas walkRight=new TextureAtlas(Gdx.files.internal("NPC/doggo/move_right.atlas"));
-
-        walkLeftAnimation=new Animation<>(1/8f, walkLeft.getRegions());
-        walkRightAnimation=new Animation<>(1/8f, walkRight.getRegions());
-        idleLeftAnimation=new Animation <>(1/4f, idleLeft.getRegions());
-        idleRightAnimation=new Animation <>(1/4f, idleRight.getRegions());
-    }
-
-
-    /**
-     * return current status of the player considering last direction and if it's moving
-     */
-    public Dog.Status getStatus(){
-        if(!B2DBody.getLinearVelocity().isZero()){ //Walk
-            if(B2DBody.getLinearVelocity().x>0){ //right
-                direction = true;
-                return Dog.Status.WALKR;
-            }
-            else{ //left
-                direction = false;
-                return Dog.Status.WALKL;
-            }
-
-        }
-        else{ //Idle
-            if(direction)   return Dog.Status.IDLER;
-            else            return Dog.Status.IDLEL;
-        }
-    }
-
-    /**
-     * return the animation for the current state of the dog
-     */
-    public Animation<TextureAtlas.AtlasRegion> getCurrentAnimation(){
-        switch (getStatus()){
-            case IDLEL:
-                return idleLeftAnimation;
-            default:
-            case IDLER:
-                return idleRightAnimation;
-            case WALKL:
-                return walkLeftAnimation;
-            case WALKR:
-                return walkRightAnimation;
-        }
-    }
 
     @Override
     public void actionTriggered(Player player) {
@@ -103,9 +34,9 @@ public class Dog extends NPC{
     @Override
     public void draw(Batch batch, float elapsedTime) {
         if (batch.isDrawing()) {
-            batch.draw(getCurrentAnimation().getKeyFrame(elapsedTime, true),
+            batch.draw(getNpcAnimation().getCurrentAnimation().getKeyFrame(elapsedTime, true),
                     B2DBody.getPosition().x - 0.8f,
-                    B2DBody.getPosition().y - 0.15f,
+                    B2DBody.getPosition().y - 0.4f,
                     1.6f, 0.8f);
         }
         else
@@ -137,8 +68,8 @@ public class Dog extends NPC{
                     setSpeedX(NPCspeed);
             else setSpeedX(0);
 
-            if(Math.abs(pcoords.y - coords.y) > 0.05f)
-                if(pcoords.y < coords.y)
+            if(Math.abs(pcoords.y -0.3f - coords.y) > 0.05f)
+                if(pcoords.y - 0.3f < coords.y)
                     setSpeedY(-NPCspeed);
                 else
                     setSpeedY(NPCspeed);

@@ -5,12 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.tuquoque.game.world.Entity;
 import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.npcs.animation.NpcAnimation;
 
 public abstract class NPC extends Entity {
 
     private Vector2 coords;
     private float actionRadius = 10;
     float NPCspeed = NOMINAL_SPEED;
+
 
     /**
      * Constructor of NPC
@@ -42,6 +44,7 @@ public abstract class NPC extends Entity {
     public void setActionRadius(float actionRadius) {
         this.actionRadius = actionRadius;
     }
+
 
     /**
      * The NPC_handler will notify the NPC when the player enters in his action radius by this method
