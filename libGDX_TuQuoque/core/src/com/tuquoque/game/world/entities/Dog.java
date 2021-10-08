@@ -1,11 +1,10 @@
-package com.tuquoque.game.world.npcs;
+package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.tuquoque.game.world.Player;
-import com.tuquoque.game.world.npcs.animation.DogAnimation;
+import com.tuquoque.game.world.entities.animation.DogAnimation;
 
 public class Dog extends NPC{
     private Vector2 coords;

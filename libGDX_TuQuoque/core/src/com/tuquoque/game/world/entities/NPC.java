@@ -1,11 +1,8 @@
-package com.tuquoque.game.world.npcs;
+package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.tuquoque.game.world.Entity;
-import com.tuquoque.game.world.Player;
-import com.tuquoque.game.world.npcs.animation.NpcAnimation;
 
 public abstract class NPC extends Entity {
 

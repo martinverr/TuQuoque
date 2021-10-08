@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.screens.ScreenType;
 import com.tuquoque.game.ui.inventory.Inventory;
-import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.entities.Player;
 
 
 public class GameUI extends Table {

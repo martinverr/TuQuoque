@@ -17,11 +17,11 @@ import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.ui.Item;
-import com.tuquoque.game.world.npcs.Dog;
-import com.tuquoque.game.world.npcs.NPC;
-import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.entities.Dog;
+import com.tuquoque.game.world.entities.NPC;
+import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.ui.GameUI;
-import com.tuquoque.game.world.npcs.NPC_handler;
+import com.tuquoque.game.world.entities.NPC_handler;
 import com.tuquoque.game.world.WorldContactListener;
 
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;

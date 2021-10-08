@@ -1,4 +1,4 @@
-package com.tuquoque.game.world.npcs.animation;
+package com.tuquoque.game.world.entities.animation;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

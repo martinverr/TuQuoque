@@ -1,9 +1,7 @@
-package com.tuquoque.game.world.npcs;
+package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.tuquoque.game.world.npcs.NPC;
-import com.tuquoque.game.world.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;

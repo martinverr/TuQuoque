@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.world.WorldCreator;
 
 public class MapManager {

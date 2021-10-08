@@ -1,10 +1,9 @@
-package com.tuquoque.game.world.npcs.animation;
+package com.tuquoque.game.world.entities.animation;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.tuquoque.game.world.Player;
-import com.tuquoque.game.world.npcs.Dog;
+import com.tuquoque.game.world.entities.Player;
 
 public class PlayerAnimation implements NpcAnimation{
     private Player player;

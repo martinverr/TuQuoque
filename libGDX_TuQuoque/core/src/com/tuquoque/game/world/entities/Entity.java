@@ -1,8 +1,8 @@
-package com.tuquoque.game.world;
+package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.tuquoque.game.world.npcs.animation.NpcAnimation;
+import com.tuquoque.game.world.entities.animation.NpcAnimation;
 
 public class Entity {
     private NpcAnimation npcAnimation;

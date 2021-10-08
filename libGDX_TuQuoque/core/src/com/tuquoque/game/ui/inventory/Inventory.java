@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.ui.Item;
-import com.tuquoque.game.world.Player;
+import com.tuquoque.game.world.entities.Player;
 
 public class Inventory extends Table {
     private final int ROWS = 3;
