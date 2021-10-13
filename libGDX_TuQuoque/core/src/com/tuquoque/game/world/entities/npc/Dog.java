@@ -1,6 +1,7 @@
 package com.tuquoque.game.world.entities.npc;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -18,11 +19,11 @@ public class Dog extends NPC{
      * @param world  Box2D World where the NPC will be defined
      * @param coords coordinates of where the NPC will be spawned
      */
-    public Dog(World world, Vector2 coords) {
+    public Dog(World world, Vector2 coords, AssetManager assetManager) {
         super(world, 0.8f, 0.4f, coords);
         NPCspeed *= 0.5f;
 
-        setNpcAnimation(new DogAnimation(this));
+        setNpcAnimation(new DogAnimation(this, assetManager));
     }
 
 

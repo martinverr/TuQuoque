@@ -1,12 +1,14 @@
 package com.tuquoque.game.world.entities.animation;
 
-import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.tuquoque.game.world.entities.npc.Dog;
 
 public class DogAnimation implements NpcAnimation{
     private Dog dog;
+    private final AssetManager assetManager;
     private boolean direction = true;
     private Animation<TextureAtlas.AtlasRegion> walkRightAnimation;
     private Animation<TextureAtlas.AtlasRegion> walkLeftAnimation;
@@ -20,8 +22,10 @@ public class DogAnimation implements NpcAnimation{
         WALKR //walk right
     }
 
-    public DogAnimation(Dog dog){
+    public DogAnimation(Dog dog, AssetManager assetManager){
         this.dog = dog;
+        this.assetManager = assetManager;
+
         animationDef();
     }
 
@@ -29,10 +33,10 @@ public class DogAnimation implements NpcAnimation{
      * Init TextureAtlas frames and related Animations
      */
     private void animationDef(){
-        TextureAtlas idleRight =new TextureAtlas(Gdx.files.internal("NPC/doggo/idle_right.atlas"));
-        TextureAtlas idleLeft=new TextureAtlas(Gdx.files.internal("NPC/doggo/idle_left.atlas"));
-        TextureAtlas walkLeft=new TextureAtlas(Gdx.files.internal("NPC/doggo/move_left.atlas"));
-        TextureAtlas walkRight=new TextureAtlas(Gdx.files.internal("NPC/doggo/move_right.atlas"));
+        TextureAtlas idleRight = assetManager.get("NPC/doggo/idle_right.atlas");
+        TextureAtlas idleLeft = assetManager.get("NPC/doggo/idle_left.atlas");
+        TextureAtlas walkLeft = assetManager.get("NPC/doggo/move_left.atlas");
+        TextureAtlas walkRight = assetManager.get("NPC/doggo/move_right.atlas");
 
         walkLeftAnimation=new Animation<>(1/8f, walkLeft.getRegions());
         walkRightAnimation=new Animation<>(1/8f, walkRight.getRegions());

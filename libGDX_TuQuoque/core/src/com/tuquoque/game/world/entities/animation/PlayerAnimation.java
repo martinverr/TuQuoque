@@ -1,6 +1,7 @@
 package com.tuquoque.game.world.entities.animation;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.tuquoque.game.world.entities.Player;
@@ -12,6 +13,7 @@ public class PlayerAnimation implements NpcAnimation{
     private Animation<TextureAtlas.AtlasRegion> walkLeftAnimation;
     private Animation<TextureAtlas.AtlasRegion> idleRightAnimation;
     private Animation<TextureAtlas.AtlasRegion> idleLeftAnimation;
+    private AssetManager assetManager;
 
     /**
      * The 4(till now) possible status of the player
@@ -23,8 +25,9 @@ public class PlayerAnimation implements NpcAnimation{
         WALKR //walk right
     }
 
-    public PlayerAnimation(Player player){
+    public PlayerAnimation(Player player, AssetManager assetManager){
         this.player = player;
+        this.assetManager = assetManager;
         animationDef();
     }
 
@@ -33,10 +36,10 @@ public class PlayerAnimation implements NpcAnimation{
      * Init TextureAtlas frames and related Animations
      */
     private void animationDef(){
-        TextureAtlas idleRight =new TextureAtlas(Gdx.files.internal("player/idle_right.atlas"));
-        TextureAtlas idleLeft=new TextureAtlas(Gdx.files.internal("player/idle_left.atlas"));
-        TextureAtlas walkLeft=new TextureAtlas(Gdx.files.internal("player/walk_left.atlas"));
-        TextureAtlas walkRight=new TextureAtlas(Gdx.files.internal("player/walk_right.atlas"));
+        TextureAtlas idleRight = assetManager.get("player/idle_right.atlas", TextureAtlas.class);
+        TextureAtlas idleLeft=assetManager.get("player/idle_left.atlas", TextureAtlas.class);
+        TextureAtlas walkLeft=assetManager.get("player/walk_left.atlas", TextureAtlas.class);
+        TextureAtlas walkRight=assetManager.get("player/walk_right.atlas", TextureAtlas.class);
 
         walkLeftAnimation=new Animation <>(1/8f, walkLeft.getRegions());
         walkRightAnimation=new Animation<>(1/8f, walkRight.getRegions());

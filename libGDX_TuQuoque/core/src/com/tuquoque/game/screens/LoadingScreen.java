@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,7 +14,7 @@ import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.audio.AudioType;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.LoadingUI;
-
+import com.tuquoque.game.world.entities.animation.AnimationLoader;
 
 
 public class LoadingScreen extends AbstractScreen {
@@ -28,12 +29,12 @@ public class LoadingScreen extends AbstractScreen {
         //AssetManager
         assetManager = context.getAssetManager();
 
-        //load map
+        //load maps
         for(MapType map : MapType.values()){
             context.getAssetManager().load(map.getFilePath(), TiledMap.class);
         }
 
-        //load audio
+        //load audios
         for(final AudioType audioType : AudioType.values()){
             if (audioType.isMusic()){
                 assetManager.load(audioType.getFilePath(), Music.class);
@@ -42,6 +43,10 @@ public class LoadingScreen extends AbstractScreen {
             }
 
         }
+
+        //load animations
+        AnimationLoader.loadAllAnimations(assetManager);
+
     }
 
     @Override

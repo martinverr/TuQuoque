@@ -57,10 +57,10 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         batch.setProjectionMatrix(gamecamera.combined);
 
         //Create player
-        playerB2D = new Player(world, savedPlayerCoords, gameUI);
+        playerB2D = new Player(world, savedPlayerCoords, gameUI, context.getAssetManager());
         inventory = gameUI.getInventory();
         inventory.loadInv();
-        npc1=new Dog(world, new Vector2(15,13));
+        npc1=new Dog(world, new Vector2(15,13), context.getAssetManager());
 
         //map init
         mapManager = context.getMapManager();
