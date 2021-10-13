@@ -16,12 +16,11 @@ import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
-import com.tuquoque.game.ui.Item;
-import com.tuquoque.game.world.entities.Dog;
-import com.tuquoque.game.world.entities.NPC;
+import com.tuquoque.game.world.entities.npc.Dog;
+import com.tuquoque.game.world.entities.npc.NPC;
 import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.ui.GameUI;
-import com.tuquoque.game.world.entities.NPC_handler;
+import com.tuquoque.game.world.entities.npc.NPC_handler;
 import com.tuquoque.game.world.WorldContactListener;
 
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
@@ -46,8 +45,11 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
 
+    private final GameUI gameUI;
+
     public GameScreen(final GameStarter context){
         super(context);
+        gameUI = (GameUI) screenUI;
 
         //init camera
         gamecamera = new OrthographicCamera(16, 9);
@@ -55,8 +57,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         batch.setProjectionMatrix(gamecamera.combined);
 
         //Create player
-        playerB2D = new Player(world, savedPlayerCoords);
-        inventory = ((GameUI) screenUI).getInventory();
+        playerB2D = new Player(world, savedPlayerCoords, gameUI);
+        inventory = gameUI.getInventory();
         inventory.loadInv();
         npc1=new Dog(world, new Vector2(15,13));
 
@@ -135,8 +137,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
         //drawing player
         batch.begin();
-        playerB2D.draw(batch, elapsedTime);
         npc_handler.draw(batch, elapsedTime);
+        playerB2D.draw(batch, elapsedTime);
         batch.end();
 
 
@@ -214,8 +216,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * Screens
              */
             case BACK:
-                if (((GameUI) screenUI).getInventory().isOpened()){
-                    ((GameUI) screenUI).getInventory().close();
+                if (gameUI.getInventory().isOpened()){
+                    gameUI.getInventory().close();
                     break;
                 }
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
@@ -226,31 +228,31 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * Inventory-Hotbar
              */
             case NUM1:
-                ((GameUI) screenUI).changeSlotHotbar(0);
+                gameUI.changeSlotHotbar(0);
                 break;
             case NUM2:
-                ((GameUI) screenUI).changeSlotHotbar(1);
+                gameUI.changeSlotHotbar(1);
                 break;
             case NUM3:
-                ((GameUI) screenUI).changeSlotHotbar(2);
+                gameUI.changeSlotHotbar(2);
                 break;
             case NUM4:
-                ((GameUI) screenUI).changeSlotHotbar(3);
+                gameUI.changeSlotHotbar(3);
                 break;
             case NUM5:
-                ((GameUI) screenUI).changeSlotHotbar(4);
+                gameUI.changeSlotHotbar(4);
                 break;
             case NUM6:
-                ((GameUI) screenUI).changeSlotHotbar(5);
+                gameUI.changeSlotHotbar(5);
                 break;
             case NUM7:
-                ((GameUI) screenUI).changeSlotHotbar(6);
+                gameUI.changeSlotHotbar(6);
                 break;
             case NUM8:
-                ((GameUI) screenUI).changeSlotHotbar(7);
+                gameUI.changeSlotHotbar(7);
                 break;
             case INVENTORY:
-                Inventory inventory = ((GameUI) screenUI).getInventory();
+                Inventory inventory = gameUI.getInventory();
                 if(inventory.isOpened())
                     inventory.close();
                 else
@@ -261,11 +263,12 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * DEBUG NEW FEATURES
              */
             case DEBUG:
-                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("bread", 100, 3));
-                ((GameUI) screenUI).getInventory().addItemToInventory(new Item("tomato", 101, 1));
-                //((GameUI) screenUI).getInventory().printInventory();
-                //((GameUI) screenUI).getInventory().saveInv();
-                //((GameUI) screenUI).getInventory().loadInv();
+                //gameUI.getInventory().addItemToInventory(new Item("bread", 100, 3));
+                //gameUI.getInventory().addItemToInventory(new Item("tomato", 101, 1));
+                //gameUI.getInventory().printInventory();
+                //gameUI.getInventory().saveInv();
+                //gameUI.getInventory().loadInv();
+                //playerB2D.setHealth(140);
                 break;
 
             default:
@@ -301,13 +304,13 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void scrollVertical(InputManager manager, float amount) {
         if(amount > 0){
             for(int i=0; i<amount; i++){
-                ((GameUI) screenUI).nextSlotHotbar();
+                gameUI.nextSlotHotbar();
             }
         }
         else{
             amount *= -1;
             for(int i=0; i<amount; i++){
-                ((GameUI) screenUI).previousSlotHotbar();
+                gameUI.previousSlotHotbar();
             }
         }
     }
@@ -316,6 +319,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void mapChanged() {
         mapRenderer.setMap(mapManager.getCurrentMap());
         mapManager.playerAtSpawnMap(playerB2D);
-        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,2));
+        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,1));
     }
 }

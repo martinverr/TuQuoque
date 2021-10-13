@@ -3,7 +3,7 @@ package com.tuquoque.game.world.entities.animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.tuquoque.game.world.entities.Dog;
+import com.tuquoque.game.world.entities.npc.Dog;
 
 public class DogAnimation implements NpcAnimation{
     private Dog dog;

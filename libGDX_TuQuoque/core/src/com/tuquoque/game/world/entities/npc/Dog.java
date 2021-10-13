@@ -1,9 +1,10 @@
-package com.tuquoque.game.world.entities;
+package com.tuquoque.game.world.entities.npc;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.world.entities.animation.DogAnimation;
 
 public class Dog extends NPC{
@@ -27,7 +28,7 @@ public class Dog extends NPC{
 
     @Override
     public void actionTriggered(Player player) {
-        follow(player, 1.5f, true);
+        follow(player, 2f, true);
     }
 
     @Override
@@ -54,8 +55,8 @@ public class Dog extends NPC{
                 if (distance > stopAtDistance*4){ //speed increments if npc is getting far
                     NPCspeed = NOMINAL_SPEED * 2;
                 }
-                if (distance < stopAtDistance*2){ //speed returns normal
-                    NPCspeed = NOMINAL_SPEED * 0.75f;
+                if (distance < stopAtDistance * 1.5f){ //speed returns normal
+                    NPCspeed = NOMINAL_SPEED * 0.5f;
                 }
             }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="70">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="71">
  <tileset firstgid="1" source="tilesets/Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" name="gold" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tilesets/gold.png" trans="ffffff" width="128" height="128"/>
@@ -1135,6 +1135,9 @@
   </object>
   <object id="69" x="4286.7" y="176.091">
    <polygon points="0,0 0.181818,-3.45455 -7,-12.6364 -18.8182,-6.45455 -26.7273,-7.18182 -30.7273,-3.09091 -30.2727,1.09091 -27,2 -25,10 -7.18182,9.90909"/>
+  </object>
+  <object id="70" x="4302.67" y="0.666667">
+   <polygon points="0,0 -139.333,144.667 -188,187.333 -192,230 -220.667,251.333 -225,296.667 -252.333,312.667 -256.667,396 -278.667,403 -288,419 -287.333,447.667 -379.333,448 -380,436.333 -381.333,374.667 -354,360 -348,278 -324,260.667 -316,213.333 -292.667,202 -279.333,138.667 -262,136 -249.333,77.3333 -229.333,76 -212,42 -161.333,0"/>
   </object>
  </objectgroup>
  <layer id="2" name="Decorations" width="200" height="200">
