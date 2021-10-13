@@ -1,15 +1,17 @@
-package com.tuquoque.game.world.entities;
+package com.tuquoque.game.world.entities.npc;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.tuquoque.game.world.entities.Entity;
+import com.tuquoque.game.world.entities.Player;
 
 public abstract class NPC extends Entity {
 
     private Vector2 coords;
     private float actionRadius = 10;
     float NPCspeed = NOMINAL_SPEED;
-
+    private String mapLocation;
 
     /**
      * Constructor of NPC
@@ -42,6 +44,17 @@ public abstract class NPC extends Entity {
         this.actionRadius = actionRadius;
     }
 
+    public String getMapLocation() {
+        return mapLocation;
+    }
+
+    public void setMapLocation(String mapLocation) {
+        this.mapLocation = mapLocation;
+    }
+
+    public Vector2 getCoords() {
+        return coords;
+    }
 
     /**
      * The NPC_handler will notify the NPC when the player enters in his action radius by this method
