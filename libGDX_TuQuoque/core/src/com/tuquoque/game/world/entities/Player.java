@@ -2,11 +2,17 @@ package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.animation.PlayerAnimation;
+
+import java.io.StringWriter;
+import java.io.Writer;
 
 
 public class Player extends Entity {
@@ -138,6 +144,32 @@ public class Player extends Entity {
 
     public float getMaxExp() {
         return maxExp;
+    }
+
+    public void saveStats(){
+        Json json = new Json(JsonWriter.OutputType.json);
+        StringWriter jsonText = new StringWriter();
+        JsonWriter jsonWriter = new JsonWriter(jsonText);
+        json.setWriter(jsonWriter);
+
+
+        json.writeObjectStart();
+
+        {
+            json.writeObjectStart("stats");
+            json.writeValue("health", health);
+            json.writeValue("maxHealth", maxHealth);
+            json.writeValue("mana", mana);
+            json.writeValue("maxMana", maxMana);
+            json.writeValue("exp", exp);
+            json.writeValue("maxExp", maxExp);
+            json.writeValue("level", level);
+            json.writeObjectEnd();
+        }
+        json.writeObjectEnd();
+
+        FileHandle file = Gdx.files.local("data/stats.json");
+        file.writeString(json.prettyPrint(jsonText.toString()), false);
     }
 
     public void draw(Batch batch, float elapsedTime) {

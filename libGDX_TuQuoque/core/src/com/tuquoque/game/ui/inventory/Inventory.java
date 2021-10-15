@@ -21,6 +21,7 @@ public class Inventory extends Table {
     private final int BOOTS_SLOT_INDEX = ROWS*COLUMNS+2;
     private final int WEAPON_SLOT_INDEX = ROWS*COLUMNS+3;
     private final Array<InventorySlot> inventory;
+    private int gold=0;
 
     private final DragAndDrop dragAndDrop;
 
@@ -182,6 +183,22 @@ public class Inventory extends Table {
         return item.getQuantity();
     }
 
+    public Array<Item> getItemsArray(){
+        Array<Item> array = new Array<>();
+        int index = 0;
+
+        for(InventorySlot slot : inventory){
+            if(slot.containsItems()){
+                Item currSavingItem = slot.getItem().copy();
+                currSavingItem.setIndexInInv(index);
+                array.add(currSavingItem);
+            }
+            index++;
+        }
+
+        return array;
+    }
+
     /**
      * Overwrite the json file where we put an array of the current items in the inventory slots, setting their actual
      * index
@@ -230,6 +247,14 @@ public class Inventory extends Table {
         for(InventorySlot slot : inventory){
             slot.removeItem();
         }
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void addGold(int goldAmount) {
+        gold += goldAmount;
     }
 
 

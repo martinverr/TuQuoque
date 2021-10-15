@@ -16,6 +16,7 @@ import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
+import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.entities.npc.Dog;
 import com.tuquoque.game.world.entities.npc.NPC;
 import com.tuquoque.game.world.entities.Player;
@@ -269,6 +270,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //gameUI.getInventory().saveInv();
                 //gameUI.getInventory().loadInv();
                 //playerB2D.setHealth(140);
+                //playerB2D.saveStats();
+                JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory());
                 break;
 
             default:
