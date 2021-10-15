@@ -271,7 +271,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //gameUI.getInventory().loadInv();
                 //playerB2D.setHealth(140);
                 //playerB2D.saveStats();
-                JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory());
+                JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
                 break;
 
             default:

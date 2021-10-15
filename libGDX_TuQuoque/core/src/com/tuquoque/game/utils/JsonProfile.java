@@ -5,13 +5,14 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.entities.Player;
 
 import java.io.StringWriter;
 
 public class JsonProfile {
-    public static void saveProfile(String nameProfile, Player player, Inventory inventory){
+    public static void saveProfile(String nameProfile, Player player, Inventory inventory, MapType map){
         Json json = new Json(JsonWriter.OutputType.json);
         StringWriter jsonText = new StringWriter();
         JsonWriter jsonWriter = new JsonWriter(jsonText);
@@ -19,7 +20,9 @@ public class JsonProfile {
 
 
         json.writeObjectStart();
-
+        json.writeValue("coordX", player.B2DBody.getPosition().x);
+        json.writeValue("coordY", player.B2DBody.getPosition().y);
+        json.writeValue("map", map.toString());
         {
             json.writeObjectStart("stats");
             json.writeValue("health", player.getHealth());
