@@ -14,7 +14,6 @@ import com.tuquoque.game.input.GameKeys;
 import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
-import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.entities.npc.Dog;
@@ -60,22 +59,19 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         //Create player
         playerB2D = new Player(world, savedPlayerCoords, gameUI, context.getAssetManager());
         inventory = gameUI.getInventory();
-        inventory.loadInv();
-        npc1=new Dog(world, new Vector2(15,13), context.getAssetManager());
+        JsonProfile.loadInventory("mainProfile", inventory);
+
+        // creating NPC_handler
+        npc1=new Dog(world, new Vector2(playerB2D.B2DBody.getPosition().sub(0,1)), context.getAssetManager());
+        npc_handler = new NPC_handler(playerB2D);
+        npc_handler.addNPC(npc1);
 
         //map init
         mapManager = context.getMapManager();
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, batch);
         mapManager.addMapListener(this);
-        mapManager.loadMap(MapType.CITY);
+        JsonProfile.loadLocation("mainProfile", playerB2D, mapManager);
 
-        // creating NPC_handler
-        npc_handler = new NPC_handler(new NPC[]{npc1}, playerB2D);
-        /*
-        * oppure
-        * npc_handler = new NPC_handler(playerB2D)
-        * npc_handler.addNPC(npc1);
-        */
 
         world.setContactListener(new WorldContactListener(context));
     }
@@ -90,6 +86,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         super.show();
         inputManager.addInputListener(this);
         audioManager.playAudio(AudioType.AMBIENT_PALATINO);
+        JsonProfile.loadLocation("mainProfile", playerB2D, mapManager);
     }
 
 
@@ -158,7 +155,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     public void pause() {
-        inventory.saveInv();
+        JsonProfile.saveProfile("mainProfile", playerB2D, inventory, mapManager.getCurrentMapType());
     }
 
     @Override
@@ -222,7 +219,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                     break;
                 }
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
-                inventory.saveInv();
+                JsonProfile.saveProfile("mainProfile", playerB2D, inventory, mapManager.getCurrentMapType());
                 context.setScreen(ScreenType.MAINMENU);
 
             /*
@@ -271,7 +268,10 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //gameUI.getInventory().loadInv();
                 //playerB2D.setHealth(140);
                 //playerB2D.saveStats();
-                JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
+                //JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
+                //JsonProfile.loadStats("mainProfile", playerB2D);
+                //JsonProfile.loadLocation("mainProfile", playerB2D, mapManager);
+                //JsonProfile.loadInventory("mainProfile", gameUI.getInventory());
                 break;
 
             default:

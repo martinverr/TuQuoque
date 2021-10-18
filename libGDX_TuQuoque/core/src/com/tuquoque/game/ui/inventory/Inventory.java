@@ -1,13 +1,9 @@
 package com.tuquoque.game.ui.inventory;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.world.entities.Player;
@@ -199,41 +195,12 @@ public class Inventory extends Table {
         return array;
     }
 
-    /**
-     * Overwrite the json file where we put an array of the current items in the inventory slots, setting their actual
-     * index
-     */
-    public void saveInv() {
-        Json json = new Json();
-        Array<Item> array = new Array<>();
-        int index = 0;
 
-        for(InventorySlot slot : inventory){
-            if(slot.containsItems()){
-                Item currSavingItem = slot.getItem().copy();
-                currSavingItem.setIndexInInv(index);
-                array.add(currSavingItem);
-            }
-            index++;
-        }
-
-        json.setOutputType(JsonWriter.OutputType.json);
-        String savedJSON = json.prettyPrint(array);
-        FileHandle file = Gdx.files.local("data/items.json");
-        file.writeString(savedJSON, false);
-    }
 
     /**
-     * get the Items saved in json file, clear inventory and put them into it
+     * get array of Items, clear inventory and put them into it
      */
-    public void loadInv(){
-        Json json = new Json();
-        Array<Item> items = new Array<>();
-
-        String loadedJson = Gdx.files.local("data/items.json").readString();
-        items = json.fromJson(Array.class, loadedJson);
-        //System.out.println(items);
-
+    public void loadInv(Array<Item> items){
         clearInventory();
         for(Item item : items){
             inventory.get(item.getIndexInInv()).addItem(item);

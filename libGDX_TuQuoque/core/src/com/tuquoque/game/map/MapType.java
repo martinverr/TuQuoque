@@ -3,8 +3,8 @@ package com.tuquoque.game.map;
 import com.badlogic.gdx.math.Vector2;
 
 public enum MapType {
-    CITY("map/prova.tmx", 11, 14),
-    OUTSIDE("map/outside.tmx", 183, 182);
+    CITY("map/prova.tmx", 9.5f, 14),
+    OUTSIDE("map/outside.tmx", 183.5f, 182);
 
     private final String filePath;
     private final float x;

@@ -2,17 +2,12 @@ package com.tuquoque.game.world.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.ui.GameUI;
+import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.entities.animation.PlayerAnimation;
-
-import java.io.StringWriter;
-import java.io.Writer;
 
 
 public class Player extends Entity {
@@ -29,7 +24,7 @@ public class Player extends Entity {
     private float health;
     private float mana;
     private float exp;
-    private float level;
+    private int level;
 
     /**
     * Constructor of Player
@@ -45,15 +40,8 @@ public class Player extends Entity {
         this.world = world;
         this.gameUI = gameUI;
 
-        health = 100;
-        maxHealth = 100;
-        mana = 50;
-        maxMana = 100;
-        exp = 0;
-        maxExp = 100;
-        level = 1;
+        JsonProfile.loadStats("mainProfile", this);
         updateGameUI();
-
         playerBodyDef();
         setNpcAnimation(new PlayerAnimation(this, assetManager));
     }
@@ -118,6 +106,16 @@ public class Player extends Entity {
         }
     }
 
+    public void setStats(float health, float maxHealth, float mana, float maxMana, float exp, float maxExp, int level){
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.mana = mana;
+        this.maxMana = maxMana;
+        this.exp = exp;
+        this.maxExp = maxExp;
+        this.level = level;
+    }
+
     public float getLevel() {
         return level;
     }
@@ -144,32 +142,6 @@ public class Player extends Entity {
 
     public float getMaxExp() {
         return maxExp;
-    }
-
-    public void saveStats(){
-        Json json = new Json(JsonWriter.OutputType.json);
-        StringWriter jsonText = new StringWriter();
-        JsonWriter jsonWriter = new JsonWriter(jsonText);
-        json.setWriter(jsonWriter);
-
-
-        json.writeObjectStart();
-
-        {
-            json.writeObjectStart("stats");
-            json.writeValue("health", health);
-            json.writeValue("maxHealth", maxHealth);
-            json.writeValue("mana", mana);
-            json.writeValue("maxMana", maxMana);
-            json.writeValue("exp", exp);
-            json.writeValue("maxExp", maxExp);
-            json.writeValue("level", level);
-            json.writeObjectEnd();
-        }
-        json.writeObjectEnd();
-
-        FileHandle file = Gdx.files.local("data/stats.json");
-        file.writeString(json.prettyPrint(jsonText.toString()), false);
     }
 
     public void draw(Batch batch, float elapsedTime) {

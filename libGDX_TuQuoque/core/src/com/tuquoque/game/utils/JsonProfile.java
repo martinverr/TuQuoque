@@ -2,10 +2,11 @@ package com.tuquoque.game.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.*;
+import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.entities.Player;
 
@@ -44,5 +45,45 @@ public class JsonProfile {
 
         FileHandle file = Gdx.files.local("data/" + nameProfile + ".json");
         file.writeString(json.prettyPrint(jsonText.toString()), false);
+    }
+
+    public static void loadStats(String nameProfile, Player player){
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.local("data/" + nameProfile + ".json"));
+
+        //get the component values
+        JsonValue component = base.get("stats");
+
+        //print class value to console
+        player.setStats(
+                component.getInt("health", 100),
+                component.getInt("maxHealth", 100),
+                component.getInt("mana", 50),
+                component.getInt("maxMana", 100),
+                component.getInt("exp", 0),
+                component.getInt("maxExp", 100),
+                component.getInt("level", 1)
+        );
+    }
+
+
+    public static void loadLocation(String nameProfile, Player player, MapManager mapManager){
+        JsonReader json = new JsonReader();
+        JsonValue base = json.parse(Gdx.files.local("data/" + nameProfile + ".json"));
+
+        System.out.println("loadLocation() called");
+        mapManager.loadMap(MapType.getMapTypeByName(base.getString("map")));
+        player.teleportTo(new Vector2(base.getFloat("coordX"), base.getFloat("coordY")));
+    }
+
+    public static void loadInventory(String nameProfile, Inventory inventory){
+        JsonReader jsonReader = new JsonReader();
+        Json json = new Json();
+        JsonValue base = jsonReader.parse(Gdx.files.local("data/" + nameProfile + ".json"));
+        Array<Item> items = new Array<>();
+
+        JsonValue invJson = base.get("inv");
+        items = json.fromJson(Array.class, invJson.get("items").toString().substring(6));
+        inventory.loadInv(items);
     }
 }
