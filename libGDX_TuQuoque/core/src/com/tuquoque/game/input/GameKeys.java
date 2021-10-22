@@ -21,7 +21,8 @@ public enum GameKeys {
     NUM6(Input.Keys.NUM_6),
     NUM7(Input.Keys.NUM_7),
     NUM8(Input.Keys.NUM_8),
-    INVENTORY(Input.Keys.I);
+    INVENTORY(Input.Keys.I),
+    DIALOGUE(Input.Keys.E);
 
     final int[] keyCode;
 

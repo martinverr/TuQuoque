@@ -1,5 +1,6 @@
 package com.tuquoque.game.ui;
 
+import com.badlogic.gdx.graphics.g2d.CpuSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,13 +16,17 @@ public class GameUI extends Table {
     final private Inventory inventory;
     final private Dialogue dialogue;
 
+    public Dialogue getDialogue() {
+        return dialogue;
+    }
+
     public GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
 
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(false);
+        setDebug(true);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -33,7 +38,6 @@ public class GameUI extends Table {
             }
         });
         Button inventoryButt = new Button(skin.getDrawable("inventoryIconInactive"), skin.getDrawable("inventoryIconActive"));
-        Button dialogueButt=new Button(skin.getDrawable("dialogueButton"));
 
         //widget 2nd row
         inventory = new Inventory(skin, player, context);
@@ -48,13 +52,15 @@ public class GameUI extends Table {
             }
         });
 
-        dialogue=new Dialogue(skin, "PROVA");
+        dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
+        final Button dialogueButt=new Button(skin.getDrawable("dialogue_button"));
         dialogueButt.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                super.clicked(event,x,y);
+                super.clicked(event, x, y);
                 dialogue.setVisible(!dialogue.isVisible());
             }
         });
+
 
         //widgets 3rd row
         playerStatus = new PlayerStatus(skin);
@@ -63,12 +69,12 @@ public class GameUI extends Table {
         //first row
         add(menu).top().left();
         add(inventoryButt).expandX().top().right();
-        add(dialogueButt).top().right().size(100,80);
+        add(dialogueButt).top().right().size( 80,70);
         row();
 
         //second row
         add(inventory).expandY().center();
-        add(dialogue).bottom().size(500, 100);
+        add(dialogue).bottom().size(600, 120).padTop(200);
         add(); //TODO: ActionsPossible
         row();
 
