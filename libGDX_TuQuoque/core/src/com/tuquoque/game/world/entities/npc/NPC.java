@@ -12,6 +12,8 @@ public abstract class NPC extends Entity {
     private float actionRadius = 10;
     float NPCspeed = NOMINAL_SPEED;
     private String mapLocation;
+    private String NPCname = "NPC";
+    private String conversationConfigPath;
 
     /**
      * Constructor of NPC
@@ -54,6 +56,22 @@ public abstract class NPC extends Entity {
 
     public Vector2 getCoords() {
         return coords;
+    }
+
+    public String getNPCname() {
+        return NPCname;
+    }
+
+    public void setNPCname(String NPCname) {
+        this.NPCname = NPCname;
+    }
+
+    public String getConversationConfigPath() {
+        return conversationConfigPath;
+    }
+
+    public void setConversationConfigPath(String conversationConfigPath) {
+        this.conversationConfigPath = conversationConfigPath;
     }
 
     /**

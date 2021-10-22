@@ -269,7 +269,10 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //gameUI.getInventory().loadInv();
                 //playerB2D.setHealth(140);
                 //playerB2D.saveStats();
-                JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
+                //JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
+                gameUI.getDialogue().loadConversation(npc1);
+                //gameUI.getDialogue().setMessage("Nel mezzo del cammin di nostra vita \nmi ritrovai per una selva oscura\n" +
+                //        "che la diritta via era smarrita.");
                 break;
 
             default:

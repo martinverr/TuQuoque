@@ -52,7 +52,7 @@ public class GameUI extends Table {
             }
         });
 
-        dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
+        dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE con un testo più lungo", "TIZIO");
         final Button dialogueButt=new Button(skin.getDrawable("dialogue_button"));
         dialogueButt.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
