@@ -10,43 +10,41 @@ import com.tuquoque.game.world.entities.npc.NPC;
 
 public class Dialogue extends Table {
 
-    Skin skin;
-    Stack dialogueStack;
-    Label dialogueText;
-    Label dialogueSpeaker;
-    Table table;
+    private Skin skin;
+    private Label dialogueText;
+    private Label dialogueSpeaker;
 
     private ConversationGraph graph;
     private Json json;
 
 
     public Dialogue(Skin skin, String text, String speaker) {
-            this.skin=skin;
-            this.setVisible(false);
-            setDebug(true);
-            this.json = new Json();
+        this.skin=skin;
+        this.json = new Json();
+        this.setVisible(false);
+        setDebug(false);
 
-            dialogueStack=new Stack();
-            table=new Table(skin);
-            table.setDebug(true);
+        //Init WidgetsGroup
+        Stack dialogueStack = new Stack();;
+        Table table = new Table(skin);
+        table.setDebug(false);
 
-            Image dialogueBox=new Image(skin.getDrawable("dialogbox"));
-            dialogueText= new Label(text, skin, "debug");
-            dialogueText.setWrap(true);
-            dialogueSpeaker=new Label(speaker, skin, "debug");
-            dialogueBox.setSize(600,120);
+        //Init Widgets
+        Image dialogueBox=new Image(skin.getDrawable("dialogbox"));
+        dialogueBox.setSize(600,120);
+        dialogueText= new Label(text, skin, "debug");
+        dialogueText.setAlignment(Align.left);
+        dialogueText.setWrap(true);
+        dialogueSpeaker=new Label(speaker, skin, "debug");
+        dialogueSpeaker.setAlignment(Align.topLeft);
 
-            //System.out.println(dialogueStack);
-
-            dialogueSpeaker.setAlignment(Align.topLeft);
-            dialogueText.setAlignment(Align.left);
-
-            add(dialogueStack);
-            dialogueStack.add(dialogueBox);
-            dialogueStack.add(table);
-            table.add(dialogueSpeaker).padRight(450).padBottom(5);
-            table.row();
-            table.add(dialogueText).width(600).pad(0,10,45,10);
+        //Layout setup
+        add(dialogueStack);
+        dialogueStack.add(dialogueBox);
+        dialogueStack.add(table);
+        table.add(dialogueSpeaker).padRight(450).padBottom(5);
+        table.row();
+        table.add(dialogueText).width(600).pad(0,10,45,10);
 
     }
 

@@ -16,10 +16,6 @@ public class GameUI extends Table {
     final private Dialogue dialogue;
     final Button dialogueButt;
 
-    public Dialogue getDialogue() {
-        return dialogue;
-    }
-
     public GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
 
@@ -127,5 +123,9 @@ public class GameUI extends Table {
 
     public Button getDialogueButton(){
         return dialogueButt;
+    }
+
+    public Dialogue getDialogue() {
+        return dialogue;
     }
 }
