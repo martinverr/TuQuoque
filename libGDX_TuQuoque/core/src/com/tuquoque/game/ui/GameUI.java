@@ -1,6 +1,5 @@
 package com.tuquoque.game.ui;
 
-import com.badlogic.gdx.graphics.g2d.CpuSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,6 +14,7 @@ public class GameUI extends Table {
     final private Hotbar hotbar;
     final private Inventory inventory;
     final private Dialogue dialogue;
+    final Button dialogueButt;
 
     public Dialogue getDialogue() {
         return dialogue;
@@ -26,7 +26,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(true);
+        setDebug(false);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -52,8 +52,8 @@ public class GameUI extends Table {
             }
         });
 
-        dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE con un testo più lungo", "TIZIO");
-        final Button dialogueButt=new Button(skin.getDrawable("dialogue_button"));
+        dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
+        dialogueButt=new Button(skin.getDrawable("dialogue_button"));
         dialogueButt.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
@@ -74,7 +74,7 @@ public class GameUI extends Table {
 
         //second row
         add(inventory).expandY().center();
-        add(dialogue).bottom().size(600, 120).padTop(200);
+        add(dialogue).bottom().left().size(600, 120).padTop(200);
         add(); //TODO: ActionsPossible
         row();
 
@@ -123,5 +123,9 @@ public class GameUI extends Table {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public Button getDialogueButton(){
+        return dialogueButt;
     }
 }

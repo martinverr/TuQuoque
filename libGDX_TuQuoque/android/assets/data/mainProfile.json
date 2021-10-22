@@ -1,6 +1,6 @@
 {
-"coordX": 21.860672,
-"coordY": 20.710161,
+"coordX": 9.5,
+"coordY": 14.045226,
 "map": "CITY",
 "stats": {
 	"health": 100,
@@ -14,19 +14,6 @@
 "inv": {
 	"gold": 0,
 	"items": [
-		{
-			"class": "com.tuquoque.game.ui.Item",
-			"name": "bread",
-			"ID": 100,
-			"quantity": 15
-		},
-		{
-			"class": "com.tuquoque.game.ui.Item",
-			"name": "tomato",
-			"ID": 101,
-			"quantity": 5,
-			"indexInInv": 1
-		},
 		{
 			"class": "com.tuquoque.game.ui.Item",
 			"name": "helmet_01",

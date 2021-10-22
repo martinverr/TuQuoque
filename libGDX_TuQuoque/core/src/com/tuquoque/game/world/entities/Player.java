@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.entities.animation.PlayerAnimation;
+import com.tuquoque.game.world.entities.npc.NPC;
 
 
 public class Player extends Entity {
@@ -161,5 +162,10 @@ public class Player extends Entity {
         //offset to legs = - heightEntireBox + heightLegs / 2
         entityDef(coordinates, B2D_BODY_DEF_WIDTH, 0.15f, -B2D_BODY_DEF_HEIGHT +0.15f/2);
         playerBodyDef();
+    }
+
+    public boolean isInRadius(NPC npc){
+        return (B2DBody.getPosition().x - npc.B2DBody.getPosition().x < npc.getDialogueRadius() && B2DBody.getPosition().y - npc.B2DBody.getPosition().y < npc.getDialogueRadius())
+                && (B2DBody.getPosition().x - npc.B2DBody.getPosition().x > -npc.getDialogueRadius() && B2DBody.getPosition().y - npc.B2DBody.getPosition().y > -npc.getDialogueRadius());
     }
 }

@@ -32,20 +32,21 @@ public class Dialogue extends Table {
 
             Image dialogueBox=new Image(skin.getDrawable("dialogbox"));
             dialogueText= new Label(text, skin, "debug");
+            dialogueText.setWrap(true);
             dialogueSpeaker=new Label(speaker, skin, "debug");
             dialogueBox.setSize(600,120);
 
             //System.out.println(dialogueStack);
 
             dialogueSpeaker.setAlignment(Align.topLeft);
-            dialogueText.setAlignment(Align.center);
+            dialogueText.setAlignment(Align.left);
 
             add(dialogueStack);
             dialogueStack.add(dialogueBox);
             dialogueStack.add(table);
             table.add(dialogueSpeaker).padRight(450).padBottom(5);
             table.row();
-            table.add(dialogueText).padBottom(45);
+            table.add(dialogueText).width(600).pad(0,10,45,10);
 
     }
 
@@ -60,7 +61,6 @@ public class Dialogue extends Table {
 
         //Set ConversationGraph
         String conversationFilenamePath = npc.getConversationConfigPath();
-        System.out.println(conversationFilenamePath);
         if( conversationFilenamePath.isEmpty() || !Gdx.files.internal(conversationFilenamePath).exists() ){
             Gdx.app.debug(this.getClass().getSimpleName(), "Conversation file does not exist!");
             return;
