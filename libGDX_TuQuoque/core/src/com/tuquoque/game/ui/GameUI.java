@@ -15,6 +15,7 @@ public class GameUI extends Table {
     final private Hotbar hotbar;
     final private Inventory inventory;
     final private Dialogue dialogue;
+    final Button dialogueButt;
 
     public Dialogue getDialogue() {
         return dialogue;
@@ -53,7 +54,7 @@ public class GameUI extends Table {
         });
 
         dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
-        final Button dialogueButt=new Button(skin.getDrawable("dialogue_button"));
+        dialogueButt=new Button(skin.getDrawable("dialogue_button"));
         dialogueButt.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
@@ -123,5 +124,9 @@ public class GameUI extends Table {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public Button getDialogueButton(){
+        return dialogueButt;
     }
 }

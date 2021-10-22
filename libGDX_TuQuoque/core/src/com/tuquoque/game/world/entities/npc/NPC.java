@@ -10,6 +10,7 @@ public abstract class NPC extends Entity {
 
     private Vector2 coords;
     private float actionRadius = 10;
+    private float dialogueRadius=1.5f;
     float NPCspeed = NOMINAL_SPEED;
     private String mapLocation;
 
@@ -44,6 +45,10 @@ public abstract class NPC extends Entity {
         this.actionRadius = actionRadius;
     }
 
+    public float getDialogueRadius(){
+        return dialogueRadius;
+    }
+
     public String getMapLocation() {
         return mapLocation;
     }
@@ -66,4 +71,5 @@ public abstract class NPC extends Entity {
     public abstract void actionTriggered(Player player);
 
     public abstract void draw(Batch batch, float elapsedTime);
+
 }
