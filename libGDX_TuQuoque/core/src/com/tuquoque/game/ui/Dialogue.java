@@ -48,10 +48,13 @@ public class Dialogue extends Table {
 
     }
 
-    public void loadConversation(NPC npc){
+    public void loadConversation(NPC npc, String personalizedMessage){
         //Set Speaker name
         if(npc == null){
             this.setSpeaker("Sistema");
+            setMessage(personalizedMessage);
+            GameUI.getInstance().getActionPossible().setVisible(true);
+            return;
         }
         else
             this.setSpeaker(npc.getNPCname());
