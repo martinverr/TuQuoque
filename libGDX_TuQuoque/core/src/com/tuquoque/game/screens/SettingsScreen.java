@@ -12,10 +12,6 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.ui.SettingsUI;
 
-/*
-* TODO: Preferences(LibGDX)
-*  for audio (enable/disable music, music volume, effects sounds volume)
-*/
 
 public class SettingsScreen extends AbstractScreen implements InputListener {
 

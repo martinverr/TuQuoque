@@ -22,7 +22,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(true);
+        setDebug(false);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -71,7 +71,7 @@ public class GameUI extends Table {
         //second row
         add(inventory).expandY().center();
         add(dialogue).bottom().left().size(600, 120).padTop(200);
-        add(actionPossible).bottom().right(); //TODO: ActionsPossible
+        add(actionPossible).bottom().right();
         row();
 
         //third row
