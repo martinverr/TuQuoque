@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.world.entities.animation.DogAnimation;
 
@@ -31,7 +32,13 @@ public class Dog extends NPC{
 
     @Override
     public void actionTriggered(Player player) {
+        //always follow player
         follow(player, 2f, true);
+
+        //if in dialogue range, load conversation with dog
+        if(player.isInConversationRadius(this)){
+            GameUI.getInstance().getDialogue().loadConversation(this, null);
+        }
     }
 
     @Override

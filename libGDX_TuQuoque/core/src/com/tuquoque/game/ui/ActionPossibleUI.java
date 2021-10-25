@@ -40,10 +40,10 @@ public class ActionPossibleUI extends Table {
 
     public ActionPossibleUI(Skin skin, ActionType actionType){
         this.skin = skin;
-        this.setDebug(true);
+        this.setDebug(false);
 
         add(new Image(skin.getDrawable(actionType.getKey())));
-        add(new Label(actionType.getText(), skin, "debug")).expandX();
+        add(new Label(actionType.getText(), skin, "debug")).expandX().padLeft(5);
         row();
         add(new Image((skin.getDrawable(actionType.getAction())))).colspan(2);
     }
