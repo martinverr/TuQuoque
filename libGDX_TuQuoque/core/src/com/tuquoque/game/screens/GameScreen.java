@@ -123,7 +123,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         npc_handler.update();
 
         //dialogue button check
-        gameUI.getDialogueButton().setVisible(playerB2D.isInRadius(npc1));
+        gameUI.getActionPossible().setVisible(playerB2D.isInRadius(npc1));
 
         renderDraw(delta);
     }

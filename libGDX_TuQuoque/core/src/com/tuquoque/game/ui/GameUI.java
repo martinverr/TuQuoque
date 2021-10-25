@@ -14,7 +14,7 @@ public class GameUI extends Table {
     final private Hotbar hotbar;
     final private Inventory inventory;
     final private Dialogue dialogue;
-    final Button dialogueButt;
+    final ActionPossibleUI actionPossible;
 
     public GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
@@ -22,7 +22,7 @@ public class GameUI extends Table {
         //table properties
         setFillParent(true);
         pad(20);
-        setDebug(false);
+        setDebug(true);
 
         //widgets 1st row
         Button menu = new Button(skin.getDrawable("menuIconInactive"), skin.getDrawable("menuIconActive"));
@@ -49,8 +49,8 @@ public class GameUI extends Table {
         });
 
         dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
-        dialogueButt=new Button(skin.getDrawable("dialogue_button"));
-        dialogueButt.addListener(new ClickListener(){
+        actionPossible =new ActionPossibleUI(skin, ActionType.CHAT);
+        actionPossible.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 dialogue.setVisible(!dialogue.isVisible());
@@ -64,14 +64,14 @@ public class GameUI extends Table {
 
         //first row
         add(menu).top().left();
-        add(inventoryButt).expandX().top().right();
-        add(dialogueButt).top().right().size( 80,70);
+        add().expandX().top().right();
+        add(inventoryButt).top().right().size( 80,70);
         row();
 
         //second row
         add(inventory).expandY().center();
         add(dialogue).bottom().left().size(600, 120).padTop(200);
-        add(); //TODO: ActionsPossible
+        add(actionPossible).bottom().right(); //TODO: ActionsPossible
         row();
 
         //third row
@@ -121,8 +121,8 @@ public class GameUI extends Table {
         return inventory;
     }
 
-    public Button getDialogueButton(){
-        return dialogueButt;
+    public ActionPossibleUI getActionPossible(){
+        return actionPossible;
     }
 
     public Dialogue getDialogue() {
