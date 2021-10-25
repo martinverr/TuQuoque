@@ -16,7 +16,6 @@ import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.inventory.Inventory;
-import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.entities.npc.Dog;
 import com.tuquoque.game.world.entities.npc.NPC;
 import com.tuquoque.game.world.entities.Player;
@@ -81,7 +80,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     protected Table getScreenUI(Skin skin) {
-        return new GameUI(context, skin, playerB2D);
+        return GameUI.getInstance(context, skin, playerB2D);
     }
 
     @Override
@@ -121,9 +120,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
         //update NPCs
         npc_handler.update();
-
-        //dialogue button check
-        gameUI.getActionPossible().setVisible(playerB2D.isInRadius(npc1));
 
         renderDraw(delta);
     }
@@ -273,7 +269,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //playerB2D.setHealth(140);
                 //playerB2D.saveStats();
                 //JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
-                gameUI.getDialogue().loadConversation(npc1);
                 //gameUI.getDialogue().setMessage("Nel mezzo del cammin di nostra vita \nmi ritrovai per una selva oscura\n" +
                 //        "che la diritta via era smarrita.");
                 break;

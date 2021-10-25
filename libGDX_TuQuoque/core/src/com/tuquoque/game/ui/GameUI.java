@@ -1,5 +1,6 @@
 package com.tuquoque.game.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,13 +11,33 @@ import com.tuquoque.game.world.entities.Player;
 
 
 public class GameUI extends Table {
+    private static GameUI uniqueInstance;
     final private PlayerStatus playerStatus;
     final private Hotbar hotbar;
     final private Inventory inventory;
     final private Dialogue dialogue;
     final ActionPossibleUI actionPossible;
 
-    public GameUI(final GameStarter context, final Skin skin, Player player) {
+    /**
+    * Singleton constructor of the uniqueInstance of GameUI
+    */
+    public static GameUI getInstance(final GameStarter context, final Skin skin, Player player){
+        uniqueInstance = new GameUI(context, skin, player);
+        return uniqueInstance;
+    }
+
+    /**
+     * We use Singleton pattern, this is the getter of the uniqueInstance of GameUI.
+     * Use this only if sure that it has been already initialized.
+     */
+    public static GameUI getInstance() {
+        if (uniqueInstance == null) {
+            Gdx.app.error(GameUI.class.getSimpleName(), "Tried to access to Singleton class GameUI, but not initialised yet (use getInstance(Gamestarter ..., ...)");
+        }
+        return uniqueInstance;
+    }
+
+    private GameUI(final GameStarter context, final Skin skin, Player player) {
         super(skin);
 
         //table properties
@@ -49,10 +70,17 @@ public class GameUI extends Table {
         });
 
         dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
+
         actionPossible =new ActionPossibleUI(skin, ActionType.CHAT);
         actionPossible.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+
+                //hide action possible when clicked
+                if(dialogue.isVisible()){
+                    actionPossible.setVisible(false);
+                }
+                //action
                 dialogue.setVisible(!dialogue.isVisible());
             }
         });

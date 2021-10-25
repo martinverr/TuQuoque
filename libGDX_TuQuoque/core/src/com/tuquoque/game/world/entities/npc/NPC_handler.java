@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.Player;
 
 import java.util.ArrayList;
@@ -60,10 +61,16 @@ public class NPC_handler {
      * For each npc check if they are in their action radius to the player, if so trigger their action
      */
     public void update(){
+        boolean possibleActions = false;
+
         for(NPC npc : npcs){
             if (npc.B2DBody.getPosition().dst(player.B2DBody.getPosition()) < npc.getActionRadius())
                 npc.actionTriggered(player);
+            if(player.isInConversationRadius(npc))
+                possibleActions = true;
         }
+
+        GameUI.getInstance().getActionPossible().setVisible(possibleActions);
     }
 
     public void draw(Batch batch, float elapsedTime) {

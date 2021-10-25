@@ -164,8 +164,11 @@ public class Player extends Entity {
         playerBodyDef();
     }
 
-    public boolean isInRadius(NPC npc){
-        return (B2DBody.getPosition().x - npc.B2DBody.getPosition().x < npc.getDialogueRadius() && B2DBody.getPosition().y - npc.B2DBody.getPosition().y < npc.getDialogueRadius())
-                && (B2DBody.getPosition().x - npc.B2DBody.getPosition().x > -npc.getDialogueRadius() && B2DBody.getPosition().y - npc.B2DBody.getPosition().y > -npc.getDialogueRadius());
+    public float getDistanceFromNPC(NPC npc){
+        return B2DBody.getPosition().dst(npc.B2DBody.getPosition());
+    }
+
+    public boolean isInConversationRadius(NPC npc){
+        return getDistanceFromNPC(npc) < npc.getDialogueRadius();
     }
 }
