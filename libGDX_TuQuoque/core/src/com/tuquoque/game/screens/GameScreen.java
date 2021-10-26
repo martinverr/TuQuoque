@@ -15,6 +15,7 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.ActionType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.entities.npc.Dog;
 import com.tuquoque.game.world.entities.npc.NPC;
@@ -223,7 +224,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 context.setScreen(ScreenType.MAINMENU);
 
             /*
-             * Inventory-Hotbar
+             * UI
              */
             case NUM1:
                 gameUI.changeSlotHotbar(0);
@@ -257,20 +258,18 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                     inventory.open();
                 break;
 
+            case INTERACT:
+                if(gameUI.getActionPossible().isActionPossible(ActionType.CHAT))
+                gameUI.getDialogue().setVisible(!gameUI.getDialogue().isVisible());
+                break;
+
             /*
              * DEBUG NEW FEATURES
              */
             case DEBUG:
                 //gameUI.getInventory().addItemToInventory(new Item("bread", 100, 3));
                 //gameUI.getInventory().addItemToInventory(new Item("tomato", 101, 1));
-                //gameUI.getInventory().printInventory();
-                //gameUI.getInventory().saveInv();
-                //gameUI.getInventory().loadInv();
-                //playerB2D.setHealth(140);
-                //playerB2D.saveStats();
-                //JsonProfile.saveProfile("mainProfile", playerB2D, gameUI.getInventory(), mapManager.getCurrentMapType());
-                //gameUI.getDialogue().setMessage("Nel mezzo del cammin di nostra vita \nmi ritrovai per una selva oscura\n" +
-                //        "che la diritta via era smarrita.");
+                //gameUI.getActionPossible().showAction(ActionType.PORTAL);
                 break;
 
             default:

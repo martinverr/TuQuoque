@@ -1,9 +1,12 @@
 package com.tuquoque.game.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.*;
 import com.tuquoque.game.GameStarter;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.ActionType;
+import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.Portal;
 
 public class WorldContactListener implements ContactListener {
@@ -25,6 +28,8 @@ public class WorldContactListener implements ContactListener {
 
             // if Player-Portal
             if(other.getUserData() != null && other.getUserData().getClass().equals(Portal.class)){
+                GameUI.getInstance().getActionPossible().showAction(ActionType.PORTAL);
+
                 //during contact listener, changing map with loadMap() would cause a crash because box2d World is locked
                 MapType destination = ((Portal) other.getUserData()).getDestinationMapType();
                 context.getMapManager().loadMapSafe(destination);
@@ -41,6 +46,8 @@ public class WorldContactListener implements ContactListener {
     public void endContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
+
+
     }
 
     @Override

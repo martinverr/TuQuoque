@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.tuquoque.game.map.MapType;
+import com.tuquoque.game.ui.ActionType;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.Player;
 
@@ -70,7 +71,10 @@ public class NPC_handler {
                 possibleActions = true;
         }
 
-        GameUI.getInstance().getActionPossible().setVisible(possibleActions);
+        if(possibleActions)
+            GameUI.getInstance().getActionPossible().showAction(ActionType.CHAT);
+        else
+            GameUI.getInstance().getActionPossible().hideAction(ActionType.CHAT);
     }
 
     public void draw(Batch batch, float elapsedTime) {

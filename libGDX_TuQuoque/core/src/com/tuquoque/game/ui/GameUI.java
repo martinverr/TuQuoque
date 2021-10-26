@@ -70,20 +70,7 @@ public class GameUI extends Table {
         });
 
         dialogue=new Dialogue(skin, "PROVA DI DIALOGO PIU LUNGA PER VEDERE COME SI COMPORTANO LE RIGHE", "TIZIO");
-
-        actionPossible =new ActionPossibleUI(skin, ActionType.CHAT);
-        actionPossible.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-
-                //hide action possible when clicked
-                if(dialogue.isVisible()){
-                    actionPossible.setVisible(false);
-                }
-                //action
-                dialogue.setVisible(!dialogue.isVisible());
-            }
-        });
+        actionPossible =new ActionPossibleUI(skin);
 
 
         //widgets 3rd row
