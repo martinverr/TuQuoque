@@ -8,6 +8,7 @@ public class ActionPossibleUI extends Table {
     private Skin skin;
     private Array<ActionType> actions;
     private Array<Cell<actionUI>> cells;
+    public Object interactingObject;
 
     public ActionPossibleUI(Skin skin){
         this.skin = skin;

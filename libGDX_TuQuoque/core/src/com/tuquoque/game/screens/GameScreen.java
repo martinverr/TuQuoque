@@ -259,7 +259,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 break;
 
             case INTERACT:
-                if(gameUI.getActionPossible().isActionPossible(ActionType.CHAT))
+                if(gameUI.getActionPossible().isActionPossible(ActionType.CHAT) || gameUI.getDialogue().isVisible())
                 gameUI.getDialogue().setVisible(!gameUI.getDialogue().isVisible());
                 break;
 
@@ -320,6 +320,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void mapChanged() {
         mapRenderer.setMap(mapManager.getCurrentMap());
         mapManager.playerAtSpawnMap(playerB2D);
-        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,1));
+        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,2));
     }
 }

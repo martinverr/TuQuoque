@@ -33,6 +33,10 @@ public class WorldContactListener implements ContactListener {
                 //during contact listener, changing map with loadMap() would cause a crash because box2d World is locked
                 MapType destination = ((Portal) other.getUserData()).getDestinationMapType();
                 context.getMapManager().loadMapSafe(destination);
+
+                GameUI.getInstance().getDialogue().loadConversation(null, destination.getDescription());
+                GameUI.getInstance().getDialogue().setVisible(true);
+
                 Gdx.app.debug(this.getClass().getSimpleName(), "Player passed portal to " + destination);
             }
         }
@@ -47,7 +51,16 @@ public class WorldContactListener implements ContactListener {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
+        // if Player-<...>
+        if(fixA.getUserData() == "player_sensor" || fixB.getUserData() == "player_sensor"){
+            Fixture player = fixA.getUserData() == "player_sensor" ? fixA : fixB;
+            Fixture other = fixA.getUserData() == "player_sensor" ? fixB : fixA;
 
+            // if Player-Portal
+            if(other.getUserData() != null && other.getUserData().getClass().equals(Portal.class)){
+                GameUI.getInstance().getActionPossible().hideAction(ActionType.PORTAL);
+            }
+        }
     }
 
     @Override
