@@ -15,8 +15,9 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
-import com.tuquoque.game.ui.ActionType;
 import com.tuquoque.game.ui.inventory.Inventory;
+import com.tuquoque.game.world.Portal;
+import com.tuquoque.game.world.PortalListener;
 import com.tuquoque.game.world.entities.npc.Dog;
 import com.tuquoque.game.world.entities.npc.NPC;
 import com.tuquoque.game.world.entities.Player;
@@ -27,7 +28,7 @@ import com.tuquoque.game.world.WorldContactListener;
 import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 
 
-public class GameScreen extends AbstractScreen implements InputListener, MapManager.MapListener {
+public class GameScreen extends AbstractScreen implements InputListener, MapManager.MapListener, PortalListener {
     //Player
     private final Player playerB2D;
     private final NPC npc1;
@@ -42,6 +43,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final int[] layers_1 ={0,1,2,3};
     private final int[] layers_2 ={4,5,6,7};
+    private MapType portalDestination;
 
     //camera (not the gamestarter camera)
     private final OrthographicCamera gamecamera;
@@ -76,7 +78,9 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         * npc_handler.addNPC(npc1);
         */
 
-        world.setContactListener(new WorldContactListener(context));
+        WorldContactListener worldContactListener = new WorldContactListener(context);
+        worldContactListener.addPortalListener(this);
+        world.setContactListener(worldContactListener);
     }
 
     @Override
@@ -201,6 +205,16 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 playerB2D.setSpeedX(playerB2D.NOMINAL_SPEED);
                 break;
 
+            case NEXT:
+                if(portalDestination != null){
+                    context.getMapManager().loadMapSafe(portalDestination);
+
+                    GameUI.getInstance().getDialogue().loadConversation(null, portalDestination.getDescription());
+                    GameUI.getInstance().getDialogue().setVisible(true);
+                    Gdx.app.debug(this.getClass().getSimpleName(), "Player passed portal to " + portalDestination);
+                    portalDestination = null;
+                }
+                break;
             /*
              * BOX2D DEBUG COMMANDS
              */
@@ -272,5 +286,10 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         mapRenderer.setMap(mapManager.getCurrentMap());
         mapManager.playerAtSpawnMap(playerB2D);
         npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,2));
+    }
+
+    @Override
+    public void PortalCrossed(Portal portal) {
+        portalDestination = portal.getDestinationMapType();
     }
 }
