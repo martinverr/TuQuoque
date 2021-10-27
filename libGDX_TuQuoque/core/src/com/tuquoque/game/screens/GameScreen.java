@@ -88,6 +88,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void show() {
         super.show();
         inputManager.addInputListener(this);
+        inputManager.addInputListener(gameUI);
         audioManager.playAudio(AudioType.AMBIENT_PALATINO);
     }
 
@@ -169,6 +170,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void hide() {
         super.hide();
         inputManager.removeInputListener(this);
+        inputManager.removeInputListener(gameUI);
     }
 
     @Override
@@ -216,52 +218,11 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * Screens
              */
             case BACK:
-                if (gameUI.getInventory().isOpened()){
-                    gameUI.getInventory().close();
+                if (gameUI.getInventory().isOpened() || gameUI.getDialogue().isVisible()){
                     break;
                 }
                 savedPlayerCoords.set(playerB2D.B2DBody.getPosition().x, playerB2D.B2DBody.getPosition().y);
                 context.setScreen(ScreenType.MAINMENU);
-
-            /*
-             * UI
-             */
-            case NUM1:
-                gameUI.changeSlotHotbar(0);
-                break;
-            case NUM2:
-                gameUI.changeSlotHotbar(1);
-                break;
-            case NUM3:
-                gameUI.changeSlotHotbar(2);
-                break;
-            case NUM4:
-                gameUI.changeSlotHotbar(3);
-                break;
-            case NUM5:
-                gameUI.changeSlotHotbar(4);
-                break;
-            case NUM6:
-                gameUI.changeSlotHotbar(5);
-                break;
-            case NUM7:
-                gameUI.changeSlotHotbar(6);
-                break;
-            case NUM8:
-                gameUI.changeSlotHotbar(7);
-                break;
-            case INVENTORY:
-                Inventory inventory = gameUI.getInventory();
-                if(inventory.isOpened())
-                    inventory.close();
-                else
-                    inventory.open();
-                break;
-
-            case INTERACT:
-                if(gameUI.getActionPossible().isActionPossible(ActionType.CHAT) || gameUI.getDialogue().isVisible())
-                gameUI.getDialogue().setVisible(!gameUI.getDialogue().isVisible());
-                break;
 
             /*
              * DEBUG NEW FEATURES
@@ -303,17 +264,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
 
     @Override
     public void scrollVertical(InputManager manager, float amount) {
-        if(amount > 0){
-            for(int i=0; i<amount; i++){
-                gameUI.nextSlotHotbar();
-            }
-        }
-        else{
-            amount *= -1;
-            for(int i=0; i<amount; i++){
-                gameUI.previousSlotHotbar();
-            }
-        }
+
     }
 
     @Override

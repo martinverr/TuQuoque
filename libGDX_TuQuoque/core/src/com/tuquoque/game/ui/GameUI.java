@@ -5,12 +5,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tuquoque.game.GameStarter;
+import com.tuquoque.game.input.GameKeys;
+import com.tuquoque.game.input.InputListener;
+import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.screens.ScreenType;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.entities.Player;
 
 
-public class GameUI extends Table {
+public class GameUI extends Table implements InputListener {
     private static GameUI uniqueInstance;
     final private PlayerStatus playerStatus;
     final private Hotbar hotbar;
@@ -111,11 +114,11 @@ public class GameUI extends Table {
         playerStatus.setBars(healthValue, expValue, manaValue);
     }
 
-    public void changeSlotHotbar(int slotIndex){
+    private void changeSlotHotbar(int slotIndex){
         hotbar.changeSlot(slotIndex);
     }
 
-    public void nextSlotHotbar() {
+    private void nextSlotHotbar() {
         if(hotbar.getCurrentPointedSlot() != hotbar.getNumberOfSlots() - 1){
             hotbar.changeSlot(hotbar.getCurrentPointedSlot() + 1);
         }
@@ -123,7 +126,7 @@ public class GameUI extends Table {
             hotbar.changeSlot(0);
         }
     }
-    public void previousSlotHotbar() {
+    private void previousSlotHotbar() {
         if(hotbar.getCurrentPointedSlot() != 0){
             hotbar.changeSlot(hotbar.getCurrentPointedSlot() - 1);
         }
@@ -142,5 +145,78 @@ public class GameUI extends Table {
 
     public Dialogue getDialogue() {
         return dialogue;
+    }
+
+    @Override
+    public void keyPressed(InputManager manager, GameKeys key) {
+        switch(key){
+            case NUM1:
+                changeSlotHotbar(0);
+                break;
+            case NUM2:
+                changeSlotHotbar(1);
+                break;
+            case NUM3:
+                changeSlotHotbar(2);
+                break;
+            case NUM4:
+                changeSlotHotbar(3);
+                break;
+            case NUM5:
+                changeSlotHotbar(4);
+                break;
+            case NUM6:
+                changeSlotHotbar(5);
+                break;
+            case NUM7:
+                changeSlotHotbar(6);
+                break;
+            case NUM8:
+                changeSlotHotbar(7);
+                break;
+
+            case INVENTORY:
+                if(inventory.isOpened())
+                    inventory.close();
+                else
+                    inventory.open();
+                break;
+
+            case INTERACT:
+                if(actionPossible.isActionPossible(ActionType.CHAT)){
+                    dialogue.setVisible(!dialogue.isVisible());
+                    break;
+                }
+
+            case BACK:
+                if (inventory.isOpened()){
+                    inventory.close();
+                    break;
+                }
+                else if (dialogue.isVisible()){
+                    dialogue.setVisible(false);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void KeyUp(InputManager manager, GameKeys key) {
+
+    }
+
+    @Override
+    public void scrollVertical(InputManager manager, float amount) {
+        if(amount > 0){
+            for(int i=0; i<amount; i++){
+                nextSlotHotbar();
+            }
+        }
+        else{
+            amount *= -1;
+            for(int i=0; i<amount; i++){
+                previousSlotHotbar();
+            }
+        }
     }
 }
