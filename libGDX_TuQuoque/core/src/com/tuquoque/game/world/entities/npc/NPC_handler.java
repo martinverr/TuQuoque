@@ -1,14 +1,17 @@
 package com.tuquoque.game.world.entities.npc;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.ActionType;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.Player;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -92,23 +95,7 @@ public class NPC_handler {
         return npcs.size();
     }
 
-    /**
-     * get the NPCs saved in json file
-     */
-    public void loadNPCs(MapType mapType){
-        Json json = new Json();
-        Array<NPC> NPCs = new Array<>();
-        String strMap = mapType.name();
-
-        String loadedJson = Gdx.files.local("data/NPCs.json").readString();
-        for(Object readObject : json.fromJson(Array.class, loadedJson)){
-            NPC npc = (NPC) readObject;
-            if(npc.getMapLocation().equals(strMap))
-                NPCs.add((NPC) npc);
-        }
-
-        //System.out.println(NPCs);
-
-        //clear??
+    public void clearAllNPCs(){
+        npcs.clear();
     }
 }

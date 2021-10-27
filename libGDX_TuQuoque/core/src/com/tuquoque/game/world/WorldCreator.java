@@ -35,7 +35,10 @@ public class WorldCreator {
         int deleted = 0;
         int max = world.getBodyCount();
         for(Body body : bodies){
-            if(body.getUserData() != null && body.getUserData().equals("mapObject")){
+            if(body.getUserData() != null && (
+                    body.getUserData().equals("mapObject") ||
+                    body.getUserData().equals("NPC")
+            )){
                 world.destroyBody(body);
                 deleted++;
             }

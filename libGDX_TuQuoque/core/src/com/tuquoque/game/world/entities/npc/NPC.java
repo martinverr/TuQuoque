@@ -27,6 +27,7 @@ public abstract class NPC extends Entity {
     public NPC(World world, float hWidth, float hHeight, Vector2 coords) {
         super(world, coords, hWidth, hHeight);
 
+        B2DBody.setUserData("NPC");
         this.coords=coords;
     }
 

@@ -45,6 +45,12 @@ public class MapManager {
             else
                 Gdx.app.error(MapManager.class.getSimpleName(), mapType.getFilePath() + "not loaded in AssetManager");
 
+            //destroy bodies of old map if there are
+            if(currentWorldCreator != null){
+                currentWorldCreator.selfDestroy();
+            }
+            currentWorldCreator = new WorldCreator(world, currentMap);
+
             for(MapListener listener : mapListeners){
                 listener.mapChanged();
             }
@@ -52,11 +58,6 @@ public class MapManager {
             //debug
             Gdx.app.debug(MapManager.class.getSimpleName(), "Moving to new map: " + currentMapType.name());
 
-            //destroy bodies of old map if there are
-            if(currentWorldCreator != null){
-                currentWorldCreator.selfDestroy();
-            }
-            currentWorldCreator = new WorldCreator(world, currentMap);
         }
     }
 

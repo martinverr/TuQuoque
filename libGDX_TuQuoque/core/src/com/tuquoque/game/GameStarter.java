@@ -93,7 +93,7 @@ public class GameStarter extends Game {
 		inputManager= new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
 
-		Gdx.app.setLogLevel(Application.LOG_ERROR);
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		setScreen(ScreenType.LOADING);
 	}
 

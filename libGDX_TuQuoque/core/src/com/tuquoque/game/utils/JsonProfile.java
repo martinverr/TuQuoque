@@ -1,14 +1,19 @@
 package com.tuquoque.game.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.*;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
 import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.world.entities.Player;
+import com.tuquoque.game.world.entities.npc.NPC;
+import com.tuquoque.game.world.entities.npc.NPCFactory;
+import com.tuquoque.game.world.entities.npc.NPC_handler;
 
 import java.io.StringWriter;
 
@@ -71,7 +76,6 @@ public class JsonProfile {
         JsonReader json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.local("data/" + nameProfile + ".json"));
 
-        System.out.println("loadLocation() called");
         mapManager.loadMap(MapType.getMapTypeByName(base.getString("map")));
         player.teleportTo(new Vector2(base.getFloat("coordX"), base.getFloat("coordY")));
     }
@@ -85,5 +89,29 @@ public class JsonProfile {
         JsonValue invJson = base.get("inv");
         items = json.fromJson(Array.class, invJson.get("items").toString().substring(6));
         inventory.loadInv(items);
+    }
+
+    /**
+     * get the NPCs saved in json file
+     */
+    public static void loadNPCs(NPC_handler npc_handler, MapType mapType, World world, AssetManager assetManager){
+        Array<NPC> NPCs = new Array<>();
+        String strMap = mapType.name();
+        NPCFactory npcFactory = new NPCFactory();
+
+        JsonReader jsonReader = new JsonReader();
+        JsonValue JsonBase = jsonReader.parse(Gdx.files.local("data/NPCs_" + strMap + ".json"));
+
+        JsonValue JsonNPC = JsonBase.child();
+        while(JsonNPC != null){
+            String NPCName = JsonNPC.name();
+            float x = JsonNPC.getFloat("x");
+            float y =  JsonNPC.getFloat("y");
+
+            NPC npc = npcFactory.createNPC(NPCName, x, y, world, assetManager);
+            npc_handler.addNPC(npc);
+
+            JsonNPC = JsonNPC.next();
+        }
     }
 }

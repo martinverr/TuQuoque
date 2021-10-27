@@ -15,13 +15,10 @@ import com.tuquoque.game.input.InputListener;
 import com.tuquoque.game.input.InputManager;
 import com.tuquoque.game.map.MapManager;
 import com.tuquoque.game.map.MapType;
-import com.tuquoque.game.ui.Item;
 import com.tuquoque.game.ui.inventory.Inventory;
 import com.tuquoque.game.utils.JsonProfile;
 import com.tuquoque.game.world.Portal;
 import com.tuquoque.game.world.PortalListener;
-import com.tuquoque.game.world.entities.npc.Dog;
-import com.tuquoque.game.world.entities.npc.NPC;
 import com.tuquoque.game.world.entities.Player;
 import com.tuquoque.game.ui.GameUI;
 import com.tuquoque.game.world.entities.npc.NPC_handler;
@@ -33,7 +30,6 @@ import static com.tuquoque.game.GameStarter.UNIT_SCALE;
 public class GameScreen extends AbstractScreen implements InputListener, MapManager.MapListener, PortalListener {
     //Player
     private final Player playerB2D;
-    private final NPC npc1;
     private final Vector2 savedPlayerCoords = new Vector2(11, 12.5f);
     float elapsedTime=0;
     private boolean newMovementInput = false;
@@ -67,9 +63,7 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
         JsonProfile.loadInventory("mainProfile", inventory);
 
         // creating NPC_handler
-        npc1=new Dog(world, new Vector2(playerB2D.B2DBody.getPosition().sub(0,2)), context.getAssetManager());
         npc_handler = new NPC_handler(playerB2D);
-        npc_handler.addNPC(npc1);
 
         //map init
         mapManager = context.getMapManager();
@@ -247,6 +241,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
                 //gameUI.getInventory().addItemToInventory(new Item("bread", 100, 3));
                 //gameUI.getInventory().addItemToInventory(new Item("tomato", 101, 1));
                 //gameUI.getActionPossible().showAction(ActionType.PORTAL);
+                //npc_handler.saveNPCs(mapManager.getCurrentMapType());
+                JsonProfile.loadNPCs(npc_handler, mapManager.getCurrentMapType(), world, context.getAssetManager());
                 break;
 
             default:
@@ -287,7 +283,8 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
     public void mapChanged() {
         mapRenderer.setMap(mapManager.getCurrentMap());
         mapManager.playerAtSpawnMap(playerB2D);
-        npc1.teleportTo(playerB2D.B2DBody.getPosition().sub(0,2));
+        npc_handler.clearAllNPCs();
+        JsonProfile.loadNPCs(npc_handler, mapManager.getCurrentMapType(), world, context.getAssetManager());
     }
 
     @Override
