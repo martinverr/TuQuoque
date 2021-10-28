@@ -1,18 +1,25 @@
 package com.tuquoque.game.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.tuquoque.game.ui.dialogues.Conversation;
+import com.tuquoque.game.ui.dialogues.ConversationChoice;
 import com.tuquoque.game.ui.dialogues.ConversationGraph;
 import com.tuquoque.game.world.entities.npc.NPC;
+
+import java.util.ArrayList;
 
 public class Dialogue extends Table {
 
     private Skin skin;
     private Label dialogueText;
     private Label dialogueSpeaker;
+    private List _listItems;
 
     private ConversationGraph graph;
     private Json json;
@@ -27,7 +34,7 @@ public class Dialogue extends Table {
         //Init WidgetsGroup
         Stack dialogueStack = new Stack();;
         Table table = new Table(skin);
-        table.setDebug(false);
+
 
         //Init Widgets
         Image dialogueBox=new Image(skin.getDrawable("dialogbox"));
@@ -37,18 +44,45 @@ public class Dialogue extends Table {
         dialogueText.setWrap(true);
         dialogueSpeaker=new Label(speaker, skin, "debug");
         dialogueSpeaker.setAlignment(Align.topLeft);
+        _listItems = new List<ConversationChoice>(skin);
+        _listItems.addListener(new ClickListener() {
+                                   @Override
+                                   public void clicked (InputEvent event, float x, float y) {
+                                       ConversationChoice choice = (ConversationChoice)_listItems.getSelected();
+
+                                       if( choice == null ) return;
+                                       graph.notify(graph, choice.getConversationCommandEvent());
+                                       populateConversationDialog(choice.getDestinationId());
+                                   }
+                               }
+        );
+
+        ScrollPane scrollPane = new ScrollPane(_listItems, skin);
+        scrollPane.setOverscroll(false, false);
+        scrollPane.setFadeScrollBars(false);
+        scrollPane.setScrollingDisabled(true, false);
+        scrollPane.setForceScroll(true, false);
+        scrollPane.setScrollBarPositions(false, true);
 
         //Layout setup
-        add(dialogueStack);
+        add(dialogueStack).top();
         dialogueStack.add(dialogueBox);
         dialogueStack.add(table);
-        table.add(dialogueSpeaker).padRight(450).padBottom(5);
+
+
+        table.setDebug(false);
+        table.top();
+        table.add(dialogueSpeaker).pad(15, 28, 0, 0).top().left();
         table.row();
-        table.add(dialogueText).width(600).pad(0,10,45,10);
+        table.add(dialogueText).width(600).pad(20,20,0,20);
+        table.row();
+        table.add(scrollPane).top();
 
     }
 
     public void loadConversation(NPC npc, String personalizedMessage){
+        clearDialog();
+
         //Set Speaker name
         if(npc == null){
             this.setSpeaker("Sistema");
@@ -66,9 +100,8 @@ public class Dialogue extends Table {
             Gdx.app.debug(this.getClass().getSimpleName(), "Conversation file does not exist!");
             return;
         }
-        graph = json.fromJson(ConversationGraph.class, Gdx.files.internal(conversationFilenamePath));
 
-        populateConversationDialog(graph.getCurrentConversationID());
+        setConversationGraph(json.fromJson(ConversationGraph.class, Gdx.files.internal(conversationFilenamePath)));
     }
 
     public void setConversationGraph(ConversationGraph graph){
@@ -78,10 +111,17 @@ public class Dialogue extends Table {
     }
 
     private void populateConversationDialog(String conversationID){
+        clearDialog();
+
         Conversation conversation = graph.getConversationByID(conversationID);
         if( conversation == null ) return;
         graph.setCurrentConversation(conversationID);
         setMessage(conversation.getDialog());
+
+        ArrayList<ConversationChoice> choices = graph.getCurrentChoices();
+        if( choices == null ) return;
+        _listItems.setItems(choices.toArray());
+        _listItems.setSelectedIndex(-1);
     }
 
     public void setMessage(String string){
@@ -92,4 +132,8 @@ public class Dialogue extends Table {
         dialogueSpeaker.setText(string);
     }
 
+    private void clearDialog(){
+        setMessage("");
+        _listItems.clearItems();
+    }
 }

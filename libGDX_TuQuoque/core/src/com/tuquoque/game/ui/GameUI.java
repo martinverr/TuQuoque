@@ -88,7 +88,7 @@ public class GameUI extends Table implements InputListener {
 
         //second row
         add(inventory).expandY().center();
-        add(dialogue).bottom().left().size(600, 120).padTop(200);
+        add(dialogue).bottom().left().size(600, 150).padBottom(25);
         add(actionPossible).bottom().right();
         row();
 

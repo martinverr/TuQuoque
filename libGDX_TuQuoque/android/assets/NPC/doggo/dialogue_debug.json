@@ -1,0 +1,107 @@
+{
+conversations: {
+        1: {
+                id: 1
+                dialog: "Cassio, da quanto tempo! Sei ritornato in città vedo. Non ti ricorderai molto del posto eh?"
+        }
+        2: {
+                id: 2
+                dialog: "Ti darò qualche indicazione..."
+        }
+        3: {
+                id: 3
+                dialog: "Freddo, alberi e morte. Non scherzo, dicono che ci sono stati sfortunati incidenti per i mercanti che hanno attraversato la foresta"
+        }
+        4: {
+                id: 4,
+                dialog: "La città si è espansa molto in questi ultimi anni, controlla tu stesso."
+        }
+        5: {
+                id: 5
+                dialog: "Segui il sentiero, attraversa il ponte e raggiungerai la costa. Nel tragitto troverai anche la dimora del sacerdote."
+        }
+        6: {
+                id: 6
+                dialog: "Il caldo sud. Dicono che ci sia un certo caldo laggiù... Troverai molti greci se oltrepassi il fiume."
+        }
+}
+associatedChoices: {
+        1: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 1
+                        destinationId: 2
+                        choicePhrase: Next
+						conversationCommandEvent: NONE
+                }
+        ]
+        2: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 3
+                        choicePhrase: Nord
+						conversationCommandEvent: NONE
+                }
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 4
+                        choicePhrase: Est
+						conversationCommandEvent: NONE
+                }
+				{
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 5
+                        choicePhrase: Ovest
+						conversationCommandEvent: NONE
+                }
+				{
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 6
+                        choicePhrase: Sud
+						conversationCommandEvent: NONE
+                }
+        ]
+        3: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 3
+                        destinationId: 2,
+                        choicePhrase: Ritorna indietro
+						conversationCommandEvent: NONE
+                }
+        ]
+		4: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 4
+                        destinationId: 2,
+                        choicePhrase: Ritorna indietro
+						conversationCommandEvent: NONE
+                }
+        ]
+		5: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 5
+                        destinationId: 2,
+                        choicePhrase: Ritorna indietro
+						conversationCommandEvent: NONE
+                }
+        ]
+		6: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 6
+                        destinationId: 2
+                        choicePhrase: Ritorna indietro
+						conversationCommandEvent: NONE
+                }
+        ]
+		
+}
+currentConversationID: 1
+}

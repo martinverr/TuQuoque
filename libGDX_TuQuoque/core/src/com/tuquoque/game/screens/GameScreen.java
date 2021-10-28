@@ -238,11 +238,6 @@ public class GameScreen extends AbstractScreen implements InputListener, MapMana
              * DEBUG NEW FEATURES
              */
             case DEBUG:
-                //gameUI.getInventory().addItemToInventory(new Item("bread", 100, 3));
-                //gameUI.getInventory().addItemToInventory(new Item("tomato", 101, 1));
-                //gameUI.getActionPossible().showAction(ActionType.PORTAL);
-                //npc_handler.saveNPCs(mapManager.getCurrentMapType());
-                JsonProfile.loadNPCs(npc_handler, mapManager.getCurrentMapType(), world, context.getAssetManager());
                 break;
 
             default:

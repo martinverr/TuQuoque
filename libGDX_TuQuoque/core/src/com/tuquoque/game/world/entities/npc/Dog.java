@@ -36,7 +36,7 @@ public class Dog extends NPC{
         follow(player, 2f, true);
 
         //if in dialogue range, load conversation with dog
-        if(player.isInConversationRadius(this)){
+        if(player.isInConversationRadius(this) && !GameUI.getInstance().getDialogue().isVisible()){
             GameUI.getInstance().getDialogue().loadConversation(this, null);
         }
     }
