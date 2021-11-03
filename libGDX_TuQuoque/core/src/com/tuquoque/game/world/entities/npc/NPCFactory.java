@@ -17,10 +17,9 @@ public class NPCFactory {
             npc = new Merlo(world, new Vector2(x, y), assetManager);
         }  else if (name.equals("Bardo")){
             npc = new Bardo(world, new Vector2(x, y), assetManager);
+        } else if (name.equals("Furio")){
+            npc = new Furio(world, new Vector2(x, y), assetManager);
         }
-        /*else if (name.equals("???")){
-            npc = new MuscularBandit(world, new Vector2(x, y), assetManager);
-        }*/
         else return null;
         return npc;
     }

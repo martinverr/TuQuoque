@@ -23,7 +23,9 @@ public class AnimationLoader {
             //Bardo (beerman)
             "NPC/beer_man/idle.atlas",
             //miner
-            "NPC/Miner/idle.atlas"
+            "NPC/Miner/idle.atlas",
+            //Furio (miner)
+            "NPC/muscular_bandit/idle.atlas"
     };
 
     public static void loadAllAnimations(AssetManager assetManager) {
