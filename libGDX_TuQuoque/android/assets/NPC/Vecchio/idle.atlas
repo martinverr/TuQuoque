@@ -1,20 +1,20 @@
 
-unnamed.png
+idle.png
 size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-idle_miner
+idle_vecchio
   rotate: false
   xy: 2, 2
-  size: 96, 84
-  orig: 96, 84
-  offset: 0, 0
-  index: 2
-idle_miner
-  rotate: false
-  xy: 100, 6
-  size: 96, 80
-  orig: 96, 80
+  size: 62, 76
+  orig: 62, 76
   offset: 0, 0
   index: 1
+idle_vecchio
+  rotate: false
+  xy: 66, 2
+  size: 62, 76
+  orig: 62, 76
+  offset: 0, 0
+  index: 2

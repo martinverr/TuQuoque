@@ -9,8 +9,19 @@ public class NPCFactory {
         NPC npc = null;
         if(name.equals("Cotoletta")){
             npc = new Dog(world, new Vector2(x, y), assetManager);
-        } //else if (name.equal(""){...}
-
+        } else if (name.equals("Minatore")){
+            npc = new Miner(world, new Vector2(x, y), assetManager);
+        } else if (name.equals("Volpe")){
+            npc = new Fox(world, new Vector2(x, y), assetManager);
+        } else if (name.equals("Merlo")){
+            npc = new Merlo(world, new Vector2(x, y), assetManager);
+        }  else if (name.equals("Bardo")){
+            npc = new Bardo(world, new Vector2(x, y), assetManager);
+        }
+        /*else if (name.equals("???")){
+            npc = new MuscularBandit(world, new Vector2(x, y), assetManager);
+        }*/
+        else return null;
         return npc;
     }
 }

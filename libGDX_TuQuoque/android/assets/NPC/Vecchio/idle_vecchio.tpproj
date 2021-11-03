@@ -1,5 +1,5 @@
 name=
-filename=
+filename=idle.atlas
 output=.
 
 alias=true
@@ -32,7 +32,7 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:../../../../../../idle_vecchio_1.png,type:Input,regionName:null},{path:../../../../../../idle_vecchio_2.png,type:Input,regionName:null}]
+inputFiles=[{path:raw,type:Input,dirFilePrefix:null,recursive:false,flattenPaths:false}]
 
 
 -PROJ-

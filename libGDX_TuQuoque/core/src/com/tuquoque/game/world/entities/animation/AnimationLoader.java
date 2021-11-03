@@ -15,7 +15,15 @@ public class AnimationLoader {
             "NPC/doggo/idle_right.atlas",
             "NPC/doggo/idle_left.atlas",
             "NPC/doggo/move_left.atlas",
-            "NPC/doggo/move_right.atlas"
+            "NPC/doggo/move_right.atlas",
+            //fox
+            "NPC/fox/idle.atlas",
+            //Merlo (vecchio in città)
+            "NPC/Vecchio/idle.atlas",
+            //Bardo (beerman)
+            "NPC/beer_man/idle.atlas",
+            //miner
+            "NPC/Miner/idle.atlas"
     };
 
     public static void loadAllAnimations(AssetManager assetManager) {
