@@ -14,7 +14,7 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 1
-                        destinationId: 2
+                        destinationId: 2,
                         choicePhrase: "Già mi sto guardando un po' intorno"
 						conversationCommandEvent: NONE
                 }

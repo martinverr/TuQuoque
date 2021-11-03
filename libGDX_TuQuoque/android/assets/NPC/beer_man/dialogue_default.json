@@ -26,8 +26,8 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 1
-                        destinationId: 2
-                        choicePhrase: Ehi Bardo, tutto bene?
+                        destinationId: 2,
+                        choicePhrase: "Ehi Bardo, tutto bene?"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -35,15 +35,15 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 3
-                        choicePhrase: Sei il solito ubriacone Bardo
+                        destinationId: 3,
+                        choicePhrase: "Sei il solito ubriacone Bardo"
 						conversationCommandEvent: NONE
                 }
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 4
-                        choicePhrase: Devi esserti confuso Bardo
+                        destinationId: 4,
+                        choicePhrase: "Devi esserti confuso Bardo"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -51,8 +51,8 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 4
-                        destinationId: 5
-                        choicePhrase: Ma è mezzogiorno Bardo
+                        destinationId: 5,
+                        choicePhrase: "Ma è mezzogiorno Bardo"
 						conversationCommandEvent: NONE
                 }
         ]

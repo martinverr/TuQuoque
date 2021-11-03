@@ -2,7 +2,7 @@
 conversations: {
         1: {
                 id: 1
-                dialog: woof!
+                dialog: "woof!"
         }
 }
 associatedChoices: {

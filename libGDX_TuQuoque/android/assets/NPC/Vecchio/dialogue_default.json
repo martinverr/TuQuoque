@@ -31,7 +31,7 @@ associatedChoices: {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 1
                         destinationId: 2
-                        choicePhrase: Prossimo
+                        choicePhrase: "Prossimo"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -39,29 +39,29 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 3
-                        choicePhrase: Nord
+                        destinationId: 3,
+                        choicePhrase: "Nord"
 						conversationCommandEvent: NONE
                 }
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 4
-                        choicePhrase: Est
+                        destinationId: 4,
+                        choicePhrase: "Est"
 						conversationCommandEvent: NONE
                 }
 				{
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 5
-                        choicePhrase: Ovest
+                        destinationId: 5,
+                        choicePhrase: "Ovest"
 						conversationCommandEvent: NONE
                 }
 				{
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 2
-                        destinationId: 6
-                        choicePhrase: Sud
+                        destinationId: 6,
+                        choicePhrase: "Sud"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -70,7 +70,7 @@ associatedChoices: {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 3
                         destinationId: 2,
-                        choicePhrase: Ritorna indietro
+                        choicePhrase: "Ritorna indietro"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -79,7 +79,7 @@ associatedChoices: {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 4
                         destinationId: 2,
-                        choicePhrase: Ritorna indietro
+                        choicePhrase: "Ritorna indietro"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -88,7 +88,7 @@ associatedChoices: {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 5
                         destinationId: 2,
-                        choicePhrase: Ritorna indietro
+                        choicePhrase: "Ritorna indietro"
 						conversationCommandEvent: NONE
                 }
         ]
@@ -96,8 +96,8 @@ associatedChoices: {
                 {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 6
-                        destinationId: 2
-                        choicePhrase: Ritorna indietro
+                        destinationId: 2,
+                        choicePhrase: "Ritorna indietro"
 						conversationCommandEvent: NONE
                 }
         ]
