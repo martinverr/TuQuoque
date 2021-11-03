@@ -25,7 +25,7 @@ public class Dog extends NPC{
         NPCspeed *= 0.5f;
 
         setNPCname("Cotoletta");
-        setConversationConfigPath("NPC/doggo/dialogue_debug.json");
+        setConversationConfigPath("NPC/doggo/dialogue_default.json");
         setNpcAnimation(new DogAnimation(this, assetManager));
     }
 
