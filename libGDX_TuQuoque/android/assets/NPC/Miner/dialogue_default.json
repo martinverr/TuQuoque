@@ -1,0 +1,24 @@
+{
+conversations: {
+        1: {
+                id: 1
+                dialog: "Cassio, di nuovo da queste parti?"
+        }
+        2: {
+                id: 2
+                dialog: "Se non ti dispiace torno al mio scavare, te saluto"
+        }
+}
+associatedChoices: {
+        1: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 1
+                        destinationId: 2
+                        choicePhrase: "Già mi sto guardando un po' intorno"
+						conversationCommandEvent: NONE
+                }
+        ]
+}
+currentConversationID: 1
+}

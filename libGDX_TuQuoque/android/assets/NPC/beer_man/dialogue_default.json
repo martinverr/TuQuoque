@@ -1,0 +1,61 @@
+{
+conversations: {
+        1: {
+                id: 1
+                dialog: "*Singhiozza*"
+        }
+        2: {
+                id: 2
+                dialog: "Ah, ehi Caristanio, va tutto alla grande, come sta tua madre?"
+        }
+        3: {
+                id: 3
+                dialog: "Già già, salutami tua madre Caristanio"
+        }
+        4: {
+                id: 4,
+                dialog: "Ah adesso che ti guardo meglio mi ricordi Cassio, cosa ci fai in giro a quest'ora?"
+        }
+        5: {
+                id: 5
+                dialog: "Sì sì dicono tutti così, ci si vede Caspio"
+        }
+}
+associatedChoices: {
+        1: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 1
+                        destinationId: 2
+                        choicePhrase: Ehi Bardo, tutto bene?
+						conversationCommandEvent: NONE
+                }
+        ]
+        2: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 3
+                        choicePhrase: Sei il solito ubriacone Bardo
+						conversationCommandEvent: NONE
+                }
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 2
+                        destinationId: 4
+                        choicePhrase: Devi esserti confuso Bardo
+						conversationCommandEvent: NONE
+                }
+        ]
+		4: [
+                {
+                        class: com.tuquoque.game.ui.dialogues.ConversationChoice
+                        sourceId: 4
+                        destinationId: 5
+                        choicePhrase: Ma è mezzogiorno Bardo
+						conversationCommandEvent: NONE
+                }
+        ]
+}
+currentConversationID: 1
+}

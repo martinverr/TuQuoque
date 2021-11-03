@@ -31,7 +31,7 @@ associatedChoices: {
                         class: com.tuquoque.game.ui.dialogues.ConversationChoice
                         sourceId: 1
                         destinationId: 2
-                        choicePhrase: Next
+                        choicePhrase: Prossimo
 						conversationCommandEvent: NONE
                 }
         ]
